@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".fragment.HouseResourceFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="96px"
+        android:background="#dd3539"
+        android:orientation="horizontal">
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/top_house_tab"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fillViewport="false"
+            app:tabIndicatorColor="#f8c269"
+            app:tabIndicatorHeight="6px"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="#d9d9d9"
+            app:tabTextColor="#ffffff"
+            app:tabTextAppearance="@style/MyTabLayoutTextAppearance"></android.support.design.widget.TabLayout>
+
+        <ImageView
+            android:id="@+id/iv_house_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="36px"
+            android:layout_toLeftOf="@+id/iv_sort"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/search" />
+
+        <ImageView
+            android:id="@+id/iv_house_sort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="36px"
+            android:layout_toLeftOf="@+id/iv_add"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/sort" />
+
+        <ImageView
+            android:id="@+id/iv_house_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="36px"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/add" />
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/house_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="1">
+    </android.support.v4.view.ViewPager>
+
+</LinearLayout>
