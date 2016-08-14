@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="116px"
+    android:layout_centerVertical="true">
+
+    <LinearLayout
+        android:id="@+id/ll_one"
+        android:layout_width="310px"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="30px"
+        android:layout_weight="3.4"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/houses_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="涪陵大厦"
+            android:textColor="#000000"
+            android:textSize="34px" />
+
+        <TextView
+            android:id="@+id/publishd_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10px"
+            android:text="16-08-09"
+            android:textColor="#808080"
+            android:textSize="28px" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_two"
+        android:layout_width="240px"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@+id/ll_one"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/house_type"
+            android:layout_width="160px"
+            android:layout_height="wrap_content"
+            android:text="3室2厅1卫"
+            android:textColor="#000000"
+            android:textSize="34px" />
+
+        <RelativeLayout
+            android:layout_width="160px"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/house_master"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10px"
+                android:text="小田"
+                android:textColor="#808080"
+                android:textSize="28px" />
+
+            <TextView
+                android:id="@+id/house_orientation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10px"
+                android:layout_alignParentRight="true"
+                android:text="西南"
+                android:textColor="#808080"
+                android:textSize="28px" />
+        </RelativeLayout>
+
+    </LinearLayout>
+<LinearLayout
+    android:layout_width="140px"
+    android:layout_height="match_parent"
+    android:layout_toRightOf="@+id/ll_two"
+    android:orientation="vertical"
+    android:gravity="right|center">
+        <TextView
+            android:id="@+id/house_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1600元"
+            android:textColor="#ff0000"
+            android:textSize="34px"
+            android:layout_marginRight="20px"/>
+
+        <TextView
+            android:id="@+id/house_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10px"
+            android:text="660m"
+            android:textColor="#808080"
+            android:textSize="28px"
+            android:layout_marginRight="20px"/>
+</LinearLayout>
+<ImageView
+    android:layout_width="match_parent"
+    android:layout_height="1px"
+    android:background="#dfdfdf"/>
+</RelativeLayout>

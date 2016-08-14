@@ -2,8 +2,14 @@ package com.love311.www.fanxun.fragment;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
+import android.widget.Toast;
 
 import com.love311.www.fanxun.R;
 import com.love311.www.fanxun.adapter.HouseSourcePagerAdapter;
@@ -24,9 +30,16 @@ public class HouseResourceFragment extends LazyLoadFragment {
     public void initViews(View view) {
         mainPager= (ViewPager) view.findViewById(R.id.house_pager);
         topTab = (TabLayout) view.findViewById(R.id.top_house_tab);
+        ivSort = (ImageView) view.findViewById(R.id.iv_house_sort);
+        ivSort.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showPopupWindow(view);
+            }
+        });
         topTab.setTabGravity(TabLayout.GRAVITY_FILL);
         setTabs();
-        topTab.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        topTab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if (tab == topTab.getTabAt(0)) {
@@ -48,6 +61,49 @@ public class HouseResourceFragment extends LazyLoadFragment {
 
             }
         });
+    }
+
+    private void showPopupWindow(View view) {
+        // 一个自定义的布局，作为显示的内容
+        View contentView = LayoutInflater.from(getActivity()).inflate(
+                R.layout.top_pop_window, null);
+        // 设置按钮的点击事件
+      //  Button button = (Button) contentView.findViewById(R.id.button1);
+//        button.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(getActivity(), "button is pressed",
+//                        Toast.LENGTH_SHORT).show();
+//            }
+//        });
+
+        final PopupWindow popupWindow = new PopupWindow(contentView,
+                ViewPager.LayoutParams.WRAP_CONTENT, ViewPager.LayoutParams.WRAP_CONTENT, true);
+
+        popupWindow.setTouchable(true);
+
+        popupWindow.setTouchInterceptor(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                Log.i("mengdd", "onTouch : ");
+
+                return false;
+                // 这里如果返回true的话，touch事件将被拦截
+                // 拦截后 PopupWindow的onTouchEvent不被调用，这样点击外部区域无法dismiss
+            }
+        });
+
+        // 如果不设置PopupWindow的背景，无论是点击外部区域还是Back键都无法dismiss弹框
+        // 我觉得这里是API的一个bug
+        popupWindow.setBackgroundDrawable(getResources().getDrawable(
+                R.color.popwindow));
+
+        // 设置好参数之后再show
+        popupWindow.showAsDropDown(view);
+
     }
 
     private void setTabs() {

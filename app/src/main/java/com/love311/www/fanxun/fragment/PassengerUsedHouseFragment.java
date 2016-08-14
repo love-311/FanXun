@@ -10,7 +10,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.love311.www.fanxun.R;
-import com.love311.www.fanxun.adapter.NewHouseRecycleViewAdapter;
+import com.love311.www.fanxun.adapter.PassengerUsedHouseRecycleViewAdapter;
 import com.love311.www.fanxun.adapter.UsedHouseRecycleViewAdapter;
 import com.love311.www.fanxun.custom.LazyLoadFragment;
 import com.love311.www.fanxun.custom.SuperSwipeRefreshLayout;
@@ -21,33 +21,34 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/8/11.
  */
-public class NewHouseFragment extends LazyLoadFragment {
+public class PassengerUsedHouseFragment extends LazyLoadFragment {
 
-    private RecyclerView newHouseRecycle;
+    private RecyclerView usedHouseRecycle;
     private SuperSwipeRefreshLayout usedSwipeRefresh;
     private ImageView imageView;
     private TextView textView;
     private ProgressBar progressBar;
-    private NewHouseRecycleViewAdapter myAdapter;
+    private PassengerUsedHouseRecycleViewAdapter myAdapter;
     private LinearLayoutManager linearLayoutManager;
     // Footer View
     private ProgressBar footerProgressBar;
     private TextView footerTextView;
     private ImageView footerImageView;
-    //新房房屋界面
+
+    //二手房房屋界面
     @Override
     public int getLayout() {
-        return R.layout.new_house_fragment;
+        return R.layout.passenger_used_house_fragment;
     }
 
     @Override
     public void initViews(View view) {
-        usedSwipeRefresh = (SuperSwipeRefreshLayout) view.findViewById(R.id.new_swipe_refresh);
-        newHouseRecycle = (RecyclerView) view.findViewById(R.id.new_house_recycle);
+        usedSwipeRefresh = (SuperSwipeRefreshLayout) view.findViewById(R.id.passenger_used_swipe_refresh);
+        usedHouseRecycle = (RecyclerView) view.findViewById(R.id.passenger_used_house_recycle);
         linearLayoutManager = new LinearLayoutManager(getActivity());
-        newHouseRecycle.setLayoutManager(linearLayoutManager);
-        myAdapter = new NewHouseRecycleViewAdapter(getActivity());
-        newHouseRecycle.setAdapter(myAdapter);
+        usedHouseRecycle.setLayoutManager(linearLayoutManager);
+        myAdapter = new PassengerUsedHouseRecycleViewAdapter(getActivity());
+        usedHouseRecycle.setAdapter(myAdapter);
         usedSwipeRefresh.setHeaderView(createHeaderView());// add headerView
         usedSwipeRefresh.setFooterView(createFooterView());
         usedSwipeRefresh.setHeaderViewBackgroundColor(0xff888888);
@@ -137,10 +138,10 @@ public class NewHouseFragment extends LazyLoadFragment {
         //TODO 创建下拉刷新头部的View样式
         View headerView = LayoutInflater.from(usedSwipeRefresh.getContext())
                 .inflate(R.layout.layout_head, null);
-        progressBar = (ProgressBar) headerView.findViewById(R.id.pb_view);
-        textView = (TextView) headerView.findViewById(R.id.text_view);
+         progressBar = (ProgressBar) headerView.findViewById(R.id.pb_view);
+         textView = (TextView) headerView.findViewById(R.id.text_view);
         textView.setText("下拉刷新");
-        imageView = (ImageView) headerView.findViewById(R.id.image_view);
+         imageView = (ImageView) headerView.findViewById(R.id.image_view);
         imageView.setVisibility(View.VISIBLE);
         imageView.setImageResource(R.drawable.down_arrow);
         progressBar.setVisibility(View.GONE);

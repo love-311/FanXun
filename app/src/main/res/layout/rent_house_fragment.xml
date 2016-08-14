@@ -3,10 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:text="租房界面"
-    android:gravity="center"
-    android:textSize="48px"/>
+    <com.love311.www.fanxun.custom.SuperSwipeRefreshLayout
+        android:id="@+id/rent_swipe_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rent_house_recycle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+    </com.love311.www.fanxun.custom.SuperSwipeRefreshLayout>
 </LinearLayout>

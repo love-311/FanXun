@@ -12,6 +12,7 @@ import android.view.ViewGroup;
  */
 public abstract class LazyLoadFragment extends Fragment {
 
+    //fragment懒加载，在可见的时候才加载
     /**
      * 控件是否初始化完成
      */

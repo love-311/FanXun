@@ -12,6 +12,10 @@
         android:layout_weight="1">
 
     </com.love311.www.fanxun.custom.CustomViewPager>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#dfdfdf"/>
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="96px"
@@ -19,14 +23,12 @@
     <android.support.design.widget.TabLayout
         android:id="@+id/bottom_tab"
         android:layout_width="match_parent"
-        android:layout_height="96px"
+        android:layout_height="match_parent"
         android:fillViewport="false"
         app:tabMode="fixed"
-        app:tabGravity="fill"
-        android:layout_gravity="center_vertical"
+        app:tabIndicatorColor="#f8c269"
         app:tabIndicatorHeight="0px"
         app:tabSelectedTextColor="#dd3539"
-        app:tabTextColor="#d0d0d0"
         app:tabTextAppearance="@style/MyBottomTabLayoutTextAppearance">
     </android.support.design.widget.TabLayout>
 </LinearLayout>
