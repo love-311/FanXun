@@ -7,17 +7,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.love311.www.fanxun.R;
+import com.love311.www.fanxun.bean.RentHouseBean;
 import com.love311.www.fanxun.viewholder.BaseViewHolder;
-import com.love311.www.fanxun.viewholder.HouseSourceViewHolder;
+import com.love311.www.fanxun.viewholder.RentHouseViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
 
-//租房界面recycleView数据适配器
+//房源租房界面recycleView数据适配器
 public class RentHouseRecycleViewAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
 	private Context mContext;
-	private List<String> mDataSet;
+	private List<RentHouseBean.ResBean.ContentBean> mDataSet;
 
 	public RentHouseRecycleViewAdapter(Context context) {
 		mContext = context;
@@ -28,13 +29,13 @@ public class RentHouseRecycleViewAdapter extends RecyclerView.Adapter<BaseViewHo
 	public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 		View view = LayoutInflater.from(mContext).inflate(
 				R.layout.house_soucrce_item, parent, false);
-		return new HouseSourceViewHolder(view);
+		return new RentHouseViewHolder(view);
 	}
 
 	@Override
 	public void onBindViewHolder(BaseViewHolder holder, int position) {
-		HouseSourceViewHolder textViewHolder = (HouseSourceViewHolder) holder;
-		textViewHolder.bindView(mDataSet.get(position), position);
+		RentHouseViewHolder textViewHolder = (RentHouseViewHolder) holder;
+		textViewHolder.bindView(mDataSet, position);
 	}
 
 
@@ -62,14 +63,16 @@ public class RentHouseRecycleViewAdapter extends RecyclerView.Adapter<BaseViewHo
 		return 0;
 	}
 
-	public void add(String text, int position) {
+	public void add(RentHouseBean.ResBean.ContentBean text, int position) {
 		mDataSet.add(position, text);
 		notifyItemInserted(position);
 	}
 
-	public void addAll(List<String> list, int position) {
-		mDataSet.addAll(position, list);
-		notifyItemRangeInserted(position, list.size());
+	public void addAll(List<RentHouseBean.ResBean.ContentBean> list, int position) {
+		if (list!=null){
+			mDataSet.addAll(position, list);
+			notifyItemRangeInserted(position, list.size());
+		}
 	}
 
 }

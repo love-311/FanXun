@@ -3,14 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
- <TextView
-     android:layout_width="match_parent"
-     android:layout_height="96px"
-     android:background="#dd3539"
-     android:text="我 的"
-     android:textColor="#ffffff"
-     android:gravity="center"
-     android:textSize="40px"/>
+<include layout="@layout/top_title"></include>
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="40px"
@@ -53,7 +46,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="30px"
         android:layout_centerVertical="true"
-        android:src="@mipmap/icon"/>
+        android:src="@mipmap/next"/>
 </RelativeLayout>
     <ImageView
         android:layout_width="match_parent"
@@ -87,7 +80,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="30px"
             android:layout_centerVertical="true"
-            android:src="@mipmap/icon"/>
+            android:src="@mipmap/next"/>
     </RelativeLayout>
     <ImageView
         android:layout_width="match_parent"
@@ -123,7 +116,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="30px"
             android:layout_centerVertical="true"
-            android:src="@mipmap/icon"/>
+            android:src="@mipmap/next"/>
     </RelativeLayout>
     <ImageView
     android:layout_width="match_parent"
@@ -157,7 +150,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="30px"
             android:layout_centerVertical="true"
-            android:src="@mipmap/icon"/>
+            android:src="@mipmap/next"/>
     </RelativeLayout>
     <ImageView
         android:layout_width="match_parent"
@@ -191,6 +184,12 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="30px"
             android:layout_centerVertical="true"
-            android:src="@mipmap/icon"/>
+            android:src="@mipmap/next"/>
     </RelativeLayout>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100px"
+        android:src="@mipmap/quit_login"
+        android:layout_marginLeft="24px"/>
 </LinearLayout>

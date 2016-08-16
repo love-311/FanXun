@@ -3,20 +3,36 @@ package com.love311.www.fanxun.fragment;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.love311.www.fanxun.R;
 import com.love311.www.fanxun.adapter.RentHouseRecycleViewAdapter;
 import com.love311.www.fanxun.adapter.UsedHouseRecycleViewAdapter;
+import com.love311.www.fanxun.application.MyApplication;
+import com.love311.www.fanxun.bean.RentHouseBean;
+import com.love311.www.fanxun.bean.UsedHouseBean;
 import com.love311.www.fanxun.custom.LazyLoadFragment;
 import com.love311.www.fanxun.custom.SuperSwipeRefreshLayout;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+
+import okhttp3.Call;
 
 /**
  * Created by Administrator on 2016/8/11.
@@ -34,6 +50,11 @@ public class RentHouseFragment extends LazyLoadFragment {
     private ProgressBar footerProgressBar;
     private TextView footerTextView;
     private ImageView footerImageView;
+    //数据解析
+    private String url = "admin/houses/getRentHouses?search.status_eq=pass&page.pn=1&page.size=10";
+    private MyApplication my;
+    private static String URL;
+    private List<RentHouseBean.ResBean.ContentBean> bean;
     //租房房屋界面
     @Override
     public int getLayout() {
@@ -42,6 +63,8 @@ public class RentHouseFragment extends LazyLoadFragment {
 
     @Override
     public void initViews(View view) {
+        my = (MyApplication) getActivity().getApplication();
+        URL = my.getURL() +url;
         usedSwipeRefresh = (SuperSwipeRefreshLayout) view.findViewById(R.id.rent_swipe_refresh);
         rentHouseRecycle = (RecyclerView) view.findViewById(R.id.rent_house_recycle);
         linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -58,6 +81,7 @@ public class RentHouseFragment extends LazyLoadFragment {
                     @Override
                     public void onRefresh() {
                         //TODO 开始刷新
+                        loadData();
                         textView.setText("正在刷新");
                         imageView.setVisibility(View.GONE);
                         progressBar.setVisibility(View.VISIBLE);
@@ -90,6 +114,7 @@ public class RentHouseFragment extends LazyLoadFragment {
 
                     @Override
                     public void onLoadMore() {
+                        loadData();
                         footerTextView.setText("正在加载...");
                         footerImageView.setVisibility(View.GONE);
                         footerProgressBar.setVisibility(View.VISIBLE);
@@ -123,11 +148,35 @@ public class RentHouseFragment extends LazyLoadFragment {
 
     @Override
     public void loadData() {
-        List<String> list = new ArrayList<String>();
-        for (int i = 0; i < 50; i++) {
-            list.add("item " + i);
-        }
-        myAdapter.addAll(list, 0);
+        OkHttpUtils
+                .get()
+                .url(URL)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        Log.e("RentHouseFragment","http error!");
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        Log.e("RentHouseFragment",response);
+                        Type listType = new TypeToken<LinkedList<RentHouseBean.ResBean.ContentBean>>(){}.getType();
+                        Gson gson = new Gson();
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            JSONObject jsonObject1 =  jsonObject.getJSONObject("res");
+                            JSONArray jsonArray = jsonObject1.getJSONArray("content");
+                            Log.d("jsonElements--------",jsonArray.toString());
+                            while (bean==null){
+                                bean = gson.fromJson(jsonArray.toString(), listType);
+                                myAdapter.addAll(bean, 0);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
     }
     /**
      * create Header View

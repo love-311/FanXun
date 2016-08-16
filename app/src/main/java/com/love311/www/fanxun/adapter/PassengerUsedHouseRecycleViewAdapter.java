@@ -7,8 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.love311.www.fanxun.R;
+import com.love311.www.fanxun.bean.PassengerUsedHouseBean;
 import com.love311.www.fanxun.viewholder.BaseViewHolder;
-import com.love311.www.fanxun.viewholder.HouseSourceViewHolder;
+import com.love311.www.fanxun.viewholder.PassengerRentHouseViewHolder;
+import com.love311.www.fanxun.viewholder.PassengerUsedHouseViewHolder;
+import com.love311.www.fanxun.viewholder.UsedHouseViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +20,7 @@ import java.util.List;
 public class PassengerUsedHouseRecycleViewAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
 	private Context mContext;
-	private List<String> mDataSet;
+	private List<PassengerUsedHouseBean.ResBean.ContentBean> mDataSet;
 
 	public PassengerUsedHouseRecycleViewAdapter(Context context) {
 		mContext = context;
@@ -28,13 +31,13 @@ public class PassengerUsedHouseRecycleViewAdapter extends RecyclerView.Adapter<B
 	public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 		View view = LayoutInflater.from(mContext).inflate(
 				R.layout.passenger_source_item, parent, false);
-		return new HouseSourceViewHolder(view);
+		return new PassengerUsedHouseViewHolder(view);
 	}
 
 	@Override
 	public void onBindViewHolder(BaseViewHolder holder, int position) {
-		HouseSourceViewHolder textViewHolder = (HouseSourceViewHolder) holder;
-		textViewHolder.bindView(mDataSet.get(position), position);
+		PassengerUsedHouseViewHolder textViewHolder = (PassengerUsedHouseViewHolder) holder;
+		textViewHolder.bindView(mDataSet, position);
 	}
 
 
@@ -62,14 +65,16 @@ public class PassengerUsedHouseRecycleViewAdapter extends RecyclerView.Adapter<B
 		return 0;
 	}
 
-	public void add(String text, int position) {
+	public void add(PassengerUsedHouseBean.ResBean.ContentBean text, int position) {
 		mDataSet.add(position, text);
 		notifyItemInserted(position);
 	}
 
-	public void addAll(List<String> list, int position) {
-		mDataSet.addAll(position, list);
-		notifyItemRangeInserted(position, list.size());
+	public void addAll(List<PassengerUsedHouseBean.ResBean.ContentBean> list, int position) {
+		if (list!=null){
+			mDataSet.addAll(position, list);
+			notifyItemRangeInserted(position, list.size());
+		}
 	}
 
 }

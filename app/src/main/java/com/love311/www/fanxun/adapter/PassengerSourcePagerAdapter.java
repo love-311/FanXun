@@ -2,6 +2,7 @@ package com.love311.www.fanxun.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.List;
  * Created by Administrator on 2016/8/11.
  */
 
-    public class PassengerSourcePagerAdapter extends FragmentStatePagerAdapter {
+    public class PassengerSourcePagerAdapter extends FragmentPagerAdapter {
         private List<Fragment> fragments = new ArrayList<>();
         private List<String> titles = new ArrayList<>();
 

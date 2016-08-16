@@ -1,11 +1,8 @@
 package com.love311.www.fanxun.fragment;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.love311.www.fanxun.R;
 import com.love311.www.fanxun.custom.LazyLoadFragment;
@@ -15,6 +12,8 @@ import com.love311.www.fanxun.custom.LazyLoadFragment;
  */
 public class MyFragment extends LazyLoadFragment {
 
+    private ImageView iv_top_left;
+    private TextView tv_mid,tv_right;
     //我的界面
     @Override
     public int getLayout() {
@@ -23,7 +22,11 @@ public class MyFragment extends LazyLoadFragment {
 
     @Override
     public void initViews(View view) {
-
+        iv_top_left = (ImageView) view.findViewById(R.id.top_left);
+        tv_mid = (TextView) view.findViewById(R.id.top_mid);
+        tv_right = (TextView) view.findViewById(R.id.top_right);
+        iv_top_left.setVisibility(View.GONE);
+        tv_right.setVisibility(View.GONE);
     }
 
     @Override

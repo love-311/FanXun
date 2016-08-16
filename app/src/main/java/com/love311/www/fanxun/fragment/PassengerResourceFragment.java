@@ -30,12 +30,12 @@ public class PassengerResourceFragment extends LazyLoadFragment {
         topTab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                if (tab == topTab.getTabAt(0)) {
-                    mainPager.setCurrentItem(0);
-                } else if (tab == topTab.getTabAt(1)) {
+                if (tab == topTab.getTabAt(1)) {
                     mainPager.setCurrentItem(1);
                 } else if (tab == topTab.getTabAt(2)) {
                     mainPager.setCurrentItem(2);
+                }else {
+                    mainPager.setCurrentItem(0);
                 }
             }
 
@@ -61,6 +61,7 @@ public class PassengerResourceFragment extends LazyLoadFragment {
         mPagerAdapter.addTab(new PassengerRentHouseFragment(), "租房");
         mPagerAdapter.addTab(new PassengerNewHouseFragment(), "新房");
         mainPager.setAdapter(mPagerAdapter);
+        mainPager.setOffscreenPageLimit(3);
         //把tabLayout和Viewpager关联起来
         topTab.setupWithViewPager(mainPager);
     }

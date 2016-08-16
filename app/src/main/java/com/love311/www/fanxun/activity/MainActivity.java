@@ -38,6 +38,7 @@ public class MainActivity extends AutoLayoutActivity {
     //    mBottomTab.setTabTextColors(R.color.tabUnselected,R.color.tabSelected);
         //mPager.setPagingEnabled(false);
         mPager.setNoScroll(true);
+        mPager.setOffscreenPageLimit(3);
         mPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
 
             private String[] mTitles = new String[]{"房源", "客源", "我的"};
@@ -48,8 +49,9 @@ public class MainActivity extends AutoLayoutActivity {
                     return new PassengerResourceFragment();
                 } else if (position == 2) {
                     return new MyFragment();
+                }else {
+                    return new HouseResourceFragment();
                 }
-                return new HouseResourceFragment();
             }
 
             @Override
@@ -96,21 +98,10 @@ public class MainActivity extends AutoLayoutActivity {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-//                if (tab == mBottomTab.getTabAt(0)) {
-//                    mHouseSource.setIcon(R.mipmap.house);
-//                    //mHouseSource.setText("房源");
-//                } else if (tab == mBottomTab.getTabAt(1)) {
-//                    mPassengerSource.setIcon(R.mipmap.peoples);
-//                   // mPassengerSource.setText("客源");
-//                } else if (tab == mBottomTab.getTabAt(2)) {
-//                    mMy.setIcon(R.mipmap.people);
-//                    //mMy.setText("我的");
-//                }
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
             }
         });
     }
