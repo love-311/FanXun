@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <include layout="@layout/top_title"></include>
+    <RelativeLayout
+        android:id="@+id/rl_1"
+        android:layout_width="match_parent"
+        android:layout_height="80px">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24px"
+            android:text="车库"
+            android:textSize="34px"
+            android:layout_centerVertical="true"/>
+        <CheckBox
+            android:id="@+id/iv_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/CustomCheckboxTheme"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="32px"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+    <include layout="@layout/add_info_1px"></include>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="90px"
+        android:background="#ffffff">
+
+        <TextView
+            android:id="@+id/garage_remark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="24px"
+            android:text="备注"
+            android:textColor="#9c9a9c"
+            android:textSize="34px" />
+
+        <EditText
+            android:id="@+id/et_garage_remark"
+            android:layout_width="match_parent"
+            android:layout_height="60px"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16px"
+            android:layout_toRightOf="@+id/garage_remark"
+            android:background="@drawable/et"
+            android:maxLength="16"
+            android:layout_marginRight="32px"
+            android:textSize="28px"
+            android:hint="请输入车库面积等信息10字以内"
+            android:maxLines="12"
+            android:textColorHint="#9c9a9c"
+            android:paddingLeft="10px"/>
+    </RelativeLayout>
+    <include layout="@layout/choose_item_1px"></include>
+</LinearLayout>

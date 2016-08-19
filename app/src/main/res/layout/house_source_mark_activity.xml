@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <include layout="@layout/top_title"></include>
+<EditText
+    android:id="@+id/et_house_source_remark"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="30px"
+    android:paddingRight="30px"
+    android:paddingTop="40px"
+    android:hint="备注：请填写房源其它公开信息..."
+    android:gravity="top"
+    android:background="@null"/>
+</LinearLayout>

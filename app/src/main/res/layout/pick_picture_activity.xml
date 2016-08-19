@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+<include layout="@layout/top_title"></include>
+    <Button
+        android:id="@+id/single_choose"
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:layout_margin="12px"
+        android:text="单选"
+        android:textColor="#ffffff"
+        android:textSize="34px"
+        android:background="#dd3539"/>
+    <Button
+        android:id="@+id/multi_choose"
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:text="多选"
+        android:layout_margin="12px"
+        android:textColor="#ffffff"
+        android:textSize="34px"
+        android:background="#dd3539"/>
+  <!--  <Button
+        android:id="@+id/crop"
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:text="裁剪"
+        android:layout_margin="12px"
+        android:textColor="#ffffff"
+        android:textSize="34px"
+        android:background="#dd3539"/>-->
+    <GridView
+        android:id="@+id/gridview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:horizontalSpacing="2dp"
+        android:verticalSpacing="2dp"
+        android:listSelector="@android:color/transparent"
+        android:stretchMode="columnWidth"
+        android:clipToPadding="false"
+        android:numColumns="3" />
+</LinearLayout>

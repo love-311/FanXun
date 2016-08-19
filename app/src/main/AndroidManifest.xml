@@ -20,6 +20,20 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.MainActivity"></activity>
+        <activity android:name=".activity.AddUsedHouseActivity"></activity>
+        <activity android:name=".activity.OrientationActivity"></activity>
+        <activity android:name=".activity.DecorationActivity"></activity>
+        <activity android:name=".activity.OwnerRemarkActivity"></activity>
+        <activity android:name=".activity.StatusActivity"></activity>
+        <activity android:name=".activity.PropertiesActivity"></activity>
+        <activity android:name=".activity.TypeActivity"></activity>
+        <activity android:name=".activity.PropertyRightActivity"></activity>
+        <activity android:name=".activity.GarageActivity"></activity>
+        <activity android:name=".activity.KeyActivity"></activity>
+        <activity android:name=".activity.HouseSourceRemarkActivity"></activity>
+        <activity android:name=".activity.VillageActivity"></activity>
+        <activity android:name=".activity.HouseTypeActivity"></activity>
+        <activity android:name=".activity.PickPictureActivity"></activity>
     </application>
 
 </manifest>

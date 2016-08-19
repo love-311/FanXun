@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="90px"
+        android:background="#efeff7">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="24px"
+            android:gravity="center_vertical"
+            android:text="基本信息"
+            android:textSize="34px"
+            android:textColor="#9c9a9c"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="90px"
+        android:background="#ffffff"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="24px"
+            android:text="小区："
+            android:textColor="#9c9a9c"
+            android:textSize="34px" />
+
+        <LinearLayout
+            android:id="@+id/ll_village"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_village"
+                android:layout_width="0px"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="24px"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="请选择..."
+                android:textSize="28px"
+                android:textColor="#9c9a9c"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="24px"
+                android:src="@mipmap/next" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <include layout="@layout/add_info_1px"></include>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="90px"
+        android:background="#ffffff"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="24px"
+            android:text="价格："
+            android:textColor="#9c9a9c"
+            android:textSize="34px" />
+
+        <EditText
+            android:id="@+id/et_price"
+            android:layout_width="160px"
+            android:layout_height="60px"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16px"
+            android:background="@drawable/et"
+            android:paddingLeft="10px"
+            android:inputType="number"
+            android:maxLength="8"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="12px"
+            android:text="万"
+            android:textSize="34px" />
+    </LinearLayout>
+
+    <include layout="@layout/add_info_1px"></include>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="90px"
+        android:background="#ffffff"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="24px"
+            android:text="面积："
+            android:textColor="#9c9a9c"
+            android:textSize="34px"
+            />
+
+        <EditText
+            android:id="@+id/et_area"
+            android:layout_width="160px"
+            android:layout_height="60px"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16px"
+            android:background="@drawable/et"
+            android:inputType="number"
+            android:paddingLeft="10px"
+            android:maxLength="8"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="12px"
+            android:text="㎡"
+            android:textSize="34px" />
+    </LinearLayout>
+
+    <include layout="@layout/add_info_1px"></include>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="90px"
+        android:background="#ffffff"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="24px"
+            android:text="户型："
+            android:textColor="#9c9a9c"
+            android:textSize="34px" />
+        <LinearLayout
+            android:id="@+id/ll_house_type"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_house_type"
+                android:layout_width="0px"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="24px"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="其他"
+                android:textSize="34px" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="24px"
+                android:src="@mipmap/next" />
+        </LinearLayout>
+<!--        <EditText
+            android:id="@+id/et_room_number"
+            android:layout_width="100px"
+            android:layout_height="60px"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16px"
+            android:background="@drawable/et"
+            android:inputType="number"
+            android:text="0"
+            android:maxLength="2"
+            android:paddingLeft="10px"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="12px"
+            android:text="室"
+            android:textSize="34px" />
+        <EditText
+            android:id="@+id/et_hall_number"
+            android:layout_width="100px"
+            android:layout_height="60px"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16px"
+            android:background="@drawable/et"
+            android:inputType="number"
+            android:text="0"
+            android:maxLength="2"
+            android:paddingLeft="10px"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="12px"
+            android:text="厅"
+            android:textSize="34px" />
+        <EditText
+            android:id="@+id/et_toilet_number"
+            android:layout_width="100px"
+            android:layout_height="60px"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16px"
+            android:background="@drawable/et"
+            android:inputType="number"
+            android:text="0"
+            android:maxLength="2"
+            android:paddingLeft="10px"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="12px"
+            android:text="卫"
+            android:textSize="34px" />-->
+    </LinearLayout>
+
+    <include layout="@layout/add_info_1px"></include>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="90px"
+        android:background="#ffffff"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="24px"
+            android:text="朝向："
+            android:textColor="#9c9a9c"
+            android:textSize="34px" />
+
+        <LinearLayout
+            android:id="@+id/ll_orientation"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_base_orientation"
+                android:layout_width="0px"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="24px"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="其他"
+                android:textSize="34px" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="24px"
+                android:src="@mipmap/next" />
+        </LinearLayout>
+    </LinearLayout>
+    <include layout="@layout/add_info_1px"></include>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="90px"
+        android:background="#ffffff"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="24px"
+            android:text="装修："
+            android:textColor="#9c9a9c"
+            android:textSize="34px" />
+
+        <LinearLayout
+            android:id="@+id/ll_decoration"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_base_decoration"
+                android:layout_width="0px"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="24px"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="毛坯"
+                android:textSize="34px" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="24px"
+                android:src="@mipmap/next" />
+        </LinearLayout>
+    </LinearLayout>
+    <include layout="@layout/add_info_1px"></include>
+</LinearLayout>

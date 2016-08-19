@@ -1,5 +1,6 @@
 package com.love311.www.fanxun.fragment;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 
 import com.love311.www.fanxun.R;
+import com.love311.www.fanxun.activity.AddUsedHouseActivity;
 import com.love311.www.fanxun.adapter.HouseSourcePagerAdapter;
 import com.love311.www.fanxun.custom.LazyLoadFragment;
 
@@ -32,6 +34,7 @@ public class HouseResourceFragment extends LazyLoadFragment {
         mainPager = (ViewPager) view.findViewById(R.id.house_pager);
         topTab = (TabLayout) view.findViewById(R.id.top_house_tab);
         ivSort = (ImageView) view.findViewById(R.id.iv_house_sort);
+        ivAdd = (ImageView) view.findViewById(R.id.iv_house_add);
         usedHouseFragment = new UsedHouseFragment();
         rentHouseFragment = new RentHouseFragment();
         newHouseFragment = new NewHouseFragment();
@@ -39,6 +42,13 @@ public class HouseResourceFragment extends LazyLoadFragment {
             @Override
             public void onClick(View view) {
                 showPopupWindow(view);
+            }
+        });
+        ivAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), AddUsedHouseActivity.class);
+                startActivity(intent);
             }
         });
         topTab.setTabGravity(TabLayout.GRAVITY_FILL);

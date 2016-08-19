@@ -24,9 +24,14 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:24.1.0'
     compile project(':autolayout')
+    compile project(':imagepicker')
     compile 'com.android.support:design:24.1.0'
     compile 'com.jakewharton:butterknife:8.2.1'
     apt 'com.jakewharton:butterknife-compiler:8.2.1'
     compile 'com.zhy:okhttputils:2.6.2'
     compile 'com.google.code.gson:gson:2.7'
+    compile 'com.lapism:searchview:3.4.1'
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'  //optional
+    compile 'com.github.bumptech.glide:glide:3.6.1'   //optional
+    compile 'com.squareup.picasso:picasso:2.4.0'   //optional
 }
