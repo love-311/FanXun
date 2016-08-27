@@ -16,7 +16,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="32px"
-                android:text="其他"
+                android:text="商品房合同"
                 android:textSize="34px"
                 android:layout_centerVertical="true"/>
             <ImageView
@@ -37,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="32px"
-                android:text="个人产权"
+                android:text="证齐"
                 android:textSize="34px"
                 android:layout_centerVertical="true"/>
             <ImageView
@@ -58,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="32px"
-                android:text="单位产权"
+                android:text="满两年"
                 android:textSize="34px"
                 android:layout_centerVertical="true"/>
             <ImageView
@@ -79,7 +79,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="32px"
-                android:text="售后产权"
+                android:text="满五年"
                 android:textSize="34px"
                 android:layout_centerVertical="true"/>
             <ImageView
@@ -100,7 +100,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="32px"
-                android:text="家庭成员共有"
+                android:text="抵押房"
                 android:textSize="34px"
                 android:layout_centerVertical="true"/>
             <ImageView
@@ -121,7 +121,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="32px"
-                android:text="使用权"
+                android:text="房产证"
                 android:textSize="34px"
                 android:layout_centerVertical="true"/>
             <ImageView
@@ -142,7 +142,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="32px"
-                android:text="小产权"
+                android:text="拆迁协议"
                 android:textSize="34px"
                 android:layout_centerVertical="true"/>
             <ImageView
@@ -163,7 +163,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="32px"
-                android:text="协议房"
+                android:text="抵押房"
                 android:textSize="34px"
                 android:layout_centerVertical="true"/>
             <ImageView
@@ -176,7 +176,7 @@
                 android:layout_centerVertical="true"/>
         </RelativeLayout>
         <include layout="@layout/choose_item_1px"></include>
-        <RelativeLayout
+        <!--<RelativeLayout
             android:id="@+id/rl_9"
             android:layout_width="match_parent"
             android:layout_height="80px">
@@ -238,6 +238,6 @@
                 android:layout_marginRight="32px"
                 android:layout_centerVertical="true"/>
         </RelativeLayout>
-        <include layout="@layout/choose_item_1px"></include>
+        <include layout="@layout/choose_item_1px"></include>-->
     </LinearLayout>
 </LinearLayout>

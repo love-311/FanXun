@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+<include layout="@layout/top_search_title"></include>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80px"
+        android:background="#ffffff"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="24px"
+            android:text="经纪人："
+            android:textColor="#9c9a9c"
+            android:textSize="32px" />
+        <LinearLayout
+            android:id="@+id/ll_1"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_1"
+                android:layout_width="0px"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="24px"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="不限"
+                android:textSize="32px" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="24px"
+                android:src="@mipmap/next" />
+        </LinearLayout>
+    </LinearLayout>
+    <include layout="@layout/add_info_1px"></include>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80px"
+        android:background="#ffffff"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="24px"
+            android:text="状    态："
+            android:textColor="#9c9a9c"
+            android:textSize="32px" />
+        <LinearLayout
+            android:id="@+id/ll_2"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_2"
+                android:layout_width="0px"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="24px"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="正常"
+                android:textSize="32px" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="24px"
+                android:src="@mipmap/next" />
+        </LinearLayout>
+    </LinearLayout>
+    <include layout="@layout/add_info_1px"></include>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80px"
+        android:background="#ffffff">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="24px"
+            android:text="关键字："
+            android:textColor="#9c9a9c"
+            android:textSize="32px" />
+
+        <EditText
+            android:id="@+id/et_1"
+            android:layout_width="match_parent"
+            android:layout_height="60px"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="24px"
+            android:layout_marginLeft="16px"
+            android:layout_toRightOf="@+id/name"
+            android:background="@drawable/et"
+            android:maxLength="8"
+            android:paddingLeft="10px"
+            android:hint="输入编号/电话/备注等"
+            android:textSize="32px"
+            android:singleLine="true"/>
+    </RelativeLayout>
+
+    <include layout="@layout/add_info_1px"></include>
+
+    <ImageView
+        android:id="@+id/iv_passenger_search"
+        android:layout_width="match_parent"
+        android:layout_height="80px"
+        android:layout_marginTop="24px"
+        android:src="@mipmap/search_red_btn" />
+
+    <ImageView
+        android:id="@+id/iv_passenger_delete"
+        android:layout_width="match_parent"
+        android:layout_height="80px"
+        android:layout_marginTop="24px"
+        android:src="@mipmap/search_delete_btn" />
+</LinearLayout>

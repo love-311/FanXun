@@ -1,11 +1,16 @@
 package com.love311.www.fanxun.fragment;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.love311.www.fanxun.R;
+import com.love311.www.fanxun.activity.AddPassengerActivity;
+import com.love311.www.fanxun.activity.SearchActivity;
+import com.love311.www.fanxun.activity.SearchPassengerActivity;
 import com.love311.www.fanxun.adapter.PassengerSourcePagerAdapter;
 import com.love311.www.fanxun.custom.LazyLoadFragment;
 
@@ -25,6 +30,26 @@ public class PassengerResourceFragment extends LazyLoadFragment {
     public void initViews(View view) {
         mainPager= (ViewPager) view.findViewById(R.id.main_passenger_pager);
         topTab = (TabLayout) view.findViewById(R.id.top_passenger_tab);
+        ivAdd = (ImageView) view.findViewById(R.id.iv_passenger_add);
+        ivSearch = (ImageView) view.findViewById(R.id.iv_passenger_search);
+        ivAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int i =mainPager.getCurrentItem();
+                Intent intent = new Intent(getActivity(), AddPassengerActivity.class);
+                intent.putExtra("type",i);
+                startActivity(intent);
+            }
+        });
+        ivSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int i =mainPager.getCurrentItem();
+                Intent intent = new Intent(getActivity(), SearchPassengerActivity.class);
+                intent.putExtra("type",i);
+                startActivity(intent);
+            }
+        });
         topTab.setTabGravity(TabLayout.GRAVITY_FILL);
         setTabs();
         topTab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

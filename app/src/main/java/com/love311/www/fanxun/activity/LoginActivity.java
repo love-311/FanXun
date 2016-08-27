@@ -8,7 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.love311.www.fanxun.R;
@@ -29,10 +29,10 @@ public class LoginActivity extends AutoLayoutActivity {
     EditText etUsername;
     @BindView(R.id.et_password)
     EditText etPassword;
-    @BindView(R.id.tv_login)
-    TextView tvLogin;
     @BindView(R.id.login_check)
     CheckBox loginCheck;
+    @BindView(R.id.iv_login)
+    ImageView ivLogin;
     private SharedPreferences loginSharedPreferences;
     private SharedPreferences.Editor editor;
     private String url = "login?";
@@ -48,21 +48,29 @@ public class LoginActivity extends AutoLayoutActivity {
         my = (MyApplication) getApplication();
         URL = my.getURL() + url;
         loginSharedPreferences = getSharedPreferences("login", MODE_PRIVATE);
-        getLoginSharedPreferences =getSharedPreferences("login", MODE_PRIVATE);
+        getLoginSharedPreferences = getSharedPreferences("login", MODE_PRIVATE);
         editor = loginSharedPreferences.edit();
-        Log.d("username",getLoginSharedPreferences.getString("username","2222"));
-        if (getLoginSharedPreferences.getString("username","")!=null&&!getLoginSharedPreferences.getString("username","").equals("")){
-            String username = getLoginSharedPreferences.getString("username","");
-            String password = getLoginSharedPreferences.getString("password","");
-            etUsername.setText(username);
-            etPassword.setText(password);
-        }
-        tvLogin.setOnClickListener(new View.OnClickListener() {
+        Log.d("username", getLoginSharedPreferences.getString("username", "2222"));
+            if (getLoginSharedPreferences.getString("password", "") != null && !getLoginSharedPreferences.getString("username", "").equals("")
+                    && getLoginSharedPreferences.getString("username", "") != null && !getLoginSharedPreferences.getString("password", "").equals("")) {
+                loginCheck.setChecked(true);
+                String username = getLoginSharedPreferences.getString("username", "");
+                String password = getLoginSharedPreferences.getString("password", "");
+                etUsername.setText(username);
+                etPassword.setText(password);
+                etPassword.requestFocus();
+                etPassword.setSelection(password.length());
+            }
+        ivLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                editor.putString("username", etUsername.getText().toString());
-                editor.putString("password", etPassword.getText().toString());
-                editor.commit();
+                if (loginCheck.isChecked()){
+                    editor.putString("username", etUsername.getText().toString());
+                    editor.putString("password", etPassword.getText().toString());
+                    editor.commit();
+                }else {
+                    editor.clear().commit();
+                }
                 OkHttpUtils
                         .post()
                         .url(URL)
@@ -84,6 +92,7 @@ public class LoginActivity extends AutoLayoutActivity {
                 if (etUsername.getText().toString().equals("006") & etPassword.getText().toString().equals("147258")) {
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
+                    finish();
                 } else {
                     Toast.makeText(LoginActivity.this, "账号或者密码输入错误", Toast.LENGTH_SHORT).show();
                 }

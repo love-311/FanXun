@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import com.love311.www.fanxun.R;
 import com.love311.www.fanxun.bean.RentHouseBean;
 import com.love311.www.fanxun.viewholder.BaseViewHolder;
+import com.love311.www.fanxun.viewholder.MyItemClickListener;
+import com.love311.www.fanxun.viewholder.MyItemLongClickListener;
 import com.love311.www.fanxun.viewholder.RentHouseViewHolder;
 
 import java.util.ArrayList;
@@ -19,7 +21,8 @@ public class RentHouseRecycleViewAdapter extends RecyclerView.Adapter<BaseViewHo
 
 	private Context mContext;
 	private List<RentHouseBean.ResBean.ContentBean> mDataSet;
-
+	private MyItemClickListener mItemClickListener;
+	private MyItemLongClickListener mItemLongClickListener;
 	public RentHouseRecycleViewAdapter(Context context) {
 		mContext = context;
 		mDataSet = new ArrayList<>();
@@ -29,7 +32,7 @@ public class RentHouseRecycleViewAdapter extends RecyclerView.Adapter<BaseViewHo
 	public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 		View view = LayoutInflater.from(mContext).inflate(
 				R.layout.house_soucrce_item, parent, false);
-		return new RentHouseViewHolder(view);
+		return new RentHouseViewHolder(view,mItemClickListener,mItemLongClickListener);
 	}
 
 	@Override
@@ -74,5 +77,15 @@ public class RentHouseRecycleViewAdapter extends RecyclerView.Adapter<BaseViewHo
 			notifyItemRangeInserted(position, list.size());
 		}
 	}
+	/**
+	 * 设置Item点击监听
+	 * @param listener
+	 */
+	public void setOnItemClickListener(MyItemClickListener listener){
+		this.mItemClickListener = listener;
+	}
 
+	public void setOnItemLongClickListener(MyItemLongClickListener listener){
+		this.mItemLongClickListener = listener;
+	}
 }

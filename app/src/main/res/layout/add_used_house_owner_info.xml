@@ -91,7 +91,7 @@
     </RelativeLayout>
 
  <include layout="@layout/add_info_1px"></include>
-    <RelativeLayout
+ <!--   <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="90px"
         android:background="#ffffff"
@@ -123,7 +123,7 @@
             android:paddingLeft="10px"/>
     </RelativeLayout>
 
-    <include layout="@layout/add_info_1px"></include>
+    <include layout="@layout/add_info_1px"></include>-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="90px"

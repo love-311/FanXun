@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import com.love311.www.fanxun.R;
 import com.love311.www.fanxun.bean.PassengerUsedHouseBean;
 import com.love311.www.fanxun.viewholder.BaseViewHolder;
+import com.love311.www.fanxun.viewholder.MyItemClickListener;
+import com.love311.www.fanxun.viewholder.MyItemLongClickListener;
 import com.love311.www.fanxun.viewholder.PassengerRentHouseViewHolder;
 import com.love311.www.fanxun.viewholder.PassengerUsedHouseViewHolder;
 import com.love311.www.fanxun.viewholder.UsedHouseViewHolder;
@@ -21,6 +23,8 @@ public class PassengerUsedHouseRecycleViewAdapter extends RecyclerView.Adapter<B
 
 	private Context mContext;
 	private List<PassengerUsedHouseBean.ResBean.ContentBean> mDataSet;
+	private MyItemClickListener mItemClickListener;
+	private MyItemLongClickListener mItemLongClickListener;
 
 	public PassengerUsedHouseRecycleViewAdapter(Context context) {
 		mContext = context;
@@ -31,7 +35,7 @@ public class PassengerUsedHouseRecycleViewAdapter extends RecyclerView.Adapter<B
 	public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 		View view = LayoutInflater.from(mContext).inflate(
 				R.layout.passenger_source_item, parent, false);
-		return new PassengerUsedHouseViewHolder(view);
+		return new PassengerUsedHouseViewHolder(view,mItemClickListener,mItemLongClickListener);
 	}
 
 	@Override
@@ -76,5 +80,15 @@ public class PassengerUsedHouseRecycleViewAdapter extends RecyclerView.Adapter<B
 			notifyItemRangeInserted(position, list.size());
 		}
 	}
+	/**
+	 * 设置Item点击监听
+	 * @param listener
+	 */
+	public void setOnItemClickListener(MyItemClickListener listener){
+		this.mItemClickListener = listener;
+	}
 
+	public void setOnItemLongClickListener(MyItemLongClickListener listener){
+		this.mItemLongClickListener = listener;
+	}
 }

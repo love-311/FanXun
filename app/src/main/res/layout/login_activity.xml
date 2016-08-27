@@ -2,20 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
+    android:background="@mipmap/login_background"
     android:orientation="vertical">
+
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="120px"
-        android:background="#dddddd"
+        android:layout_height="106px"
+        android:layout_marginTop="600px"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="24px"
-            android:text="用户名："
+            android:layout_marginLeft="45px"
+            android:text="账号："
             android:textSize="40px" />
 
         <EditText
@@ -26,16 +27,20 @@
             android:background="@null" />
     </LinearLayout>
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#cccccc" />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="120px"
-        android:background="#dddddd"
+        android:layout_height="106px"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="24px"
+            android:layout_marginLeft="45px"
             android:text="密码："
             android:textSize="40px" />
 
@@ -44,21 +49,23 @@
             android:layout_width="0px"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@null" />
+            android:background="@null"
+            android:inputType="textPassword"/>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_login"
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="90px"
-        android:layout_marginLeft="24px"
-        android:layout_marginRight="24px"
-        android:layout_marginTop="24px"
-        android:background="#357024"
-        android:gravity="center"
-        android:text="登录"
-        android:textColor="#ffffff"
-        android:textSize="40px" />
+        android:layout_height="1px"
+        android:background="#cccccc" />
+
+    <ImageView
+        android:id="@+id/iv_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="45px"
+        android:layout_marginRight="45px"
+        android:layout_marginTop="167px"
+        android:src="@mipmap/login_btn"/>
 
     <LinearLayout
         android:layout_width="match_parent"

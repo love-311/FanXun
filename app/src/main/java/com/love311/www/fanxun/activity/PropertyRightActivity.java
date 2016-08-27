@@ -56,31 +56,22 @@ public class PropertyRightActivity extends AutoLayoutActivity implements View.On
     ImageView iv8;
     @BindView(R.id.rl_8)
     RelativeLayout rl8;
-    @BindView(R.id.iv_9)
-    ImageView iv9;
-    @BindView(R.id.rl_9)
-    RelativeLayout rl9;
-    @BindView(R.id.iv_10)
-    ImageView iv10;
-    @BindView(R.id.rl_10)
-    RelativeLayout rl10;
-    @BindView(R.id.iv_11)
-    ImageView iv11;
-    @BindView(R.id.rl_11)
-    RelativeLayout rl11;
     private Intent intent;
     private String statusString;
+    private int property_right_status;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.property_right_activity);
         ButterKnife.bind(this);
+        property_right_status = 1;
         topLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 intent = new Intent();
                 intent.putExtra("property_right", statusString);
+                intent.putExtra("property_right_status", property_right_status);
                 PropertyRightActivity.this.setResult(RESULT_OK, intent);
                 PropertyRightActivity.this.finish();
             }
@@ -95,33 +86,24 @@ public class PropertyRightActivity extends AutoLayoutActivity implements View.On
         rl6.setOnClickListener(this);
         rl7.setOnClickListener(this);
         rl8.setOnClickListener(this);
-        rl9.setOnClickListener(this);
-        rl10.setOnClickListener(this);
-        rl11.setOnClickListener(this);
         Intent intent1 = this.getIntent();
         statusString = intent1.getStringExtra("property_right");
-        if (statusString.equals("其他")) {
+        if (statusString.equals("商品房合同")) {
             iv1.setBackgroundResource(R.mipmap.choosed);
-        } else if (statusString.equals("个人产权")) {
+        } else if (statusString.equals("证齐")) {
             iv2.setBackgroundResource(R.mipmap.choosed);
-        } else if (statusString.equals("单位产权")) {
+        } else if (statusString.equals("满两年")) {
             iv3.setBackgroundResource(R.mipmap.choosed);
-        } else if (statusString.equals("售后产权")) {
+        } else if (statusString.equals("满五年")) {
             iv4.setBackgroundResource(R.mipmap.choosed);
-        } else if (statusString.equals("家庭成员共有")) {
+        } else if (statusString.equals("抵押房")) {
             iv5.setBackgroundResource(R.mipmap.choosed);
-        } else if (statusString.equals("使用权")) {
+        } else if (statusString.equals("房产证")) {
             iv6.setBackgroundResource(R.mipmap.choosed);
-        } else if (statusString.equals("小产权")) {
+        } else if (statusString.equals("拆迁协议")) {
             iv7.setBackgroundResource(R.mipmap.choosed);
-        } else if (statusString.equals("协议房")) {
+        } else if (statusString.equals("抵押房")) {
             iv8.setBackgroundResource(R.mipmap.choosed);
-        } else if (statusString.equals("私产")) {
-            iv9.setBackgroundResource(R.mipmap.choosed);
-        } else if (statusString.equals("公产")) {
-            iv10.setBackgroundResource(R.mipmap.choosed);
-        } else if (statusString.equals("合同发票")) {
-            iv11.setBackgroundResource(R.mipmap.choosed);
         }
     }
 
@@ -130,70 +112,78 @@ public class PropertyRightActivity extends AutoLayoutActivity implements View.On
         switch (view.getId()) {
             case R.id.rl_1:
                 intent = new Intent();
-                intent.putExtra("property_right", "其他");
+                intent.putExtra("property_right", "商品房合同");
+                intent.putExtra("property_right_status", property_right_status);
                 PropertyRightActivity.this.setResult(RESULT_OK, intent);
                 PropertyRightActivity.this.finish();
                 break;
             case R.id.rl_2:
                 intent = new Intent();
-                intent.putExtra("property_right", "个人产权");
+                intent.putExtra("property_right", "证齐");
+                intent.putExtra("property_right_status", property_right_status);
                 PropertyRightActivity.this.setResult(RESULT_OK, intent);
                 PropertyRightActivity.this.finish();
                 break;
             case R.id.rl_3:
                 intent = new Intent();
-                intent.putExtra("property_right", "单位产权");
+                intent.putExtra("property_right", "满两年");
+                intent.putExtra("property_right_status", property_right_status);
                 PropertyRightActivity.this.setResult(RESULT_OK, intent);
                 PropertyRightActivity.this.finish();
                 break;
             case R.id.rl_4:
                 intent = new Intent();
-                intent.putExtra("property_right", "售后产权");
+                intent.putExtra("property_right", "满五年");
+                intent.putExtra("property_right_status", property_right_status);
                 PropertyRightActivity.this.setResult(RESULT_OK, intent);
                 PropertyRightActivity.this.finish();
                 break;
             case R.id.rl_5:
                 intent = new Intent();
-                intent.putExtra("property_right", "家庭成员共有");
+                intent.putExtra("property_right", "抵押房");
+                intent.putExtra("property_right_status", property_right_status);
                 PropertyRightActivity.this.setResult(RESULT_OK, intent);
                 PropertyRightActivity.this.finish();
                 break;
             case R.id.rl_6:
                 intent = new Intent();
-                intent.putExtra("property_right", "使用权");
+                intent.putExtra("property_right", "房产证");
+                intent.putExtra("property_right_status", property_right_status);
                 PropertyRightActivity.this.setResult(RESULT_OK, intent);
                 PropertyRightActivity.this.finish();
                 break;
             case R.id.rl_7:
                 intent = new Intent();
-                intent.putExtra("property_right", "小产权");
+                intent.putExtra("property_right", "拆迁协议");
+                intent.putExtra("property_right_status", property_right_status);
                 PropertyRightActivity.this.setResult(RESULT_OK, intent);
                 PropertyRightActivity.this.finish();
                 break;
             case R.id.rl_8:
                 intent = new Intent();
-                intent.putExtra("property_right", "协议房");
+                intent.putExtra("property_right", "抵押房");
+                intent.putExtra("property_right_status", property_right_status);
                 PropertyRightActivity.this.setResult(RESULT_OK, intent);
                 PropertyRightActivity.this.finish();
                 break;
-            case R.id.rl_9:
-                intent = new Intent();
-                intent.putExtra("property_right", "私产");
-                PropertyRightActivity.this.setResult(RESULT_OK, intent);
-                PropertyRightActivity.this.finish();
-                break;
-            case R.id.rl_10:
-                intent = new Intent();
-                intent.putExtra("property_right", "公产");
-                PropertyRightActivity.this.setResult(RESULT_OK, intent);
-                PropertyRightActivity.this.finish();
-                break;
-            case R.id.rl_11:
-                intent = new Intent();
-                intent.putExtra("property_right", "合同发票");
-                PropertyRightActivity.this.setResult(RESULT_OK, intent);
-                PropertyRightActivity.this.finish();
-                break;
+//            case R.id.rl_9:
+//                intent = new Intent();
+//                intent.putExtra("property_right", "私产");
+//                PropertyRightActivity.this.setResult(RESULT_OK, intent);
+//                PropertyRightActivity.this.finish();
+//                break;
+//            case R.id.rl_10:
+//                intent = new Intent();
+//                intent.putExtra("property_right", "公产");
+//                PropertyRightActivity.this.setResult(RESULT_OK, intent);
+//                PropertyRightActivity.this.finish();
+//                break;
+//            case R.id.rl_11:
+//                intent = new Intent();
+//                intent.putExtra("property_right", "合同发票");
+//                PropertyRightActivity.this.setResult(RESULT_OK, intent);
+//                PropertyRightActivity.this.finish();
+//                break;
             default:
                 break;
         }
@@ -203,6 +193,7 @@ public class PropertyRightActivity extends AutoLayoutActivity implements View.On
     public void onBackPressed() {
         intent = new Intent();
         intent.putExtra("property_right", statusString);
+        intent.putExtra("property_right_status", property_right_status);
         PropertyRightActivity.this.setResult(RESULT_OK, intent);
         PropertyRightActivity.this.finish();
     }

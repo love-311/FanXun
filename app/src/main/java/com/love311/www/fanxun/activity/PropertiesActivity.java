@@ -33,48 +33,42 @@ public class PropertiesActivity extends AutoLayoutActivity implements View.OnCli
     ImageView iv2;
     @BindView(R.id.rl_2)
     RelativeLayout rl2;
-    @BindView(R.id.iv_3)
-    ImageView iv3;
-    @BindView(R.id.rl_3)
-    RelativeLayout rl3;
-    @BindView(R.id.iv_4)
-    ImageView iv4;
-    @BindView(R.id.rl_4)
-    RelativeLayout rl4;
     private Intent intent;
     private String statusString;
+    private int properties_status;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.properties_activity);
         ButterKnife.bind(this);
+        properties_status = 1;
         topLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 intent = new Intent();
                 intent.putExtra("properties", statusString);
+                intent.putExtra("properties_status",properties_status);
                 PropertiesActivity.this.setResult(RESULT_OK, intent);
                 PropertiesActivity.this.finish();
             }
         });
-        topMid.setText("性质");
+        topMid.setText("房源性质");
         topRight.setVisibility(View.GONE);
         rl1.setOnClickListener(this);
         rl2.setOnClickListener(this);
-        rl3.setOnClickListener(this);
-        rl4.setOnClickListener(this);
         Intent intent1 = this.getIntent();
         statusString = intent1.getStringExtra("properties");
-        if (statusString.equals("公盘")){
+        if (statusString.equals("商品房")){
             iv1.setBackgroundResource(R.mipmap.choosed);
-        }else if (statusString.equals("私盘")){
+        }else if (statusString.equals("个人产权")){
             iv2.setBackgroundResource(R.mipmap.choosed);
-        }else if (statusString.equals("锁盘")){
-            iv3.setBackgroundResource(R.mipmap.choosed);
-        }else if (statusString.equals("特盘")){
-            iv4.setBackgroundResource(R.mipmap.choosed);
         }
+//        else if (statusString.equals("锁盘")){
+//            iv3.setBackgroundResource(R.mipmap.choosed);
+//        }else if (statusString.equals("特盘")){
+//            iv4.setBackgroundResource(R.mipmap.choosed);
+//        }
     }
 
     @Override
@@ -82,28 +76,30 @@ public class PropertiesActivity extends AutoLayoutActivity implements View.OnCli
         switch (view.getId()) {
             case R.id.rl_1:
                 intent = new Intent();
-                intent.putExtra("properties", "公盘");
+                intent.putExtra("properties", "商品房");
+                intent.putExtra("properties_status",properties_status);
                 PropertiesActivity.this.setResult(RESULT_OK, intent);
                 PropertiesActivity.this.finish();
                 break;
             case R.id.rl_2:
                 intent = new Intent();
-                intent.putExtra("properties", "私盘");
+                intent.putExtra("properties", "个人产权");
+                intent.putExtra("properties_status",properties_status);
                 PropertiesActivity.this.setResult(RESULT_OK, intent);
                 PropertiesActivity.this.finish();
                 break;
-            case R.id.rl_3:
-                intent = new Intent();
-                intent.putExtra("properties", "锁盘");
-                PropertiesActivity.this.setResult(RESULT_OK, intent);
-                PropertiesActivity.this.finish();
-                break;
-            case R.id.rl_4:
-                intent = new Intent();
-                intent.putExtra("properties", "特盘");
-                PropertiesActivity.this.setResult(RESULT_OK, intent);
-                PropertiesActivity.this.finish();
-                break;
+//            case R.id.rl_3:
+//                intent = new Intent();
+//                intent.putExtra("properties", "锁盘");
+//                PropertiesActivity.this.setResult(RESULT_OK, intent);
+//                PropertiesActivity.this.finish();
+//                break;
+//            case R.id.rl_4:
+//                intent = new Intent();
+//                intent.putExtra("properties", "特盘");
+//                PropertiesActivity.this.setResult(RESULT_OK, intent);
+//                PropertiesActivity.this.finish();
+//                break;
             default:
                 break;
         }
@@ -112,6 +108,7 @@ public class PropertiesActivity extends AutoLayoutActivity implements View.OnCli
     public void onBackPressed() {
         intent = new Intent();
         intent.putExtra("properties", statusString);
+        intent.putExtra("properties_status",properties_status);
         PropertiesActivity.this.setResult(RESULT_OK, intent);
         PropertiesActivity.this.finish();
     }

@@ -38,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="32px"
-                android:text="推荐"
+                android:text="成交"
                 android:textSize="34px"
                 android:layout_centerVertical="true"/>
             <ImageView
@@ -59,7 +59,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="32px"
-                android:text="急售"
+                android:text="已租/已售"
                 android:textSize="34px"
                 android:layout_centerVertical="true"/>
             <ImageView
@@ -80,7 +80,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="32px"
-                android:text="待审"
+                android:text="无效"
                 android:textSize="34px"
                 android:layout_centerVertical="true"/>
             <ImageView
@@ -101,7 +101,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="32px"
-                android:text="已售"
+                android:text="暂不租/暂不售"
                 android:textSize="34px"
                 android:layout_centerVertical="true"/>
             <ImageView
@@ -122,7 +122,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="32px"
-                android:text="暂不售"
+                android:text="待审"
                 android:textSize="34px"
                 android:layout_centerVertical="true"/>
             <ImageView
@@ -143,53 +143,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="32px"
-                android:text="电话无效"
+                android:text="驳回"
                 android:textSize="34px"
                 android:layout_centerVertical="true"/>
             <ImageView
                 android:id="@+id/iv_7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@mipmap/not_choosed"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="32px"
-                android:layout_centerVertical="true"/>
-        </RelativeLayout>
-        <include layout="@layout/choose_item_1px"></include>
-        <RelativeLayout
-            android:id="@+id/rl_8"
-            android:layout_width="match_parent"
-            android:layout_height="80px">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="32px"
-                android:text="成交"
-                android:textSize="34px"
-                android:layout_centerVertical="true"/>
-            <ImageView
-                android:id="@+id/iv_8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@mipmap/not_choosed"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="32px"
-                android:layout_centerVertical="true"/>
-        </RelativeLayout>
-        <include layout="@layout/choose_item_1px"></include>
-        <RelativeLayout
-            android:id="@+id/rl_9"
-            android:layout_width="match_parent"
-            android:layout_height="80px">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="32px"
-                android:text="无效"
-                android:textSize="34px"
-                android:layout_centerVertical="true"/>
-            <ImageView
-                android:id="@+id/iv_9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@mipmap/not_choosed"

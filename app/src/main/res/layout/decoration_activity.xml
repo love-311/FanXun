@@ -17,7 +17,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="32px"
-                android:text="毛坯"
+                android:text="清水"
                 android:textSize="34px"
                 android:layout_centerVertical="true"/>
             <ImageView

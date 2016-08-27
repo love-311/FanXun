@@ -15,7 +15,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="32px"
-                android:text="多层住宅"
+                android:text="低层"
                 android:textSize="34px"
                 android:layout_centerVertical="true"/>
             <ImageView
@@ -36,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="32px"
-                android:text="小高楼"
+                android:text="多层"
                 android:textSize="34px"
                 android:layout_centerVertical="true"/>
             <ImageView
@@ -57,7 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="32px"
-                android:text="高层住宅"
+                android:text="中高层"
                 android:textSize="34px"
                 android:layout_centerVertical="true"/>
             <ImageView
@@ -78,7 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="32px"
-                android:text="公寓"
+                android:text="高层"
                 android:textSize="34px"
                 android:layout_centerVertical="true"/>
             <ImageView
@@ -91,153 +91,6 @@
                 android:layout_centerVertical="true"/>
         </RelativeLayout>
         <include layout="@layout/choose_item_1px"></include>
-        <RelativeLayout
-            android:id="@+id/rl_5"
-            android:layout_width="match_parent"
-            android:layout_height="80px">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="32px"
-                android:text="商铺"
-                android:textSize="34px"
-                android:layout_centerVertical="true"/>
-            <ImageView
-                android:id="@+id/iv_5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@mipmap/not_choosed"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="32px"
-                android:layout_centerVertical="true"/>
-        </RelativeLayout>
-        <include layout="@layout/choose_item_1px"></include>
-        <RelativeLayout
-            android:id="@+id/rl_6"
-            android:layout_width="match_parent"
-            android:layout_height="80px">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="32px"
-                android:text="写字楼"
-                android:textSize="34px"
-                android:layout_centerVertical="true"/>
-            <ImageView
-                android:id="@+id/iv_6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@mipmap/not_choosed"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="32px"
-                android:layout_centerVertical="true"/>
-        </RelativeLayout>
-        <include layout="@layout/choose_item_1px"></include>
-        <RelativeLayout
-            android:id="@+id/rl_7"
-            android:layout_width="match_parent"
-            android:layout_height="80px">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="32px"
-                android:text="商住楼"
-                android:textSize="34px"
-                android:layout_centerVertical="true"/>
-            <ImageView
-                android:id="@+id/iv_7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@mipmap/not_choosed"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="32px"
-                android:layout_centerVertical="true"/>
-        </RelativeLayout>
-        <include layout="@layout/choose_item_1px"></include>
-        <RelativeLayout
-            android:id="@+id/rl_8"
-            android:layout_width="match_parent"
-            android:layout_height="80px">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="32px"
-                android:text="独栋别墅"
-                android:textSize="34px"
-                android:layout_centerVertical="true"/>
-            <ImageView
-                android:id="@+id/iv_8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@mipmap/not_choosed"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="32px"
-                android:layout_centerVertical="true"/>
-        </RelativeLayout>
-        <include layout="@layout/choose_item_1px"></include>
-        <RelativeLayout
-            android:id="@+id/rl_9"
-            android:layout_width="match_parent"
-            android:layout_height="80px">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="32px"
-                android:text="联排别墅"
-                android:textSize="34px"
-                android:layout_centerVertical="true"/>
-            <ImageView
-                android:id="@+id/iv_9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@mipmap/not_choosed"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="32px"
-                android:layout_centerVertical="true"/>
-        </RelativeLayout>
-        <include layout="@layout/choose_item_1px"></include>
-        <RelativeLayout
-            android:id="@+id/rl_10"
-            android:layout_width="match_parent"
-            android:layout_height="80px">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="32px"
-                android:text="叠加别墅"
-                android:textSize="34px"
-                android:layout_centerVertical="true"/>
-            <ImageView
-                android:id="@+id/iv_10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@mipmap/not_choosed"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="32px"
-                android:layout_centerVertical="true"/>
-        </RelativeLayout>
-        <include layout="@layout/choose_item_1px"></include>
-        <RelativeLayout
-            android:id="@+id/rl_11"
-            android:layout_width="match_parent"
-            android:layout_height="80px">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="32px"
-                android:text="双拼别墅"
-                android:textSize="34px"
-                android:layout_centerVertical="true"/>
-            <ImageView
-                android:id="@+id/iv_11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@mipmap/not_choosed"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="32px"
-                android:layout_centerVertical="true"/>
-        </RelativeLayout>
-        <include layout="@layout/choose_item_1px"></include>
-    </LinearLayout>
 
+    </LinearLayout>
 </LinearLayout>

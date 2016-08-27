@@ -64,6 +64,7 @@ public class VillageActivity extends AutoLayoutActivity implements AdapterView.O
     private LinearLayoutManager linearLayoutManager;
     private Intent intent;
     private String statusString;
+    private int village_id;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +75,7 @@ public class VillageActivity extends AutoLayoutActivity implements AdapterView.O
         lvSearch.setOnItemClickListener(this);
         Intent intent1 = this.getIntent();
         statusString = intent1.getStringExtra("village");
+        village_id = intent1.getIntExtra("village_id",0);
 //        adapter.notifyDataSetChanged();
         linearLayoutManager = new LinearLayoutManager(this);
         //lvSearch.setLayoutManager(linearLayoutManager);
@@ -84,6 +86,7 @@ public class VillageActivity extends AutoLayoutActivity implements AdapterView.O
             public void onClick(View view) {
                 intent = new Intent();
                 intent.putExtra("village", statusString);
+                intent.putExtra("village_id", village_id);
                 VillageActivity.this.setResult(RESULT_OK, intent);
                 VillageActivity.this.finish();
             }
@@ -137,6 +140,7 @@ public class VillageActivity extends AutoLayoutActivity implements AdapterView.O
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         intent = new Intent();
         intent.putExtra("village", bean.get(i).getName()+"("+bean.get(i).getArea()+")");
+        intent.putExtra("village_id", bean.get(i).getId());
         VillageActivity.this.setResult(RESULT_OK, intent);
         VillageActivity.this.finish();
     }
@@ -144,6 +148,7 @@ public class VillageActivity extends AutoLayoutActivity implements AdapterView.O
     public void onBackPressed() {
         intent = new Intent();
         intent.putExtra("village", statusString);
+        intent.putExtra("village_id", village_id);
         VillageActivity.this.setResult(RESULT_OK, intent);
         VillageActivity.this.finish();
     }

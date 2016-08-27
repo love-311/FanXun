@@ -74,16 +74,21 @@ public class OrientationActivity extends AutoLayoutActivity implements View.OnCl
     RelativeLayout rlOther;
     private Intent intent;
     private String statusString;
+    private int orientation_status;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.orientation_activity);
         ButterKnife.bind(this);
+        Intent intent1 = this.getIntent();
+        statusString = intent1.getStringExtra("orientation");
+        orientation_status = 1;
         topLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 intent = new Intent();
                 intent.putExtra("orientation", statusString);
+                intent.putExtra("orientation_status",orientation_status);
                 OrientationActivity.this.setResult(RESULT_OK, intent);
                 OrientationActivity.this.finish();
             }
@@ -102,8 +107,6 @@ public class OrientationActivity extends AutoLayoutActivity implements View.OnCl
         rlEastNorth.setOnClickListener(this);
         rlWestNorth.setOnClickListener(this);
         rlOther.setOnClickListener(this);
-        Intent intent1 = this.getIntent();
-        statusString = intent1.getStringExtra("orientation");
         if (statusString.equals("南")){
             ivChooseStatus1.setBackgroundResource(R.mipmap.choosed);
         }else if (statusString.equals("南北")){
@@ -137,72 +140,84 @@ public class OrientationActivity extends AutoLayoutActivity implements View.OnCl
             case R.id.rl_south:
                 intent = new Intent();
                 intent.putExtra("orientation", "南");
+                intent.putExtra("orientation_status",orientation_status);
                 OrientationActivity.this.setResult(RESULT_OK, intent);
                 OrientationActivity.this.finish();
                 break;
             case R.id.rl_south_north:
                 intent = new Intent();
                 intent.putExtra("orientation", "南北");
+                intent.putExtra("orientation_status",orientation_status);
                 OrientationActivity.this.setResult(RESULT_OK, intent);
                 OrientationActivity.this.finish();
                 break;
             case R.id.rl_south_south:
                 intent = new Intent();
                 intent.putExtra("orientation", "南南");
+                intent.putExtra("orientation_status",orientation_status);
                 OrientationActivity.this.setResult(RESULT_OK, intent);
                 OrientationActivity.this.finish();
                 break;
             case R.id.rl_east:
                 intent = new Intent();
                 intent.putExtra("orientation", "东");
+                intent.putExtra("orientation_status",orientation_status);
                 OrientationActivity.this.setResult(RESULT_OK, intent);
                 OrientationActivity.this.finish();
                 break;
             case R.id.rl_west:
                 intent = new Intent();
                 intent.putExtra("orientation", "西");
+                intent.putExtra("orientation_status",orientation_status);
                 OrientationActivity.this.setResult(RESULT_OK, intent);
                 OrientationActivity.this.finish();
                 break;
             case R.id.rl_north:
                 intent = new Intent();
                 intent.putExtra("orientation", "北");
+                intent.putExtra("orientation_status",orientation_status);
                 OrientationActivity.this.setResult(RESULT_OK, intent);
                 OrientationActivity.this.finish();
                 break;
             case R.id.rl_east_west:
                 intent = new Intent();
                 intent.putExtra("orientation", "东西");
+                intent.putExtra("orientation_status",orientation_status);
                 OrientationActivity.this.setResult(RESULT_OK, intent);
                 OrientationActivity.this.finish();
                 break;
             case R.id.rl_east_south:
                 intent = new Intent();
                 intent.putExtra("orientation", "东南");
+                intent.putExtra("orientation_status",orientation_status);
                 OrientationActivity.this.setResult(RESULT_OK, intent);
                 OrientationActivity.this.finish();
                 break;
             case R.id.rl_west_south:
                 intent = new Intent();
                 intent.putExtra("orientation", "西南");
+                intent.putExtra("orientation_status",orientation_status);
                 OrientationActivity.this.setResult(RESULT_OK, intent);
                 OrientationActivity.this.finish();
                 break;
             case R.id.rl_east_north:
                 intent = new Intent();
                 intent.putExtra("orientation", "东北");
+                intent.putExtra("orientation_status",orientation_status);
                 OrientationActivity.this.setResult(RESULT_OK, intent);
                 OrientationActivity.this.finish();
                 break;
             case R.id.rl_west_north:
                 intent = new Intent();
                 intent.putExtra("orientation", "西北");
+                intent.putExtra("orientation_status",orientation_status);
                 OrientationActivity.this.setResult(RESULT_OK, intent);
                 OrientationActivity.this.finish();
                 break;
             case R.id.rl_other:
                 intent = new Intent();
                 intent.putExtra("orientation", "其他");
+                intent.putExtra("orientation_status",orientation_status);
                 OrientationActivity.this.setResult(RESULT_OK, intent);
                 OrientationActivity.this.finish();
                 break;
@@ -215,6 +230,7 @@ public class OrientationActivity extends AutoLayoutActivity implements View.OnCl
     public void onBackPressed() {
         intent = new Intent();
         intent.putExtra("orientation", statusString);
+        intent.putExtra("orientation_status",orientation_status);
         OrientationActivity.this.setResult(RESULT_OK, intent);
         OrientationActivity.this.finish();
     }

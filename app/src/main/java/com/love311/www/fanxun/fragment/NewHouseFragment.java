@@ -1,18 +1,22 @@
 package com.love311.www.fanxun.fragment;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.love311.www.fanxun.R;
+import com.love311.www.fanxun.activity.UsedHouseDetailActivity;
 import com.love311.www.fanxun.adapter.NewHouseRecycleViewAdapter;
 import com.love311.www.fanxun.adapter.UsedHouseRecycleViewAdapter;
 import com.love311.www.fanxun.application.MyApplication;
@@ -20,6 +24,8 @@ import com.love311.www.fanxun.bean.NewHouseBean;
 import com.love311.www.fanxun.bean.RentHouseBean;
 import com.love311.www.fanxun.custom.LazyLoadFragment;
 import com.love311.www.fanxun.custom.SuperSwipeRefreshLayout;
+import com.love311.www.fanxun.viewholder.MyItemClickListener;
+import com.love311.www.fanxun.viewholder.MyItemLongClickListener;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -37,7 +43,7 @@ import okhttp3.Call;
 /**
  * Created by Administrator on 2016/8/11.
  */
-public class NewHouseFragment extends LazyLoadFragment {
+public class NewHouseFragment extends LazyLoadFragment  implements MyItemClickListener, MyItemLongClickListener {
 
     private RecyclerView newHouseRecycle;
     private SuperSwipeRefreshLayout usedSwipeRefresh;
@@ -75,6 +81,8 @@ public class NewHouseFragment extends LazyLoadFragment {
         usedSwipeRefresh.setFooterView(createFooterView());
         usedSwipeRefresh.setHeaderViewBackgroundColor(0xff888888);
         usedSwipeRefresh.setTargetScrollWithLayout(true);
+        this.myAdapter.setOnItemClickListener(this);
+        this.myAdapter.setOnItemLongClickListener(this);
         usedSwipeRefresh
                 .setOnPullRefreshListener(new SuperSwipeRefreshLayout.OnPullRefreshListener() {
 
@@ -210,5 +218,18 @@ public class NewHouseFragment extends LazyLoadFragment {
         footerImageView.setImageResource(R.drawable.down_arrow);
         footerTextView.setText("上拉加载更多...");
         return footerView;
+    }
+    @Override
+    public void onItemClick(View view, int postion) {
+        Intent intent = new Intent(getActivity(), UsedHouseDetailActivity.class);
+        intent.putExtra("id", bean.get(postion).getId());
+        intent.putExtra("type_fragment",2);
+        startActivity(intent);
+        Toast.makeText(getActivity(), "点击了" + postion, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onItemLongClick(View view, int postion) {
+        Toast.makeText(getActivity(), "长击了" + postion, Toast.LENGTH_SHORT).show();
     }
 }

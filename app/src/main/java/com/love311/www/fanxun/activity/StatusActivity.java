@@ -52,27 +52,22 @@ public class StatusActivity extends AutoLayoutActivity implements View.OnClickLi
     ImageView iv7;
     @BindView(R.id.rl_7)
     RelativeLayout rl7;
-    @BindView(R.id.iv_8)
-    ImageView iv8;
-    @BindView(R.id.rl_8)
-    RelativeLayout rl8;
-    @BindView(R.id.iv_9)
-    ImageView iv9;
-    @BindView(R.id.rl_9)
-    RelativeLayout rl9;
     private Intent intent;
     private String statusString;
+    private int statusStatus;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.status_activity);
         ButterKnife.bind(this);
+        statusStatus = 1;
         topLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 intent = new Intent();
                 intent.putExtra("status", statusString);
+                intent.putExtra("statusStatus", statusStatus);
                 StatusActivity.this.setResult(RESULT_OK, intent);
                 StatusActivity.this.finish();
             }
@@ -86,28 +81,22 @@ public class StatusActivity extends AutoLayoutActivity implements View.OnClickLi
         rl5.setOnClickListener(this);
         rl6.setOnClickListener(this);
         rl7.setOnClickListener(this);
-        rl8.setOnClickListener(this);
-        rl9.setOnClickListener(this);
         Intent intent1 = this.getIntent();
         statusString = intent1.getStringExtra("status");
-        if (statusString.equals("正常")){
+        if (statusString.equals("正常")) {
             iv1.setBackgroundResource(R.mipmap.choosed);
-        }else if (statusString.equals("推荐")){
+        } else if (statusString.equals("成交")) {
             iv2.setBackgroundResource(R.mipmap.choosed);
-        }else if (statusString.equals("急售")){
+        } else if (statusString.equals("已租/已售")) {
             iv3.setBackgroundResource(R.mipmap.choosed);
-        }else if (statusString.equals("待审")){
+        } else if (statusString.equals("无效")) {
             iv4.setBackgroundResource(R.mipmap.choosed);
-        }else if (statusString.equals("已售")){
+        } else if (statusString.equals("暂不租/暂不售")) {
             iv5.setBackgroundResource(R.mipmap.choosed);
-        }else if (statusString.equals("暂不售")){
+        } else if (statusString.equals("待审")) {
             iv6.setBackgroundResource(R.mipmap.choosed);
-        }else if (statusString.equals("电话无效")){
+        } else if (statusString.equals("驳回")) {
             iv7.setBackgroundResource(R.mipmap.choosed);
-        }else if (statusString.equals("成交")){
-            iv8.setBackgroundResource(R.mipmap.choosed);
-        }else if (statusString.equals("无效")){
-            iv9.setBackgroundResource(R.mipmap.choosed);
         }
     }
 
@@ -117,54 +106,49 @@ public class StatusActivity extends AutoLayoutActivity implements View.OnClickLi
             case R.id.rl_1:
                 intent = new Intent();
                 intent.putExtra("status", "正常");
+                intent.putExtra("statusStatus", statusStatus);
                 StatusActivity.this.setResult(RESULT_OK, intent);
                 StatusActivity.this.finish();
                 break;
             case R.id.rl_2:
                 intent = new Intent();
-                intent.putExtra("status", "推荐");
+                intent.putExtra("status", "成交");
+                intent.putExtra("statusStatus", statusStatus);
                 StatusActivity.this.setResult(RESULT_OK, intent);
                 StatusActivity.this.finish();
                 break;
             case R.id.rl_3:
                 intent = new Intent();
-                intent.putExtra("status", "急售");
+                intent.putExtra("status", "已租/已售");
+                intent.putExtra("statusStatus", statusStatus);
                 StatusActivity.this.setResult(RESULT_OK, intent);
                 StatusActivity.this.finish();
                 break;
             case R.id.rl_4:
                 intent = new Intent();
-                intent.putExtra("status", "待审");
+                intent.putExtra("status", "无效");
+                intent.putExtra("statusStatus", statusStatus);
                 StatusActivity.this.setResult(RESULT_OK, intent);
                 StatusActivity.this.finish();
                 break;
             case R.id.rl_5:
                 intent = new Intent();
-                intent.putExtra("status", "已售");
+                intent.putExtra("status", "暂不租/暂不售");
+                intent.putExtra("statusStatus", statusStatus);
                 StatusActivity.this.setResult(RESULT_OK, intent);
                 StatusActivity.this.finish();
                 break;
             case R.id.rl_6:
                 intent = new Intent();
-                intent.putExtra("status", "暂不售");
+                intent.putExtra("status", "待审");
+                intent.putExtra("statusStatus", statusStatus);
                 StatusActivity.this.setResult(RESULT_OK, intent);
                 StatusActivity.this.finish();
                 break;
             case R.id.rl_7:
                 intent = new Intent();
-                intent.putExtra("status", "电话无效");
-                StatusActivity.this.setResult(RESULT_OK, intent);
-                StatusActivity.this.finish();
-                break;
-            case R.id.rl_8:
-                intent = new Intent();
-                intent.putExtra("status", "成交");
-                StatusActivity.this.setResult(RESULT_OK, intent);
-                StatusActivity.this.finish();
-                break;
-            case R.id.rl_9:
-                intent = new Intent();
-                intent.putExtra("status", "无效");
+                intent.putExtra("status", "驳回");
+                intent.putExtra("statusStatus", statusStatus);
                 StatusActivity.this.setResult(RESULT_OK, intent);
                 StatusActivity.this.finish();
                 break;
@@ -172,10 +156,12 @@ public class StatusActivity extends AutoLayoutActivity implements View.OnClickLi
                 break;
         }
     }
+
     @Override
     public void onBackPressed() {
         intent = new Intent();
         intent.putExtra("status", statusString);
+        intent.putExtra("statusStatus", statusStatus);
         StatusActivity.this.setResult(RESULT_OK, intent);
         StatusActivity.this.finish();
     }

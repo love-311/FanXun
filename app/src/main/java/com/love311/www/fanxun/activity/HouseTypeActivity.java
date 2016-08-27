@@ -54,6 +54,7 @@ public class HouseTypeActivity extends AutoLayoutActivity implements AdapterView
     private MyApplication my;
     private static String URL;
     private LinkedList<HouseTypeBean.ResBean.ContentBean> bean;
+    private int house_type_id;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,11 +62,13 @@ public class HouseTypeActivity extends AutoLayoutActivity implements AdapterView
         ButterKnife.bind(this);
         Intent intent1 = this.getIntent();
         statusString = intent1.getStringExtra("house_type");
+        house_type_id= intent1.getIntExtra("house_type_id",0);
         topLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 intent = new Intent();
                 intent.putExtra("house_type", statusString);
+                intent.putExtra("house_type_id", house_type_id);
                 HouseTypeActivity.this.setResult(RESULT_OK, intent);
                 HouseTypeActivity.this.finish();
             }
@@ -115,6 +118,7 @@ public class HouseTypeActivity extends AutoLayoutActivity implements AdapterView
     public void onBackPressed() {
         intent = new Intent();
         intent.putExtra("house_type", statusString);
+        intent.putExtra("house_type_id", house_type_id);
         HouseTypeActivity.this.setResult(RESULT_OK, intent);
         HouseTypeActivity.this.finish();
     }
@@ -123,6 +127,7 @@ public class HouseTypeActivity extends AutoLayoutActivity implements AdapterView
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         intent = new Intent();
         intent.putExtra("house_type", bean.get(i).getName());
+        intent.putExtra("house_type_id", bean.get(i).getId());
         HouseTypeActivity.this.setResult(RESULT_OK, intent);
         HouseTypeActivity.this.finish();
     }

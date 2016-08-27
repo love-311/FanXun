@@ -2,6 +2,7 @@ package com.love311.www.fanxun.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,9 +10,12 @@ import android.view.ViewGroup;
 import com.love311.www.fanxun.R;
 import com.love311.www.fanxun.bean.UsedHouseBean;
 import com.love311.www.fanxun.viewholder.BaseViewHolder;
+import com.love311.www.fanxun.viewholder.MyItemClickListener;
+import com.love311.www.fanxun.viewholder.MyItemLongClickListener;
 import com.love311.www.fanxun.viewholder.UsedHouseViewHolder;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 
@@ -20,6 +24,8 @@ public class UsedHouseRecycleViewAdapter extends RecyclerView.Adapter<BaseViewHo
 
     private Context mContext;
     private List<UsedHouseBean.ResBean.ContentBean> mDataSet;
+    private MyItemClickListener mItemClickListener;
+    private MyItemLongClickListener mItemLongClickListener;
 
     public UsedHouseRecycleViewAdapter(Context context) {
         mContext = context;
@@ -30,8 +36,9 @@ public class UsedHouseRecycleViewAdapter extends RecyclerView.Adapter<BaseViewHo
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(
                 R.layout.house_soucrce_item, parent, false);
-        return new UsedHouseViewHolder(view);
+        return new UsedHouseViewHolder(view,mItemClickListener,mItemLongClickListener);
     }
+
 
     @Override
     public void onBindViewHolder(BaseViewHolder holder, int position) {
@@ -45,6 +52,9 @@ public class UsedHouseRecycleViewAdapter extends RecyclerView.Adapter<BaseViewHo
         return mDataSet.size();
     }
 
+    public List<UsedHouseBean.ResBean.ContentBean> getDataList() {
+        return mDataSet;
+    }
     /**
      * 从position开始删除，删除
      *
@@ -70,10 +80,25 @@ public class UsedHouseRecycleViewAdapter extends RecyclerView.Adapter<BaseViewHo
 
     public void addAll(List<UsedHouseBean.ResBean.ContentBean> list, int position) {
         if (list!=null){
+            Log.d("addAll---==",list.size()+position+"");
             mDataSet.addAll(position, list);
-            notifyItemRangeInserted(position, list.size());
+            notifyItemRangeInserted(position+1, list.size()+position);
         }
 
     }
+    public void clear() {
+        mDataSet.clear();
+        notifyDataSetChanged();
+    }
+    /**
+     * 设置Item点击监听
+     * @param listener
+     */
+    public void setOnItemClickListener(MyItemClickListener listener){
+        this.mItemClickListener = listener;
+    }
 
+    public void setOnItemLongClickListener(MyItemLongClickListener listener){
+        this.mItemLongClickListener = listener;
+    }
 }

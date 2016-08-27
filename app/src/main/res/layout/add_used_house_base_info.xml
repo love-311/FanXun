@@ -3,8 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="90px"
@@ -302,7 +300,7 @@
                 android:layout_marginLeft="24px"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text="毛坯"
+                android:text="清水"
                 android:textSize="34px" />
 
             <ImageView

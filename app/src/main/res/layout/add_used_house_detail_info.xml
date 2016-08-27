@@ -47,7 +47,7 @@
     </RelativeLayout>-->
 
     <include layout="@layout/add_info_1px"></include>
-    <LinearLayout
+    <!--<LinearLayout
         android:layout_width="match_parent"
         android:layout_height="90px"
         android:background="#ffffff"
@@ -87,7 +87,7 @@
                 android:src="@mipmap/next" />
         </LinearLayout>
     </LinearLayout>
-    <include layout="@layout/add_info_1px"></include>
+    <include layout="@layout/add_info_1px"></include>-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="90px"
@@ -116,7 +116,7 @@
                 android:layout_marginLeft="24px"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text="公盘"
+                android:text="商品房"
                 android:textSize="34px" />
 
             <ImageView
@@ -156,7 +156,7 @@
                 android:layout_marginLeft="24px"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text="多层住宅"
+                android:text="低层"
                 android:textSize="34px" />
 
             <ImageView
@@ -167,6 +167,62 @@
                 android:src="@mipmap/next" />
         </LinearLayout>
     </LinearLayout>
+    <include layout="@layout/add_info_1px"></include>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="90px"
+        android:background="#ffffff"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="24px"
+            android:text="位置："
+            android:textColor="#9c9a9c"
+            android:textSize="34px" />
+
+        <EditText
+            android:id="@+id/et_seat_numbers"
+            android:layout_width="100px"
+            android:layout_height="60px"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16px"
+            android:background="@drawable/et"
+            android:inputType="number"
+            android:maxLength="3"
+            android:paddingLeft="10px"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="12px"
+            android:text="座/栋"
+            android:textSize="34px" />
+        <EditText
+            android:id="@+id/et_unit_numbers"
+            android:layout_width="100px"
+            android:layout_height="60px"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16px"
+            android:background="@drawable/et"
+            android:inputType="number"
+            android:text="0"
+            android:maxLength="3"
+            android:paddingLeft="10px"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="12px"
+            android:text="单元"
+            android:textSize="34px" />
+        、
+    </LinearLayout>
+
     <include layout="@layout/add_info_1px"></include>
     <LinearLayout
         android:layout_width="match_parent"
@@ -224,6 +280,36 @@
     </LinearLayout>
 
     <include layout="@layout/add_info_1px"></include>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="90px"
+        android:background="#ffffff">
+
+        <TextView
+            android:id="@+id/house_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="24px"
+            android:text="房号："
+            android:textColor="#9c9a9c"
+            android:textSize="34px" />
+
+        <EditText
+            android:id="@+id/et_house_number_name"
+            android:layout_width="480px"
+            android:layout_height="60px"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16px"
+            android:layout_toRightOf="@+id/house_number"
+            android:background="@drawable/et"
+            android:maxLength="8"
+            android:paddingLeft="10px"/>
+    </RelativeLayout>
+
+    <include layout="@layout/add_info_1px"></include>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="90px"
@@ -252,7 +338,7 @@
                 android:layout_marginLeft="24px"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text="个人产权"
+                android:text="商品房合同"
                 android:textSize="34px" />
 
             <ImageView
@@ -292,7 +378,7 @@
     </LinearLayout>
 
     <include layout="@layout/add_info_1px"></include>
-    <LinearLayout
+   <!-- <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="90px"
         android:background="#ffffff"
@@ -331,7 +417,7 @@
                 android:src="@mipmap/next" />
         </LinearLayout>
     </LinearLayout>
-    <include layout="@layout/add_info_1px"></include>
+    <include layout="@layout/add_info_1px"></include>-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="90px"
@@ -360,7 +446,88 @@
                 android:layout_marginLeft="24px"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text="无"
+                android:text="无钥匙"
+                android:textSize="34px" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="24px"
+                android:src="@mipmap/next" />
+        </LinearLayout>
+    </LinearLayout>
+    <include layout="@layout/add_info_1px"></include>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="90px"
+        android:background="#ffffff"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="24px"
+            android:text="委托："
+            android:textColor="#9c9a9c"
+            android:textSize="34px" />
+
+        <LinearLayout
+            android:id="@+id/ll_delegate"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_delegate"
+                android:layout_width="0px"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="24px"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="网络委托"
+                android:textSize="34px" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="24px"
+                android:src="@mipmap/next" />
+        </LinearLayout>
+    </LinearLayout>
+    <include layout="@layout/add_info_1px"></include>
+    <LinearLayout
+        android:id="@+id/ll_rent_time_total"
+        android:layout_width="match_parent"
+        android:layout_height="90px"
+        android:background="#ffffff"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="24px"
+            android:text="租期："
+            android:textColor="#9c9a9c"
+            android:textSize="34px" />
+
+        <LinearLayout
+            android:id="@+id/ll_rent_time"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_rent_time"
+                android:layout_width="0px"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="24px"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="三十天内"
                 android:textSize="34px" />
 
             <ImageView

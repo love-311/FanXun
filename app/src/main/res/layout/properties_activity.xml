@@ -17,7 +17,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="32px"
-                android:text="公盘"
+                android:text="商品房"
                 android:textSize="34px"
                 android:layout_centerVertical="true"/>
             <ImageView
@@ -38,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="32px"
-                android:text="私盘"
+                android:text="个人产权"
                 android:textSize="34px"
                 android:layout_centerVertical="true"/>
             <ImageView
@@ -51,7 +51,7 @@
                 android:layout_centerVertical="true"/>
         </RelativeLayout>
         <include layout="@layout/choose_item_1px"></include>
-        <RelativeLayout
+       <!-- <RelativeLayout
             android:id="@+id/rl_3"
             android:layout_width="match_parent"
             android:layout_height="80px">
@@ -92,6 +92,6 @@
                 android:layout_marginRight="32px"
                 android:layout_centerVertical="true"/>
         </RelativeLayout>
-        <include layout="@layout/choose_item_1px"></include>
+        <include layout="@layout/choose_item_1px"></include>-->
     </LinearLayout>
 </LinearLayout>

@@ -1,6 +1,7 @@
 package com.love311.www.fanxun.fragment;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -10,8 +11,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.love311.www.fanxun.R;
 import com.love311.www.fanxun.activity.AddUsedHouseActivity;
+import com.love311.www.fanxun.activity.SearchActivity;
 import com.love311.www.fanxun.adapter.HouseSourcePagerAdapter;
 import com.love311.www.fanxun.custom.LazyLoadFragment;
 
@@ -23,6 +26,8 @@ public class HouseResourceFragment extends LazyLoadFragment {
     private UsedHouseFragment usedHouseFragment;
     private RentHouseFragment rentHouseFragment;
     private NewHouseFragment newHouseFragment;
+    private int i;
+    private int current_fragment;
 
     @Override
     public int getLayout() {
@@ -35,9 +40,13 @@ public class HouseResourceFragment extends LazyLoadFragment {
         topTab = (TabLayout) view.findViewById(R.id.top_house_tab);
         ivSort = (ImageView) view.findViewById(R.id.iv_house_sort);
         ivAdd = (ImageView) view.findViewById(R.id.iv_house_add);
+        ivSearch = (ImageView) view.findViewById(R.id.iv_house_search);
         usedHouseFragment = new UsedHouseFragment();
         rentHouseFragment = new RentHouseFragment();
         newHouseFragment = new NewHouseFragment();
+        Bundle bundle = getArguments();
+        current_fragment=bundle.getInt("type_fragment");
+        Log.d("HouseResourceFragment-","type_fragment"+current_fragment);
         ivSort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,34 +56,25 @@ public class HouseResourceFragment extends LazyLoadFragment {
         ivAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                i =mainPager.getCurrentItem();
+                Log.d("HouseResourceFragment-",i+"");
                 Intent intent = new Intent(getActivity(), AddUsedHouseActivity.class);
+                intent.putExtra("type",i);
+                startActivity(intent);
+            }
+        });
+        ivSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                i =mainPager.getCurrentItem();
+                Log.d("HouseResourceFragment-",i+"");
+                Intent intent = new Intent(getActivity(), SearchActivity.class);
+                intent.putExtra("type",i);
                 startActivity(intent);
             }
         });
         topTab.setTabGravity(TabLayout.GRAVITY_FILL);
         setTabs();
-//        topTab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-//            @Override
-//            public void onTabSelected(TabLayout.Tab tab) {
-//                if (tab == topTab.getTabAt(1)) {
-//                    mainPager.setCurrentItem(1);
-//                } else if (tab == topTab.getTabAt(2)) {
-//                    mainPager.setCurrentItem(2);
-//                }else {
-//                    mainPager.setCurrentItem(0);
-//                }
-//            }
-//
-//            @Override
-//            public void onTabUnselected(TabLayout.Tab tab) {
-//
-//            }
-//
-//            @Override
-//            public void onTabReselected(TabLayout.Tab tab) {
-//
-//            }
-//        });
     }
 
     private void showPopupWindow(View view) {
@@ -114,9 +114,9 @@ public class HouseResourceFragment extends LazyLoadFragment {
         // 我觉得这里是API的一个bug
         popupWindow.setBackgroundDrawable(getResources().getDrawable(
                 R.color.popwindow));
-
+        popupWindow.showAsDropDown(view,-view.getWidth()-60,10);
         // 设置好参数之后再show
-        popupWindow.showAsDropDown(view);
+        //popupWindow.showAsDropDown(view);
 
     }
 
@@ -127,6 +127,7 @@ public class HouseResourceFragment extends LazyLoadFragment {
         mPagerAdapter.addTab(newHouseFragment, "新房");
         mainPager.setAdapter(mPagerAdapter);
         mainPager.setOffscreenPageLimit(3);
+        mainPager.setCurrentItem(current_fragment);
         //把tabLayout和Viewpager关联起来
         topTab.setupWithViewPager(mainPager);
     }

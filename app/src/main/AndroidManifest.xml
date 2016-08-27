@@ -3,6 +3,7 @@
     package="com.love311.www.fanxun">
 
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.CALL_PHONE"></uses-permission>
     <application
         android:name=".application.MyApplication"
         android:allowBackup="true"
@@ -34,6 +35,25 @@
         <activity android:name=".activity.VillageActivity"></activity>
         <activity android:name=".activity.HouseTypeActivity"></activity>
         <activity android:name=".activity.PickPictureActivity"></activity>
+        <activity android:name=".activity.DelegateActivity"></activity>
+        <activity android:name=".activity.RentTimeActivity"></activity>
+        <activity android:name=".activity.SearchActivity"></activity>
+        <activity android:name=".activity.BrokerActivity"></activity>
+        <activity android:name=".activity.PlateActivity"></activity>
+        <activity android:name=".activity.HouseTypeSearchActivity"></activity>
+        <activity android:name=".activity.AddPassengerActivity"></activity>
+        <activity android:name=".activity.PassengerRemarkActivity"></activity>
+        <activity android:name=".activity.PassengerPropertiesActivity"></activity>
+        <activity android:name=".activity.SearchPassengerActivity"></activity>
+        <activity android:name=".activity.UsedHouseDetailActivity"
+            android:windowSoftInputMode="stateHidden"></activity>
+        <activity android:name=".activity.TypePassengerActivity"></activity>
+        <activity android:name=".activity.StatusPassengerActivity"></activity>
+        <activity android:name=".activity.DecorationPassengerActivity"></activity>
+        <activity android:name=".activity.OrientationPassengerActivity"></activity>
+        <activity android:name=".activity.StatusPassengerSearchActivity"></activity>
+        <activity android:name=".activity.PassengerSourceDetailActivity"
+            android:windowSoftInputMode="stateHidden"></activity>
     </application>
 
 </manifest>
