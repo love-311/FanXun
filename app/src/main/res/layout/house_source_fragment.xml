@@ -22,8 +22,8 @@
             app:tabIndicatorColor="#f8c269"
             app:tabIndicatorHeight="10px"
             app:tabMode="fixed"
-            app:tabSelectedTextColor="#d9d9d9"
-            app:tabTextColor="#ffffff"
+            app:tabSelectedTextColor="#ffffff"
+            app:tabTextColor="#d9d9d9"
             app:tabTextAppearance="@style/MyTabLayoutTextAppearance"></android.support.design.widget.TabLayout>
 
         <ImageView

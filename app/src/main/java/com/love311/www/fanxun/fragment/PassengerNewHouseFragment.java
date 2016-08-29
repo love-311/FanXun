@@ -1,31 +1,25 @@
 package com.love311.www.fanxun.fragment;
 
 import android.content.Intent;
-import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.jdsjlzx.interfaces.OnItemClickListener;
+import com.github.jdsjlzx.recyclerview.LRecyclerView;
+import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
+import com.github.jdsjlzx.recyclerview.ProgressStyle;
+import com.github.jdsjlzx.util.RecyclerViewStateUtils;
+import com.github.jdsjlzx.view.LoadingFooter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.love311.www.fanxun.R;
-import com.love311.www.fanxun.activity.PassengerSourceDetailActivity;
-import com.love311.www.fanxun.adapter.NewHouseRecycleViewAdapter;
+import com.love311.www.fanxun.activity.UsedHouseDetailActivity;
 import com.love311.www.fanxun.adapter.PassengerNewHouseRecycleViewAdapter;
 import com.love311.www.fanxun.application.MyApplication;
 import com.love311.www.fanxun.bean.PassengerNewHouseBean;
-import com.love311.www.fanxun.bean.PassengerRentHouseBean;
-import com.love311.www.fanxun.bean.PassengerUsedHouseBean;
 import com.love311.www.fanxun.custom.LazyLoadFragment;
-import com.love311.www.fanxun.custom.SuperSwipeRefreshLayout;
-import com.love311.www.fanxun.viewholder.MyItemClickListener;
-import com.love311.www.fanxun.viewholder.MyItemLongClickListener;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -34,33 +28,38 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 
 import okhttp3.Call;
 
 /**
  * Created by Administrator on 2016/8/11.
  */
-public class PassengerNewHouseFragment extends LazyLoadFragment implements MyItemClickListener, MyItemLongClickListener {
+public class PassengerNewHouseFragment extends LazyLoadFragment {
 
-    private RecyclerView newHouseRecycle;
-    private SuperSwipeRefreshLayout usedSwipeRefresh;
-    private ImageView imageView;
-    private TextView textView;
-    private ProgressBar progressBar;
+    private LRecyclerView newHouseRecycle;
     private PassengerNewHouseRecycleViewAdapter myAdapter;
     private LinearLayoutManager linearLayoutManager;
-    // Footer View
-    private ProgressBar footerProgressBar;
-    private TextView footerTextView;
-    private ImageView footerImageView;
     private MyApplication my;
     //数据解析
-    private String url = "admin/saleCustomer/ajax/myAndCommonSaleCustomer?search.type_eq=newHouses&page.pn=1&page.size=10";
+    private String url = "admin/saleCustomer/ajax/myAndCommonSaleCustomer?search.type_eq=newHouses";
     private static String URL;
-    private List<PassengerNewHouseBean.ResBean.ContentBean> bean;
+    private LinkedList<PassengerNewHouseBean.ResBean.ContentBean> bean;
+    private LRecyclerViewAdapter mLRecyclerViewAdapter;
+    /**
+     * 已经获取到多少条数据了
+     */
+    private static int mCurrentCounter = 0;
+    /**
+     * 服务器端一共多少条数据
+     */
+    private static final int TOTAL_COUNTER = 2340;
+    /**
+     * 每一页展示多少条数据
+     */
+    private static final int REQUEST_COUNT = 10;
+    private int oooo;
+    private boolean isRefresh = false;
     //客源新房房屋界面
     @Override
     public int getLayout() {
@@ -71,114 +70,124 @@ public class PassengerNewHouseFragment extends LazyLoadFragment implements MyIte
     public void initViews(View view) {
         my = (MyApplication) getActivity().getApplication();
         URL = my.getURL() +url;
-        usedSwipeRefresh = (SuperSwipeRefreshLayout) view.findViewById(R.id.passenger_new_swipe_refresh);
-        newHouseRecycle = (RecyclerView) view.findViewById(R.id.passenger_new_house_recycle);
+        newHouseRecycle = (LRecyclerView) view.findViewById(R.id.passenger_new_house_recycle);
         linearLayoutManager = new LinearLayoutManager(getActivity());
         newHouseRecycle.setLayoutManager(linearLayoutManager);
         myAdapter = new PassengerNewHouseRecycleViewAdapter(getActivity());
-        newHouseRecycle.setAdapter(myAdapter);
-        usedSwipeRefresh.setHeaderView(createHeaderView());// add headerView
-        usedSwipeRefresh.setFooterView(createFooterView());
-        usedSwipeRefresh.setHeaderViewBackgroundColor(0xff888888);
-        usedSwipeRefresh.setTargetScrollWithLayout(true);
-        this.myAdapter.setOnItemClickListener(this);
-        this.myAdapter.setOnItemLongClickListener(this);
-        usedSwipeRefresh
-                .setOnPullRefreshListener(new SuperSwipeRefreshLayout.OnPullRefreshListener() {
+        mLRecyclerViewAdapter = new LRecyclerViewAdapter(getActivity(), myAdapter);
+        newHouseRecycle.setAdapter(mLRecyclerViewAdapter);
+        newHouseRecycle.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader); //设置下拉刷新Progress的样式
+        newHouseRecycle.setArrowImageView(R.drawable.iconfont_downgrey);  //设置下拉刷新箭头
+        newHouseRecycle.forceToRefresh();
+        newHouseRecycle.refreshComplete();
+        mLRecyclerViewAdapter.notifyDataSetChanged();
+        newHouseRecycle.setLScrollListener(new LRecyclerView.LScrollListener() {
+            @Override
+            public void onRefresh() {
+                RecyclerViewStateUtils.setFooterViewState(newHouseRecycle, LoadingFooter.State.Normal);
+                myAdapter.clear();
+                mCurrentCounter = 0;
+                isRefresh = true;
+                oooo = 0;
+                loadData();
+            }
 
-                    @Override
-                    public void onRefresh() {
-                        //TODO 开始刷新
-                        loadData();
-                        textView.setText("正在刷新");
-                        imageView.setVisibility(View.GONE);
-                        progressBar.setVisibility(View.VISIBLE);
-                        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void onScrollUp() {
 
-                            @Override
-                            public void run() {
-                                usedSwipeRefresh.setRefreshing(false);
-                                progressBar.setVisibility(View.GONE);
-                            }
-                        }, 2000);
-                    }
+            }
 
-                    @Override
-                    public void onPullDistance(int distance) {
-                        //TODO 下拉距离
-                    }
+            @Override
+            public void onScrollDown() {
 
-                    @Override
-                    public void onPullEnable(boolean enable) {
-                        //TODO 下拉过程中，下拉的距离是否足够出发刷新
-                        textView.setText(enable ? "松开刷新" : "下拉刷新");
-                        imageView.setVisibility(View.VISIBLE);
-                        imageView.setRotation(enable ? 180 : 0);
-                    }
-                });
+            }
 
-        usedSwipeRefresh
-                .setOnPushLoadMoreListener(new SuperSwipeRefreshLayout.OnPushLoadMoreListener() {
+            @Override
+            public void onBottom() {
+                LoadingFooter.State state = RecyclerViewStateUtils.getFooterViewState(newHouseRecycle);
+                if (state == LoadingFooter.State.Loading) {
+                    Log.d("LRecycleView---", "the state is Loading, just wait..");
+                    return;
+                }
+                Log.d("mCurrentCounter==", mCurrentCounter + "");
+                Log.d("TOTAL_COUNTER==", TOTAL_COUNTER + "");
+                if (mCurrentCounter < TOTAL_COUNTER) {
+                    // loading more
+                    RecyclerViewStateUtils.setFooterViewState(getActivity(), newHouseRecycle, REQUEST_COUNT, LoadingFooter.State.Loading, null);
+                    loadData();
+                } else {
+                    //the end
+                    RecyclerViewStateUtils.setFooterViewState(getActivity(), newHouseRecycle, REQUEST_COUNT, LoadingFooter.State.TheEnd, null);
+                }
+            }
 
-                    @Override
-                    public void onLoadMore() {
-                        loadData();
-                        footerTextView.setText("正在加载...");
-                        footerImageView.setVisibility(View.GONE);
-                        footerProgressBar.setVisibility(View.VISIBLE);
-                        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void onScrolled(int i, int i1) {
 
-                            @Override
-                            public void run() {
-                                footerImageView.setVisibility(View.VISIBLE);
-                                footerProgressBar.setVisibility(View.GONE);
-                                usedSwipeRefresh.setLoadMore(false);
-                            }
-                        }, 5000);
-                    }
+            }
+        });
+        newHouseRecycle.setRefreshing(true);
 
-                    @Override
-                    public void onPushEnable(boolean enable) {
-                        footerTextView.setText(enable ? "松开加载" : "上拉加载");
-                        footerImageView.setVisibility(View.VISIBLE);
-                        footerImageView.setRotation(enable ? 0 : 180);
-                    }
+        mLRecyclerViewAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Intent intent = new Intent(getActivity(), UsedHouseDetailActivity.class);
+                Log.d("UsedHouseFragment-==", bean.size() + "");
+                intent.putExtra("id", myAdapter.getDataList().get(position).getId());
+                intent.putExtra("type_fragment", 1);
+                startActivity(intent);
+                Toast.makeText(getActivity(), "点击了" + position, Toast.LENGTH_SHORT).show();
+            }
 
-                    @Override
-                    public void onPushDistance(int distance) {
-                        // TODO Auto-generated method stub
-
-                    }
-
-                });
-        loadData();
+            @Override
+            public void onItemLongClick(View view, int position) {
+                Toast.makeText(getActivity(), "长击了" + position, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
     public void loadData() {
+        oooo = oooo + 1;
         OkHttpUtils
                 .get()
                 .url(URL)
+                .addParams("page.pn", oooo + "")
+                .addParams("page.size", 10 + "")
                 .build()
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
-                        Log.e("PassengerNewHouse","http error!");
+                        Log.e("UsedHouseFragment", "http error!");
                     }
 
                     @Override
                     public void onResponse(String response, int id) {
-                        Log.e("PassengerNewHouse",response);
+                        Log.e("UsedHouseFragment", "response");
+                        if (isRefresh) {
+                            myAdapter.clear();
+                            mCurrentCounter = 0;
+                        }
+
+                        //int currentSize = myAdapter.getItemCount();
+                        Type listType = new TypeToken<LinkedList<PassengerNewHouseBean.ResBean.ContentBean>>() {
+                        }.getType();
                         Gson gson = new Gson();
-                        Type listType = new TypeToken<LinkedList<PassengerNewHouseBean.ResBean.ContentBean>>(){}.getType();
                         try {
+                            Log.d("jsonElements--------", response);
                             JSONObject jsonObject = new JSONObject(response);
-                            JSONObject jsonObject1 =  jsonObject.getJSONObject("res");
+                            JSONObject jsonObject1 = jsonObject.getJSONObject("res");
                             JSONArray jsonArray = jsonObject1.getJSONArray("content");
-                            Log.d("jsonElements--------",jsonArray.toString());
-                            while (bean==null){
-                                bean = gson.fromJson(jsonArray.toString(), listType);
-                                myAdapter.addAll(bean, 0);
+                            Log.d("jsonElements--------", jsonArray.toString());
+                            bean = gson.fromJson(jsonArray.toString(), listType);
+                            //myAdapter.addAll(bean, 0);
+                            addItems(bean);
+                            if (isRefresh) {
+                                isRefresh = false;
+                                newHouseRecycle.refreshComplete();
+                                notifyDataSetChanged();
+                            } else {
+                                RecyclerViewStateUtils.setFooterViewState(newHouseRecycle, LoadingFooter.State.Normal);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -187,49 +196,14 @@ public class PassengerNewHouseFragment extends LazyLoadFragment implements MyIte
                 });
     }
 
-    /**
-     * create Header View
-     */
-    private View createHeaderView() {
-        //TODO 创建下拉刷新头部的View样式
-        View headerView = LayoutInflater.from(usedSwipeRefresh.getContext())
-                .inflate(R.layout.layout_head, null);
-        progressBar = (ProgressBar) headerView.findViewById(R.id.pb_view);
-        textView = (TextView) headerView.findViewById(R.id.text_view);
-        textView.setText("下拉刷新");
-        imageView = (ImageView) headerView.findViewById(R.id.image_view);
-        imageView.setVisibility(View.VISIBLE);
-        imageView.setImageResource(R.drawable.down_arrow);
-        progressBar.setVisibility(View.GONE);
-        return headerView;
+    private void addItems(LinkedList<PassengerNewHouseBean.ResBean.ContentBean> list) {
+        Log.d("addItems----", mCurrentCounter + "");
+        myAdapter.addAll(list, mCurrentCounter);
+        mCurrentCounter += list.size();
+
     }
 
-    private View createFooterView() {
-        View footerView = LayoutInflater.from(usedSwipeRefresh.getContext())
-                .inflate(R.layout.layout_footer, null);
-        footerProgressBar = (ProgressBar) footerView
-                .findViewById(R.id.footer_pb_view);
-        footerImageView = (ImageView) footerView
-                .findViewById(R.id.footer_image_view);
-        footerTextView = (TextView) footerView
-                .findViewById(R.id.footer_text_view);
-        footerProgressBar.setVisibility(View.GONE);
-        footerImageView.setVisibility(View.VISIBLE);
-        footerImageView.setImageResource(R.drawable.down_arrow);
-        footerTextView.setText("上拉加载更多...");
-        return footerView;
-    }
-    @Override
-    public void onItemClick(View view, int postion) {
-        Intent intent = new Intent(getActivity(), PassengerSourceDetailActivity.class);
-        intent.putExtra("id", bean.get(postion).getId());
-        intent.putExtra("type_fragment",2);
-        startActivity(intent);
-        Toast.makeText(getActivity(), "点击了" + postion, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onItemLongClick(View view, int postion) {
-        Toast.makeText(getActivity(), "长击了" + postion, Toast.LENGTH_SHORT).show();
+    private void notifyDataSetChanged() {
+        mLRecyclerViewAdapter.notifyDataSetChanged();
     }
 }

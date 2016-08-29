@@ -105,7 +105,6 @@ public class SearchPassengerActivity extends AutoLayoutActivity implements View.
         switch (view.getId()) {
             case R.id.ll_search:
                 //状态对应关系
-                //状态对应关系
                 if (tv2.getText().toString().equals("正常")) {
                     tvStatus_value = "noFinish";
                 } else if (tv2.getText().toString().equals("完成")) {

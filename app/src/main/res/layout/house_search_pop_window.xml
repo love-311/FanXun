@@ -6,6 +6,7 @@
     android:gravity="center"
     android:background="@mipmap/pop_window">
 <LinearLayout
+    android:id="@+id/ll_1"
     android:layout_width="match_parent"
     android:layout_height="0px"
     android:layout_weight="1"
@@ -31,6 +32,7 @@
         android:layout_marginLeft="10px"
         android:layout_marginRight="10px"/>
     <LinearLayout
+        android:id="@+id/ll_2"
         android:layout_width="match_parent"
         android:layout_height="0px"
         android:layout_weight="1"
@@ -55,6 +57,7 @@
         android:layout_marginLeft="10px"
         android:layout_marginRight="10px"/>
     <LinearLayout
+        android:id="@+id/ll_3"
         android:layout_width="match_parent"
         android:layout_height="0px"
         android:layout_weight="1"
@@ -79,6 +82,7 @@
         android:layout_marginLeft="10px"
         android:layout_marginRight="10px"/>
     <LinearLayout
+        android:id="@+id/ll_4"
         android:layout_width="match_parent"
         android:layout_height="0px"
         android:layout_weight="1"

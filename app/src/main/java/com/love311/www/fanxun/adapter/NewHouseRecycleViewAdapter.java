@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.love311.www.fanxun.R;
 import com.love311.www.fanxun.bean.NewHouseBean;
+import com.love311.www.fanxun.bean.RentHouseBean;
 import com.love311.www.fanxun.viewholder.BaseViewHolder;
 import com.love311.www.fanxun.viewholder.MyItemClickListener;
 import com.love311.www.fanxun.viewholder.MyItemLongClickListener;
@@ -15,18 +16,19 @@ import com.love311.www.fanxun.viewholder.NewHouseViewHolder;
 import com.love311.www.fanxun.viewholder.UsedHouseViewHolder;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 //新房界面recycleView数据适配器
 public class NewHouseRecycleViewAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
 	private Context mContext;
-	private List<NewHouseBean.ResBean.ContentBean> mDataSet;
+	private LinkedList<NewHouseBean.ResBean.ContentBean> mDataSet;
 	private MyItemClickListener mItemClickListener;
 	private MyItemLongClickListener mItemLongClickListener;
 	public NewHouseRecycleViewAdapter(Context context) {
 		mContext = context;
-		mDataSet = new ArrayList<>();
+		mDataSet = new LinkedList<>();
 	}
 
 	@Override
@@ -48,6 +50,9 @@ public class NewHouseRecycleViewAdapter extends RecyclerView.Adapter<BaseViewHol
 		return mDataSet.size();
 	}
 
+	public LinkedList<NewHouseBean.ResBean.ContentBean> getDataList() {
+		return mDataSet;
+	}
 	/**
 	 * 从position开始删除，删除
 	 * 
@@ -77,6 +82,11 @@ public class NewHouseRecycleViewAdapter extends RecyclerView.Adapter<BaseViewHol
 			mDataSet.addAll(position, list);
 			notifyItemRangeInserted(position, list.size());
 		}
+	}
+
+	public void clear() {
+		mDataSet.clear();
+		notifyDataSetChanged();
 	}
 	/**
 	 * 设置Item点击监听

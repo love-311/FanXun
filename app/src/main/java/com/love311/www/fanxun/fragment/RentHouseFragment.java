@@ -1,28 +1,27 @@
 package com.love311.www.fanxun.fragment;
 
 import android.content.Intent;
-import android.os.Handler;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.jdsjlzx.interfaces.OnItemClickListener;
+import com.github.jdsjlzx.recyclerview.LRecyclerView;
+import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
+import com.github.jdsjlzx.recyclerview.ProgressStyle;
+import com.github.jdsjlzx.util.RecyclerViewStateUtils;
+import com.github.jdsjlzx.view.LoadingFooter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.love311.www.fanxun.R;
 import com.love311.www.fanxun.activity.UsedHouseDetailActivity;
 import com.love311.www.fanxun.adapter.RentHouseRecycleViewAdapter;
-import com.love311.www.fanxun.adapter.UsedHouseRecycleViewAdapter;
 import com.love311.www.fanxun.application.MyApplication;
 import com.love311.www.fanxun.bean.RentHouseBean;
 import com.love311.www.fanxun.bean.UsedHouseBean;
 import com.love311.www.fanxun.custom.LazyLoadFragment;
-import com.love311.www.fanxun.custom.SuperSwipeRefreshLayout;
 import com.love311.www.fanxun.viewholder.MyItemClickListener;
 import com.love311.www.fanxun.viewholder.MyItemLongClickListener;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -33,7 +32,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -42,24 +40,37 @@ import okhttp3.Call;
 /**
  * Created by Administrator on 2016/8/11.
  */
-public class RentHouseFragment extends LazyLoadFragment implements MyItemClickListener, MyItemLongClickListener {
+public class RentHouseFragment extends LazyLoadFragment{
 
-    private RecyclerView rentHouseRecycle;
-    private SuperSwipeRefreshLayout usedSwipeRefresh;
-    private ImageView imageView;
-    private TextView textView;
-    private ProgressBar progressBar;
+    private LRecyclerView rentHouseRecycle;
     private RentHouseRecycleViewAdapter myAdapter;
     private LinearLayoutManager linearLayoutManager;
-    // Footer View
-    private ProgressBar footerProgressBar;
-    private TextView footerTextView;
-    private ImageView footerImageView;
     //数据解析
-    private String url = "admin/houses/getRentHouses?search.status_eq=pass&page.pn=1&page.size=10";
+    private String url = "admin/houses/getRentHouses?search.status_eq=pass";
     private MyApplication my;
     private static String URL;
-    private List<RentHouseBean.ResBean.ContentBean> bean;
+    private LinkedList<RentHouseBean.ResBean.ContentBean> bean;
+    private LRecyclerViewAdapter mLRecyclerViewAdapter;
+    /**
+     * 已经获取到多少条数据了
+     */
+    private static int mCurrentCounter = 0;
+    /**
+     * 服务器端一共多少条数据
+     */
+    private static int TOTAL_COUNTER = 0;
+    /**
+     * 每一页展示多少条数据
+     */
+    private static final int REQUEST_COUNT = 10;
+    private int oooo;
+    private boolean isRefresh = false;
+    //搜索传递过来的数据
+    private int current_fragment;
+    private int total_numbers;
+    private String search_url;
+    private int from;
+    private RentHouseBean.ResBean bean1;
     //租房房屋界面
     @Override
     public int getLayout() {
@@ -68,117 +79,154 @@ public class RentHouseFragment extends LazyLoadFragment implements MyItemClickLi
 
     @Override
     public void initViews(View view) {
+        Bundle bundle = getArguments();
+        from = 0;
+        if (!bundle.equals(null)){
+            current_fragment = bundle.getInt("type_fragment");
+            total_numbers = bundle.getInt("total_numbers");
+            search_url = bundle.getString("search_url");
+            from = bundle.getInt("from");
+            TOTAL_COUNTER = total_numbers;
+        }
+        Log.d("RentHouseFragment-=", "current_fragment" + current_fragment + "total_numbers" + total_numbers + "search_url" + search_url+"from"+from);
+        oooo = 0;
         my = (MyApplication) getActivity().getApplication();
         URL = my.getURL() +url;
-        usedSwipeRefresh = (SuperSwipeRefreshLayout) view.findViewById(R.id.rent_swipe_refresh);
-        rentHouseRecycle = (RecyclerView) view.findViewById(R.id.rent_house_recycle);
+        rentHouseRecycle = (LRecyclerView) view.findViewById(R.id.rent_house_recycle);
         linearLayoutManager = new LinearLayoutManager(getActivity());
         rentHouseRecycle.setLayoutManager(linearLayoutManager);
         myAdapter = new RentHouseRecycleViewAdapter(getActivity());
-        rentHouseRecycle.setAdapter(myAdapter);
-        usedSwipeRefresh.setHeaderView(createHeaderView());// add headerView
-        usedSwipeRefresh.setFooterView(createFooterView());
-        usedSwipeRefresh.setHeaderViewBackgroundColor(0xff888888);
-        usedSwipeRefresh.setTargetScrollWithLayout(true);
-        this.myAdapter.setOnItemClickListener(this);
-        this.myAdapter.setOnItemLongClickListener(this);
-        Log.d("RentHouseFragment--","租房initViews执行了");
-        usedSwipeRefresh
-                .setOnPullRefreshListener(new SuperSwipeRefreshLayout.OnPullRefreshListener() {
+        mLRecyclerViewAdapter = new LRecyclerViewAdapter(getActivity(), myAdapter);
+        rentHouseRecycle.setAdapter(mLRecyclerViewAdapter);
+        rentHouseRecycle.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader); //设置下拉刷新Progress的样式
+        rentHouseRecycle.setArrowImageView(R.drawable.iconfont_downgrey);  //设置下拉刷新箭头
+//        rentHouseRecycle.forceToRefresh();
+//        rentHouseRecycle.refreshComplete();
+//        mLRecyclerViewAdapter.notifyDataSetChanged();
+        rentHouseRecycle.setLScrollListener(new LRecyclerView.LScrollListener() {
+            @Override
+            public void onRefresh() {
+                RecyclerViewStateUtils.setFooterViewState(rentHouseRecycle, LoadingFooter.State.Normal);
+                myAdapter.clear();
+                mCurrentCounter = 0;
+                isRefresh = true;
+                oooo = 0;
+                if (from == 2) {
+                    loadSearchData();
+                    Log.d("loadSearchData", "loadSearchData()执行了");
+                } else {
+                    loadData();
+                    Log.d("loadData", "loadData()执行了");
+                }
+            }
 
-                    @Override
-                    public void onRefresh() {
-                        //TODO 开始刷新
+            @Override
+            public void onScrollUp() {
+
+            }
+
+            @Override
+            public void onScrollDown() {
+
+            }
+
+            @Override
+            public void onBottom() {
+                LoadingFooter.State state = RecyclerViewStateUtils.getFooterViewState(rentHouseRecycle);
+                if (state == LoadingFooter.State.Loading) {
+                    Log.d("LRecycleView---", "the state is Loading, just wait..");
+                    return;
+                }
+                Log.d("mCurrentCounter==", mCurrentCounter + "");
+                Log.d("TOTAL_COUNTER==", TOTAL_COUNTER + "");
+                if (mCurrentCounter < TOTAL_COUNTER) {
+                    // loading more
+                    RecyclerViewStateUtils.setFooterViewState(getActivity(), rentHouseRecycle, REQUEST_COUNT, LoadingFooter.State.Loading, null);
+                    if (from == 2) {
+                        loadSearchData();
+                        Log.d("loadSearchData", "loadSearchData()执行了");
+                    } else {
                         loadData();
-                        textView.setText("正在刷新");
-                        imageView.setVisibility(View.GONE);
-                        progressBar.setVisibility(View.VISIBLE);
-                        new Handler().postDelayed(new Runnable() {
-
-                            @Override
-                            public void run() {
-                                usedSwipeRefresh.setRefreshing(false);
-                                progressBar.setVisibility(View.GONE);
-                            }
-                        }, 2000);
+                        Log.d("loadData", "loadData()执行了");
                     }
+                } else {
+                    //the end
+                    RecyclerViewStateUtils.setFooterViewState(getActivity(), rentHouseRecycle, REQUEST_COUNT, LoadingFooter.State.TheEnd, null);
+                }
+            }
 
-                    @Override
-                    public void onPullDistance(int distance) {
-                        //TODO 下拉距离
-                    }
+            @Override
+            public void onScrolled(int i, int i1) {
 
-                    @Override
-                    public void onPullEnable(boolean enable) {
-                        //TODO 下拉过程中，下拉的距离是否足够出发刷新
-                        textView.setText(enable ? "松开刷新" : "下拉刷新");
-                        imageView.setVisibility(View.VISIBLE);
-                        imageView.setRotation(enable ? 180 : 0);
-                    }
-                });
+            }
+        });
+        rentHouseRecycle.setRefreshing(true);
 
-        usedSwipeRefresh
-                .setOnPushLoadMoreListener(new SuperSwipeRefreshLayout.OnPushLoadMoreListener() {
+        mLRecyclerViewAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Intent intent = new Intent(getActivity(), UsedHouseDetailActivity.class);
+                Log.d("UsedHouseFragment-==",bean.size()+"");
+                intent.putExtra("id", myAdapter.getDataList().get(position).getId());
+                intent.putExtra("type_fragment", 1);
+                startActivity(intent);
+                Toast.makeText(getActivity(), "点击了" + position, Toast.LENGTH_SHORT).show();
+            }
 
-                    @Override
-                    public void onLoadMore() {
-                        loadData();
-                        footerTextView.setText("正在加载...");
-                        footerImageView.setVisibility(View.GONE);
-                        footerProgressBar.setVisibility(View.VISIBLE);
-                        new Handler().postDelayed(new Runnable() {
-
-                            @Override
-                            public void run() {
-                                footerImageView.setVisibility(View.VISIBLE);
-                                footerProgressBar.setVisibility(View.GONE);
-                                usedSwipeRefresh.setLoadMore(false);
-                            }
-                        }, 5000);
-                    }
-
-                    @Override
-                    public void onPushEnable(boolean enable) {
-                        footerTextView.setText(enable ? "松开加载" : "上拉加载");
-                        footerImageView.setVisibility(View.VISIBLE);
-                        footerImageView.setRotation(enable ? 0 : 180);
-                    }
-
-                    @Override
-                    public void onPushDistance(int distance) {
-                        // TODO Auto-generated method stub
-
-                    }
-
-                });
-        loadData();
+            @Override
+            public void onItemLongClick(View view, int position) {
+                Toast.makeText(getActivity(), "长击了" + position, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
     public void loadData() {
+        oooo = oooo+1;
         OkHttpUtils
                 .get()
                 .url(URL)
+                .addParams("page.pn", oooo + "")
+                .addParams("page.size", 10 + "")
                 .build()
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
-                        Log.e("RentHouseFragment","http error!");
+                        Log.e("UsedHouseFragment", "http error!");
                     }
 
                     @Override
                     public void onResponse(String response, int id) {
-                        Log.e("RentHouseFragment",response);
-                        Type listType = new TypeToken<LinkedList<RentHouseBean.ResBean.ContentBean>>(){}.getType();
+                        Log.e("UsedHouseFragment", "response");
+                        if (isRefresh) {
+                            myAdapter.clear();
+                            mCurrentCounter = 0;
+                        }
+
+                        //int currentSize = myAdapter.getItemCount();
+                        Type listType = new TypeToken<LinkedList<RentHouseBean.ResBean.ContentBean>>() {
+                        }.getType();
+                        Type listType1 = new TypeToken<RentHouseBean.ResBean>() {
+                        }.getType();
                         Gson gson = new Gson();
                         try {
+                            Log.d("load_test----","RentHouseFragment加载数据");
+                            //Log.d("jsonElements--------", response);
                             JSONObject jsonObject = new JSONObject(response);
-                            JSONObject jsonObject1 =  jsonObject.getJSONObject("res");
+                            JSONObject jsonObject1 = jsonObject.getJSONObject("res");
                             JSONArray jsonArray = jsonObject1.getJSONArray("content");
-                            Log.d("jsonElements--------",jsonArray.toString());
-                            while (bean==null){
-                                bean = gson.fromJson(jsonArray.toString(), listType);
-                                myAdapter.addAll(bean, 0);
+                            //Log.d("jsonElements--------", jsonArray.toString());
+                            bean1 = gson.fromJson(jsonObject1.toString(),listType1);
+                            bean = gson.fromJson(jsonArray.toString(), listType);
+                            TOTAL_COUNTER = bean1.getTotalElements();
+                            //myAdapter.addAll(bean, 0);
+                            addItems(bean);
+                            if (isRefresh) {
+                                isRefresh = false;
+                                rentHouseRecycle.refreshComplete();
+                                notifyDataSetChanged();
+                            } else {
+                                RecyclerViewStateUtils.setFooterViewState(rentHouseRecycle, LoadingFooter.State.Normal);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -186,50 +234,64 @@ public class RentHouseFragment extends LazyLoadFragment implements MyItemClickLi
                     }
                 });
     }
-    /**
-     * create Header View
-     */
-    private View createHeaderView() {
-        //TODO 创建下拉刷新头部的View样式
-        View headerView = LayoutInflater.from(usedSwipeRefresh.getContext())
-                .inflate(R.layout.layout_head, null);
-        progressBar = (ProgressBar) headerView.findViewById(R.id.pb_view);
-        textView = (TextView) headerView.findViewById(R.id.text_view);
-        textView.setText("下拉刷新");
-        imageView = (ImageView) headerView.findViewById(R.id.image_view);
-        imageView.setVisibility(View.VISIBLE);
-        imageView.setImageResource(R.drawable.down_arrow);
-        progressBar.setVisibility(View.GONE);
-        return headerView;
+
+
+    public void loadSearchData() {
+        oooo = oooo + 1;
+        OkHttpUtils
+                .get()
+                .url(search_url)
+                .addParams("page.pn", oooo + "")
+                .addParams("page.size", 10 + "")
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        Log.e("UsedHouseFragment", "http error!");
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        Log.e("UsedHouseFragment", "response");
+                        if (isRefresh) {
+                            myAdapter.clear();
+                            mCurrentCounter = 0;
+                        }
+
+                        //int currentSize = myAdapter.getItemCount();
+                        Type listType = new TypeToken<LinkedList<RentHouseBean.ResBean.ContentBean>>() {
+                        }.getType();
+                        Gson gson = new Gson();
+                        try {
+                            Log.d("jsonElements--------", response);
+                            JSONObject jsonObject = new JSONObject(response);
+                            JSONObject jsonObject1 = jsonObject.getJSONObject("res");
+                            JSONArray jsonArray = jsonObject1.getJSONArray("content");
+                            Log.d("jsonElements--------", jsonArray.toString());
+                            bean = gson.fromJson(jsonArray.toString(), listType);
+                            //myAdapter.addAll(bean, 0);
+                            addItems(bean);
+                            if (isRefresh) {
+                                isRefresh = false;
+                                rentHouseRecycle.refreshComplete();
+                                notifyDataSetChanged();
+                            } else {
+                                RecyclerViewStateUtils.setFooterViewState(rentHouseRecycle, LoadingFooter.State.Normal);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
+    private void addItems(LinkedList<RentHouseBean.ResBean.ContentBean> list) {
+        Log.d("addItems----", mCurrentCounter + "");
+        myAdapter.addAll(list, mCurrentCounter);
+        mCurrentCounter += list.size();
+
     }
 
-    private View createFooterView() {
-        View footerView = LayoutInflater.from(usedSwipeRefresh.getContext())
-                .inflate(R.layout.layout_footer, null);
-        footerProgressBar = (ProgressBar) footerView
-                .findViewById(R.id.footer_pb_view);
-        footerImageView = (ImageView) footerView
-                .findViewById(R.id.footer_image_view);
-        footerTextView = (TextView) footerView
-                .findViewById(R.id.footer_text_view);
-        footerProgressBar.setVisibility(View.GONE);
-        footerImageView.setVisibility(View.VISIBLE);
-        footerImageView.setImageResource(R.drawable.down_arrow);
-        footerTextView.setText("上拉加载更多...");
-        return footerView;
-    }
-
-    @Override
-    public void onItemClick(View view, int postion) {
-        Intent intent = new Intent(getActivity(), UsedHouseDetailActivity.class);
-        intent.putExtra("id", bean.get(postion).getId());
-        intent.putExtra("type_fragment",1);
-        startActivity(intent);
-        Toast.makeText(getActivity(), "点击了" + postion, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onItemLongClick(View view, int postion) {
-        Toast.makeText(getActivity(), "长击了" + postion, Toast.LENGTH_SHORT).show();
+    private void notifyDataSetChanged() {
+        mLRecyclerViewAdapter.notifyDataSetChanged();
     }
 }

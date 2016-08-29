@@ -1,5 +1,6 @@
 package com.love311.www.fanxun.activity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -29,15 +30,35 @@ public class MainActivity extends AutoLayoutActivity {
     private TabLayout.Tab mHouseSource;
     private TabLayout.Tab mPassengerSource;
     private TabLayout.Tab mMy;
-    private int type_fragment;
     private PassengerResourceFragment passengerResourceFragment;
     private MyFragment myFragment;
     private HouseResourceFragment houseResourceFragment;
+    //搜索传递数据
+    private int type_fragment;
+    private int total_numbers;
+    private String search_url;
+    private int from;
+    //退出程序，清空搜索数据
+    private SharedPreferences clearUsedSharedPreferences;
+    private SharedPreferences.Editor usedEditor;
+    private SharedPreferences clearRentSharedPreferences;
+    private SharedPreferences.Editor rentEditor;
+    private SharedPreferences clearNewSharedPreferences;
+    private SharedPreferences.Editor newEditor;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
+        clearUsedSharedPreferences =getSharedPreferences("search_used_status",MODE_PRIVATE);
+        usedEditor = clearUsedSharedPreferences.edit();
+        clearRentSharedPreferences =getSharedPreferences("search_rent_status",MODE_PRIVATE);
+        rentEditor = clearRentSharedPreferences.edit();
+        clearNewSharedPreferences =getSharedPreferences("search_new_status",MODE_PRIVATE);
+        newEditor = clearNewSharedPreferences.edit();
         type_fragment = getIntent().getIntExtra("type_fragment",0);
+        total_numbers = getIntent().getIntExtra("total_numbers",0);
+        search_url = getIntent().getStringExtra("search_url");
+        from = getIntent().getIntExtra("from",0);
         initViews();
         initEvents();
     }
@@ -66,6 +87,9 @@ public class MainActivity extends AutoLayoutActivity {
                 }else {
                     Bundle bundle = new Bundle();
                     bundle.putInt("type_fragment",type_fragment);
+                    bundle.putInt("total_numbers",total_numbers);
+                    bundle.putString("search_url",search_url);
+                    bundle.putInt("from",from);
                     houseResourceFragment.setArguments(bundle);
                     return houseResourceFragment;
                 }
@@ -153,6 +177,9 @@ public class MainActivity extends AutoLayoutActivity {
             }, 2000); // 如果2秒钟内没有按下返回键，则启动定时器取消掉刚才执行的任务
 
         } else {
+            usedEditor.clear().commit();
+            rentEditor.clear().commit();
+            newEditor.clear().commit();
             finish();
             System.exit(0);
         }

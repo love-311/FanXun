@@ -3,14 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <com.love311.www.fanxun.custom.SuperSwipeRefreshLayout
-        android:id="@+id/passenger_rent_swipe_refresh"
+
+    <com.github.jdsjlzx.recyclerview.LRecyclerView
+        android:id="@+id/passenger_rent_house_recycle"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/passenger_rent_house_recycle"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
-    </com.love311.www.fanxun.custom.SuperSwipeRefreshLayout>
+    </com.github.jdsjlzx.recyclerview.LRecyclerView>
 </LinearLayout>

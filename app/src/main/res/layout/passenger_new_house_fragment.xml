@@ -3,14 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <com.love311.www.fanxun.custom.SuperSwipeRefreshLayout
-        android:id="@+id/passenger_new_swipe_refresh"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
+        <com.github.jdsjlzx.recyclerview.LRecyclerView
             android:id="@+id/passenger_new_house_recycle"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
-    </com.love311.www.fanxun.custom.SuperSwipeRefreshLayout>
+            android:layout_height="match_parent"></com.github.jdsjlzx.recyclerview.LRecyclerView>
 </LinearLayout>
