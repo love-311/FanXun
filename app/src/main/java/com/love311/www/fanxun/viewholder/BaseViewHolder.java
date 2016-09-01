@@ -1,5 +1,6 @@
 package com.love311.www.fanxun.viewholder;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 

@@ -32,9 +32,9 @@ public class PassengerUsedHouseViewHolder extends BaseViewHolder implements View
     public void bindView(List<PassengerUsedHouseBean.ResBean.ContentBean> passengerUsedHouseData, int position) {
         passenger_name.setText(passengerUsedHouseData.get(position).getName());
         tv_renovation_info.setText(passengerUsedHouseData.get(position).getRenovationInfo()+"/");
-        tv_low_price.setText(passengerUsedHouseData.get(position).getLowPrice()+"万-");
+        tv_low_price.setText(passengerUsedHouseData.get(position).getLowPrice()+"-");
         tv_tall_price.setText(passengerUsedHouseData.get(position).getTallPrice()+"万/");
-        tv_area.setText(passengerUsedHouseData.get(position).getProportion()+"");
+        tv_area.setText(passengerUsedHouseData.get(position).getProportion()+"㎡");
         tv_date.setText(passengerUsedHouseData.get(position).getCreateDate());
     }
 

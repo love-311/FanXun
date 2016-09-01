@@ -32,8 +32,8 @@ public class PassengerRentHouseViewHolder extends BaseViewHolder  implements Vie
         passenger_name.setText(passengerRentHouseData.get(position).getName());
         tv_renovation_info.setText(passengerRentHouseData.get(position).getRenovationInfo()+"/");
         tv_low_price.setText(passengerRentHouseData.get(position).getLowPrice()+"-");
-        tv_tall_price.setText(passengerRentHouseData.get(position).getTallPrice()+"/");
-        tv_area.setText(passengerRentHouseData.get(position).getProportion());
+        tv_tall_price.setText(passengerRentHouseData.get(position).getTallPrice()+"万/");
+        tv_area.setText(passengerRentHouseData.get(position).getProportion()+"㎡");
         tv_date.setText(passengerRentHouseData.get(position).getCreateDate());
     }
     @Override

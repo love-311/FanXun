@@ -33,8 +33,8 @@ public class PassengerNewHouseViewHolder extends BaseViewHolder  implements View
         passenger_name.setText(passengerNewHouseData.get(position).getName());
         tv_renovation_info.setText(passengerNewHouseData.get(position).getRenovationInfo()+"/");
         tv_low_price.setText(passengerNewHouseData.get(position).getLowPrice()+"-");
-        tv_tall_price.setText(passengerNewHouseData.get(position).getTallPrice()+"/");
-        tv_area.setText(passengerNewHouseData.get(position).getProportion());
+        tv_tall_price.setText(passengerNewHouseData.get(position).getTallPrice()+"万/");
+        tv_area.setText(passengerNewHouseData.get(position).getProportion()+"㎡");
         tv_date.setText(passengerNewHouseData.get(position).getCreateDate());
     }
     @Override

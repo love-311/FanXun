@@ -172,8 +172,6 @@ public class PassengerSourceDetailActivity extends AutoLayoutActivity {
                 });
     }
     private void initData() {
-        et1.setText(bean.getPhone());
-        et2.setText(bean.getName());
         if (type_fragment==0 || type_fragment ==2){
             et3.setText(bean.getAddress());
         }

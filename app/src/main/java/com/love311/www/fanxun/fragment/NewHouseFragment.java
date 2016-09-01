@@ -1,7 +1,8 @@
 package com.love311.www.fanxun.fragment;
 
+import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
+import android.content.SharedPreferences;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
@@ -20,7 +21,6 @@ import com.love311.www.fanxun.activity.UsedHouseDetailActivity;
 import com.love311.www.fanxun.adapter.NewHouseRecycleViewAdapter;
 import com.love311.www.fanxun.application.MyApplication;
 import com.love311.www.fanxun.bean.NewHouseBean;
-import com.love311.www.fanxun.bean.UsedHouseBean;
 import com.love311.www.fanxun.custom.LazyLoadFragment;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -55,7 +55,7 @@ public class NewHouseFragment extends LazyLoadFragment {
     /**
      * 服务器端一共多少条数据
      */
-    private static  int TOTAL_COUNTER = 0;
+    private static int TOTAL_COUNTER = 0;
     /**
      * 每一页展示多少条数据
      */
@@ -68,6 +68,11 @@ public class NewHouseFragment extends LazyLoadFragment {
     private String search_url;
     private int from;
     private NewHouseBean.ResBean bean1;
+    //记录列表状态
+    private SharedPreferences newSharedPreferences;
+    private SharedPreferences.Editor editor;
+    private SharedPreferences getNewSharedPreferences;
+
     //新房房屋界面
     @Override
     public int getLayout() {
@@ -76,13 +81,41 @@ public class NewHouseFragment extends LazyLoadFragment {
 
     @Override
     public void initViews(View view) {
-        Bundle bundle = getArguments();
+        newSharedPreferences = getActivity().getSharedPreferences("new", Context.MODE_PRIVATE);
+        editor = newSharedPreferences.edit();
+        getNewSharedPreferences = getActivity().getSharedPreferences("new", Context.MODE_PRIVATE);
         from = 0;
-        if (!bundle.equals(null)){
-            current_fragment = bundle.getInt("type_fragment");
-            total_numbers = bundle.getInt("total_numbers");
-            search_url = bundle.getString("search_url");
-            from = bundle.getInt("from");
+        if (getActivity().getIntent().getIntExtra("from", -1) == 3) {
+            if (getActivity().getIntent().getIntExtra("sort_status", 0) == 3) {
+                Log.d("search_url_sort=", search_url);
+                search_url = getActivity().getIntent().getStringExtra("search_url_sort");
+                current_fragment = getActivity().getIntent().getIntExtra("type_fragment_sort", 0);
+                from = getActivity().getIntent().getIntExtra("from_sort", 0);
+                total_numbers = getActivity().getIntent().getIntExtra("total_numbers_sort", 0);
+                editor.clear().commit();
+                editor.putString("search_url", search_url);
+                editor.putInt("total_numbers", total_numbers);
+                editor.putInt("current_fragment", current_fragment);
+                editor.putInt("from", from);
+                editor.commit();
+            } else {
+                search_url = getActivity().getIntent().getStringExtra("search_url");
+                total_numbers = getActivity().getIntent().getIntExtra("total_numbers", 0);
+                current_fragment = getActivity().getIntent().getIntExtra("type_fragment", 0);
+                from = getActivity().getIntent().getIntExtra("from", 0);
+                TOTAL_COUNTER = total_numbers;
+                editor.clear().commit();
+                editor.putString("search_url", search_url);
+                editor.putInt("total_numbers", total_numbers);
+                editor.putInt("current_fragment", current_fragment);
+                editor.putInt("from", from);
+                editor.commit();
+            }
+        } else {
+            search_url = getNewSharedPreferences.getString("search_url", "");
+            total_numbers = getNewSharedPreferences.getInt("total_numbers", 0);
+            current_fragment = getNewSharedPreferences.getInt("current_fragment", 0);
+            from = getNewSharedPreferences.getInt("from", 0);
             TOTAL_COUNTER = total_numbers;
         }
         oooo = 0;
@@ -107,7 +140,21 @@ public class NewHouseFragment extends LazyLoadFragment {
                 mCurrentCounter = 0;
                 isRefresh = true;
                 oooo = 0;
-                if (from == 1) {
+                if (getActivity().getIntent().getIntExtra("sort_status", 0) == 3) {
+                    Log.d("loadData22", search_url);
+                    search_url = getActivity().getIntent().getStringExtra("search_url_sort");
+                    current_fragment = getActivity().getIntent().getIntExtra("type_fragment_sort", 0);
+                    from = getActivity().getIntent().getIntExtra("from_sort", 0);
+                    total_numbers = getActivity().getIntent().getIntExtra("total_numbers_sort", 0);
+                    editor.clear().commit();
+                    editor.putString("search_url", search_url);
+                    editor.putInt("total_numbers", total_numbers);
+                    editor.putInt("current_fragment", current_fragment);
+                    editor.putInt("from", from);
+                    editor.commit();
+                    loadSortData();
+                    Log.d("loadSortData", "loadSortData()执行了");
+                } else if (from == 3) {
                     loadSearchData();
                     Log.d("loadSearchData", "loadSearchData()执行了");
                 } else {
@@ -138,7 +185,28 @@ public class NewHouseFragment extends LazyLoadFragment {
                 if (mCurrentCounter < TOTAL_COUNTER) {
                     // loading more
                     RecyclerViewStateUtils.setFooterViewState(getActivity(), newHouseRecycle, REQUEST_COUNT, LoadingFooter.State.Loading, null);
-                    loadData();
+
+                    if (getActivity().getIntent().getIntExtra("sort_status", 0) == 3) {
+                        Log.d("loadData22", search_url);
+                        search_url = getActivity().getIntent().getStringExtra("search_url_sort");
+                        current_fragment = getActivity().getIntent().getIntExtra("type_fragment_sort", 0);
+                        from = getActivity().getIntent().getIntExtra("from_sort", 0);
+                        total_numbers = getActivity().getIntent().getIntExtra("total_numbers_sort", 0);
+                        editor.clear().commit();
+                        editor.putString("search_url", search_url);
+                        editor.putInt("total_numbers", total_numbers);
+                        editor.putInt("current_fragment", current_fragment);
+                        editor.putInt("from", from);
+                        editor.commit();
+                        loadSortData();
+                        Log.d("loadSortData", "loadSortData()执行了");
+                    } else if (from == 3) {
+                        loadSearchData();
+                        Log.d("loadSearchData", "loadSearchData()执行了");
+                    } else {
+                        loadData();
+                        Log.d("loadData", "loadData()执行了");
+                    }
                 } else {
                     //the end
                     RecyclerViewStateUtils.setFooterViewState(getActivity(), newHouseRecycle, REQUEST_COUNT, LoadingFooter.State.TheEnd, null);
@@ -160,12 +228,10 @@ public class NewHouseFragment extends LazyLoadFragment {
                 intent.putExtra("id", myAdapter.getDataList().get(position).getId());
                 intent.putExtra("type_fragment", 1);
                 startActivity(intent);
-                Toast.makeText(getActivity(), "点击了" + position, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onItemLongClick(View view, int position) {
-                Toast.makeText(getActivity(), "长击了" + position, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -200,13 +266,13 @@ public class NewHouseFragment extends LazyLoadFragment {
                         }.getType();
                         Gson gson = new Gson();
                         try {
-                            Log.d("load_test----","NewHouseFragment加载数据");
+                            Log.d("load_test----", "NewHouseFragment加载数据");
                             //Log.d("jsonElements--------", response);
                             JSONObject jsonObject = new JSONObject(response);
                             JSONObject jsonObject1 = jsonObject.getJSONObject("res");
                             JSONArray jsonArray = jsonObject1.getJSONArray("content");
                             //Log.d("jsonElements--------", jsonArray.toString());
-                            bean1 = gson.fromJson(jsonObject1.toString(),listType1);
+                            bean1 = gson.fromJson(jsonObject1.toString(), listType1);
                             bean = gson.fromJson(jsonArray.toString(), listType);
                             //myAdapter.addAll(bean, 0);
                             TOTAL_COUNTER = bean1.getTotalElements();
@@ -273,6 +339,54 @@ public class NewHouseFragment extends LazyLoadFragment {
                     }
                 });
     }
+
+    public void loadSortData() {
+        oooo = oooo + 1;
+        OkHttpUtils
+                .get()
+                .url(search_url)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        Log.e("NewHouseFragment", "http error!");
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        Log.e("NewHouseFragment", "response");
+                        if (isRefresh) {
+                            myAdapter.clear();
+                            mCurrentCounter = 0;
+                        }
+
+                        //int currentSize = myAdapter.getItemCount();
+                        Type listType = new TypeToken<LinkedList<NewHouseBean.ResBean.ContentBean>>() {
+                        }.getType();
+                        Gson gson = new Gson();
+                        try {
+                            Log.d("jsonElements--------", response);
+                            JSONObject jsonObject = new JSONObject(response);
+                            JSONObject jsonObject1 = jsonObject.getJSONObject("res");
+                            JSONArray jsonArray = jsonObject1.getJSONArray("content");
+                            Log.d("jsonElements--------", jsonArray.toString());
+                            bean = gson.fromJson(jsonArray.toString(), listType);
+                            //myAdapter.addAll(bean, 0);
+                            addItems(bean);
+                            if (isRefresh) {
+                                isRefresh = false;
+                                newHouseRecycle.refreshComplete();
+                                notifyDataSetChanged();
+                            } else {
+                                RecyclerViewStateUtils.setFooterViewState(newHouseRecycle, LoadingFooter.State.Normal);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
+
     private void addItems(LinkedList<NewHouseBean.ResBean.ContentBean> list) {
         Log.d("addItems----", mCurrentCounter + "");
         myAdapter.addAll(list, mCurrentCounter);

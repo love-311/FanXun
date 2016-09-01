@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@mipmap/pop_window">
+    android:background="@mipmap/search_popwindow">
 <LinearLayout
     android:id="@+id/ll_1"
     android:layout_width="match_parent"
@@ -17,7 +17,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/money"/>
+        android:src="@mipmap/used_house"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/money"/>
+            android:src="@mipmap/rent_house"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -67,7 +67,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/time"/>
+            android:src="@mipmap/new_house"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

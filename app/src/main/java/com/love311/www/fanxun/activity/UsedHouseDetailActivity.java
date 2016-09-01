@@ -17,8 +17,10 @@ import com.bumptech.glide.load.resource.bitmap.BitmapEncoder;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.love311.www.fanxun.R;
+import com.love311.www.fanxun.adapter.SeePicRecycleViewAdapter;
 import com.love311.www.fanxun.application.MyApplication;
 import com.love311.www.fanxun.bean.HouseDetailBean;
+import com.love311.www.fanxun.bean.SeePicBean;
 import com.love311.www.fanxun.bean.UsedHouseBean;
 import com.zhy.autolayout.AutoLayoutActivity;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -28,8 +30,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -228,6 +232,13 @@ public class UsedHouseDetailActivity extends AutoLayoutActivity {
                         startActivity(intent);
                     }
                 });
+            }
+        });
+        llPicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent =new Intent(UsedHouseDetailActivity.this,SeePicturesActivity.class);
+                startActivity(intent);
             }
         });
         topRight.setOnClickListener(new View.OnClickListener() {

@@ -102,10 +102,10 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
     LinearLayout llSearch;
     private Intent intent;
     //经纪人
-    private  String broker_id;
+    private String broker_id;
     private String broker;
     //板块
-    private  String plate_id;
+    private String plate_id;
     private String plate;
     //状态
     private String status;
@@ -113,7 +113,7 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
     private String type;
     private int house_type_status;
     //户型
-    private  String house_type_id;
+    private String house_type_id;
     ;
     private String house_type;
     //装修
@@ -179,26 +179,39 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
             topSearchMid.setText("新房");
             type_fragment_value = "getNewHouses?";
         }
-        intent = getIntent();
-        type_fragment = intent.getIntExtra("type", 0);
-        if (type_fragment == 0) {
-            topSearchMid.setText("二手房");
-            type_fragment_value = "getOldHouses?";
-        } else if (type_fragment == 1) {
-            topSearchMid.setText("租房");
-            type_fragment_value = "getRentHouses?";
-        } else if (type_fragment == 2) {
-            topSearchMid.setText("新房");
-            type_fragment_value = "getNewHouses?";
-        }
         my = (MyApplication) getApplication();
         URL = my.getURL() + url + type_fragment_value;
-        broker_id = "0";
-        plate_id = "0";
-        house_type_id = "0";
-        house_type_status = 0;
-        statusStatus = 0;
-        decoration_status = 0;
+        if (getUsedSearchSharedPreferences.getString("broker_id", "pre")!="pre" ){
+            broker_id =getUsedSearchSharedPreferences.getString("broker_id", "pre");
+        }else {
+            broker_id = "0";
+        }
+        if (getUsedSearchSharedPreferences.getString("plate_id", "pre")!="pre"){
+            plate_id = getUsedSearchSharedPreferences.getString("plate_id", "pre");
+        }else {
+            plate_id = "0";
+        }
+        if (getUsedSearchSharedPreferences.getString("house_type_id", "pre")!="pre"){
+            house_type_id = getUsedSearchSharedPreferences.getString("house_type_id", "pre");
+        }else {
+            house_type_id = "0";
+        }
+        if (getUsedSearchSharedPreferences.getInt("floor_type_status", 1000)!=1000){
+            house_type_status = getUsedSearchSharedPreferences.getInt("floor_type_status", 1000);
+        }else {
+            house_type_status = 0;
+        }
+       if (getUsedSearchSharedPreferences.getInt("status_status", 1000)!=1000){
+           statusStatus = getUsedSearchSharedPreferences.getInt("status_status", 1000);
+       }else {
+           statusStatus = 0;
+       }
+        if (getUsedSearchSharedPreferences.getInt("decoration_status", 1000)!=1000){
+            decoration_status =getUsedSearchSharedPreferences.getInt("decoration_status", 1000);
+        }else {
+            decoration_status = 0;
+        }
+
         ll1.setOnClickListener(this);
         ll2.setOnClickListener(this);
         ll3.setOnClickListener(this);
@@ -206,12 +219,14 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
         ll5.setOnClickListener(this);
         ll6.setOnClickListener(this);
         llSearch.setOnClickListener(this);
-        llSearchMid.setOnClickListener(this);
+        //llSearchMid.setOnClickListener(this);
         ivSearch.setOnClickListener(this);
         ivDelete.setOnClickListener(this);
         Log.d("getSearchShared=--", getUsedSearchSharedPreferences.toString() + "");
-        if (type_fragment==0) {
-            if (getUsedSearchSharedPreferences.getInt("my_search_status",0)==66){
+        if (type_fragment == 0) {
+            Log.d("lxy", ".......0");
+            if (getUsedSearchSharedPreferences.getInt("my_search_status", 0) == 66) {
+                Log.d("lxy", ".......066");
                 broker_pre = getUsedSearchSharedPreferences.getString("broker_id", "pre");
                 broker_id_value = getUsedSearchSharedPreferences.getString("broker_id_value", "pre");
                 plate_pre = getUsedSearchSharedPreferences.getString("plate_id", "pre");
@@ -219,7 +234,7 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
                 status_pre = getUsedSearchSharedPreferences.getString("status", "pre");
                 status_status_pre = getUsedSearchSharedPreferences.getInt("status_status", 100);
                 floor_type_pre = getUsedSearchSharedPreferences.getString("floor_type", "pre");
-                status_status_pre = getUsedSearchSharedPreferences.getInt("floor_type_status", 100);
+                floor_type_status_pre = getUsedSearchSharedPreferences.getInt("floor_type_status", 100);
                 low_price_pre = getUsedSearchSharedPreferences.getString("low_price", "pre");
                 tall_price_pre = getUsedSearchSharedPreferences.getString("tall_price", "pre");
                 low_area_pre = getUsedSearchSharedPreferences.getString("low_area", "pre");
@@ -227,7 +242,7 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
                 house_type_pre = getUsedSearchSharedPreferences.getString("house_type_id", "pre");
                 house_type_id_value = getUsedSearchSharedPreferences.getString("house_type_id_value", "pre");
                 decoration_pre = getUsedSearchSharedPreferences.getString("decoration", "pre");
-                status_status_pre = getUsedSearchSharedPreferences.getInt("decoration_status", 100);
+                decoration_status_pre = getUsedSearchSharedPreferences.getInt("decoration_status", 100);
                 low_floor_pre = getUsedSearchSharedPreferences.getString("low_floor", "pre");
                 tall_floor_pre = getUsedSearchSharedPreferences.getString("tall_floor", "pre");
                 key_word_pre = getUsedSearchSharedPreferences.getString("key_word", "pre");
@@ -256,21 +271,23 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
                 } else {
                     tv5.setText(house_type_id_value);
                 }
-                if (decoration_status == 0) {
+                if (decoration_pre == "0") {
                     tv6.setText("清水");
                 } else {
-                    tv6.setText(decoration_status);
+                    tv6.setText(decoration_pre);
                 }
+                et1.setText(low_price_pre);
+                et2.setText(tall_price_pre);
+                et3.setText(low_area_pre);
+                et4.setText(tall_area_pre);
+                et5.setText(low_floor_pre);
+                et6.setText(tall_floor_pre);
+                et7.setText(key_word_pre);
             }
-            et1.setText(low_price_pre);
-            et2.setText(tall_price_pre);
-            et3.setText(low_area_pre);
-            et4.setText(tall_area_pre);
-            et5.setText(low_floor_pre);
-            et6.setText(tall_floor_pre);
-            et7.setText(key_word_pre);
-        }else if (type_fragment==1){
-            if (getRentSearchSharedPreferences.getInt("my_search_status",0)==66){
+        } else if (type_fragment == 1) {
+            Log.d("lxy", ".......1");
+            if (getRentSearchSharedPreferences.getInt("my_search_status", 0) == 66) {
+                Log.d("lxy", ".......1 66");
                 broker_pre = getRentSearchSharedPreferences.getString("broker_id", "pre");
                 broker_id_value = getRentSearchSharedPreferences.getString("broker_id_value", "pre");
                 plate_pre = getRentSearchSharedPreferences.getString("plate_id", "pre");
@@ -278,7 +295,7 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
                 status_pre = getRentSearchSharedPreferences.getString("status", "pre");
                 status_status_pre = getRentSearchSharedPreferences.getInt("status_status", 100);
                 floor_type_pre = getRentSearchSharedPreferences.getString("floor_type", "pre");
-                status_status_pre = getRentSearchSharedPreferences.getInt("floor_type_status", 100);
+                floor_type_status_pre = getRentSearchSharedPreferences.getInt("floor_type_status", 100);
                 low_price_pre = getRentSearchSharedPreferences.getString("low_price", "pre");
                 tall_price_pre = getRentSearchSharedPreferences.getString("tall_price", "pre");
                 low_area_pre = getRentSearchSharedPreferences.getString("low_area", "pre");
@@ -286,7 +303,7 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
                 house_type_pre = getRentSearchSharedPreferences.getString("house_type_id", "pre");
                 house_type_id_value = getRentSearchSharedPreferences.getString("house_type_id_value", "pre");
                 decoration_pre = getRentSearchSharedPreferences.getString("decoration", "pre");
-                status_status_pre = getRentSearchSharedPreferences.getInt("decoration_status", 100);
+                decoration_status_pre = getRentSearchSharedPreferences.getInt("decoration_status", 100);
                 low_floor_pre = getRentSearchSharedPreferences.getString("low_floor", "pre");
                 tall_floor_pre = getRentSearchSharedPreferences.getString("tall_floor", "pre");
                 key_word_pre = getRentSearchSharedPreferences.getString("key_word", "pre");
@@ -315,12 +332,11 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
                 } else {
                     tv5.setText(house_type_id_value);
                 }
-                if (decoration_status == 0) {
+                if (decoration_pre == "0") {
                     tv6.setText("清水");
                 } else {
-                    tv6.setText(decoration_status);
+                    tv6.setText(decoration_pre);
                 }
-            }
                 et1.setText(low_price_pre);
                 et2.setText(tall_price_pre);
                 et3.setText(low_area_pre);
@@ -328,8 +344,11 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
                 et5.setText(low_floor_pre);
                 et6.setText(tall_floor_pre);
                 et7.setText(key_word_pre);
-        }else if (type_fragment==2){
-            if (getNewSearchSharedPreferences.getInt("my_search_status",0)==66){
+            }
+        } else if (type_fragment == 2) {
+            Log.d("lxy", ".......2");
+            if (getNewSearchSharedPreferences.getInt("my_search_status", 0) == 66) {
+                Log.d("lxy", ".......2 66");
                 broker_pre = getNewSearchSharedPreferences.getString("broker_id", "pre");
                 broker_id_value = getNewSearchSharedPreferences.getString("broker_id_value", "pre");
                 plate_pre = getNewSearchSharedPreferences.getString("plate_id", "pre");
@@ -337,7 +356,7 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
                 status_pre = getNewSearchSharedPreferences.getString("status", "pre");
                 status_status_pre = getNewSearchSharedPreferences.getInt("status_status", 100);
                 floor_type_pre = getNewSearchSharedPreferences.getString("floor_type", "pre");
-                status_status_pre = getNewSearchSharedPreferences.getInt("floor_type_status", 100);
+                floor_type_status_pre = getNewSearchSharedPreferences.getInt("floor_type_status", 100);
                 low_price_pre = getNewSearchSharedPreferences.getString("low_price", "pre");
                 tall_price_pre = getNewSearchSharedPreferences.getString("tall_price", "pre");
                 low_area_pre = getNewSearchSharedPreferences.getString("low_area", "pre");
@@ -345,7 +364,7 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
                 house_type_pre = getNewSearchSharedPreferences.getString("house_type_id", "pre");
                 house_type_id_value = getNewSearchSharedPreferences.getString("house_type_id_value", "pre");
                 decoration_pre = getNewSearchSharedPreferences.getString("decoration", "pre");
-                status_status_pre = getNewSearchSharedPreferences.getInt("decoration_status", 100);
+                decoration_status_pre = getNewSearchSharedPreferences.getInt("decoration_status", 100);
                 low_floor_pre = getNewSearchSharedPreferences.getString("low_floor", "pre");
                 tall_floor_pre = getNewSearchSharedPreferences.getString("tall_floor", "pre");
                 key_word_pre = getNewSearchSharedPreferences.getString("key_word", "pre");
@@ -374,19 +393,19 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
                 } else {
                     tv5.setText(house_type_id_value);
                 }
-                if (decoration_status == 0) {
+                if (decoration_pre == "0") {
                     tv6.setText("清水");
                 } else {
-                    tv6.setText(decoration_status);
+                    tv6.setText(decoration_pre);
                 }
+                et1.setText(low_price_pre);
+                et2.setText(tall_price_pre);
+                et3.setText(low_area_pre);
+                et4.setText(tall_area_pre);
+                et5.setText(low_floor_pre);
+                et6.setText(tall_floor_pre);
+                et7.setText(key_word_pre);
             }
-            et1.setText(low_price_pre);
-            et2.setText(tall_price_pre);
-            et3.setText(low_area_pre);
-            et4.setText(tall_area_pre);
-            et5.setText(low_floor_pre);
-            et6.setText(tall_floor_pre);
-            et7.setText(key_word_pre);
         }
     }
 
@@ -394,11 +413,12 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_search:
-                if(type_fragment==0){
+                Log.d("type_fragment==",type_fragment+"");
+                if (type_fragment == 0) {
                     searchUsedHouse();
-                }else if (type_fragment==1){
+                } else if (type_fragment == 1) {
                     searchRentHouse();
-                }else if (type_fragment==2){
+                } else if (type_fragment == 2) {
                     searchNewHouse();
                 }
                 break;
@@ -445,16 +465,16 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
                 showPopupWindow(view);
                 break;
             case R.id.iv_search:
-                if(type_fragment==0){
+                if (type_fragment == 0) {
                     searchUsedHouse();
-                }else if (type_fragment==1){
+                } else if (type_fragment == 1) {
                     searchRentHouse();
-                }else if (type_fragment==2){
+                } else if (type_fragment == 2) {
                     searchNewHouse();
                 }
                 break;
             case R.id.iv_delete:
-                if (type_fragment==0){
+                if (type_fragment == 0) {
                     getUsedSearchSharedPreferences.edit().clear().commit();
                     tv1.setText("不限");
                     tv2.setText("不限");
@@ -469,7 +489,13 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
                     et5.setText("");
                     et6.setText("");
                     et7.setText("");
-                }else if (type_fragment==1){
+                    broker_id = "0";
+                    plate_id = "0";
+                    house_type_id = "0";
+                    house_type_status = 0;
+                    statusStatus = 0;
+                    decoration_status = 0;
+                } else if (type_fragment == 1) {
                     getRentSearchSharedPreferences.edit().clear().commit();
                     tv1.setText("不限");
                     tv2.setText("不限");
@@ -484,7 +510,13 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
                     et5.setText("");
                     et6.setText("");
                     et7.setText("");
-                }else if (type_fragment==2){
+                    broker_id = "0";
+                    plate_id = "0";
+                    house_type_id = "0";
+                    house_type_status = 0;
+                    statusStatus = 0;
+                    decoration_status = 0;
+                } else if (type_fragment == 2) {
                     getNewSearchSharedPreferences.edit().clear().commit();
                     tv1.setText("不限");
                     tv2.setText("不限");
@@ -499,6 +531,12 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
                     et5.setText("");
                     et6.setText("");
                     et7.setText("");
+                    broker_id = "0";
+                    plate_id = "0";
+                    house_type_id = "0";
+                    house_type_status = 0;
+                    statusStatus = 0;
+                    decoration_status = 0;
                 }
 
                 break;
@@ -506,9 +544,107 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
                 break;
         }
     }
-    
+
+
+    private void showPopupWindow(View view) {
+        // 一个自定义的布局，作为显示的内容
+        View contentView = LayoutInflater.from(this).inflate(
+                R.layout.top_mid_pop_window, null);
+        // 设置按钮的点击事件
+        LinearLayout ll_1 = (LinearLayout) contentView.findViewById(R.id.ll_1);
+        LinearLayout ll_2 = (LinearLayout) contentView.findViewById(R.id.ll_2);
+        LinearLayout ll_3 = (LinearLayout) contentView.findViewById(R.id.ll_3);
+        final PopupWindow popupWindow = new PopupWindow(contentView,
+                ViewPager.LayoutParams.WRAP_CONTENT, ViewPager.LayoutParams.WRAP_CONTENT, true);
+        popupWindow.setTouchable(true);
+        popupWindow.setTouchInterceptor(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Log.i("mengdd", "onTouch : ");
+                return false;
+                // 这里如果返回true的话，touch事件将被拦截
+                // 拦截后 PopupWindow的onTouchEvent不被调用，这样点击外部区域无法dismiss
+            }
+        });
+
+        // 如果不设置PopupWindow的背景，无论是点击外部区域还是Back键都无法dismiss弹框
+        // 我觉得这里是API的一个bug
+        popupWindow.setBackgroundDrawable(getResources().getDrawable(
+                R.color.popwindow));
+        // 设置好参数之后再show
+        popupWindow.showAsDropDown(view, 240, -8);
+        //二手房
+        ll_1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                type_fragment = 0;
+                topSearchMid.setText("二手房");
+                popupWindow.dismiss();
+            }
+        });
+        //租房
+        ll_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                type_fragment = 1;
+                topSearchMid.setText("租房");
+                popupWindow.dismiss();
+            }
+        });
+        //新房
+        ll_3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                type_fragment = 2;
+                topSearchMid.setText("新房");
+                popupWindow.dismiss();
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        broker = data.getStringExtra("broker");
+
+        plate = data.getStringExtra("plate");
+
+        status = data.getStringExtra("status");
+        statusStatus = data.getIntExtra("statusStatus", statusStatus);
+        type = data.getStringExtra("type");
+        house_type_status = data.getIntExtra("house_type_status", house_type_status);
+        house_type = data.getStringExtra("house_type");
+
+        decoration = data.getStringExtra("decoration");
+        decoration_status = data.getIntExtra("decoration_status", decoration_status);
+        switch (requestCode) {
+            case 1:
+                broker_id = data.getStringExtra("broker_id");
+                tv1.setText(broker);
+                break;
+            case 2:
+                plate_id = data.getStringExtra("plate_id");
+                tv2.setText(plate);
+                break;
+            case 3:
+                tv3.setText(status);
+                break;
+            case 4:
+                tv4.setText(type);
+                break;
+            case 5:
+                house_type_id = data.getStringExtra("house_type_id");
+                tv5.setText(house_type);
+                break;
+            case 6:
+                tv6.setText(decoration);
+                break;
+            default:
+                break;
+        }
+    }
 
     private void searchUsedHouse() {
+        //usedEditor.clear().commit();
         usedEditor.putInt("my_search_status", 66);
         usedEditor.putString("broker_id", broker_id);
         usedEditor.putString("broker_id_value", tv1.getText().toString());
@@ -602,7 +738,7 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
                 + "&gjz=" + et7.getText().toString()
                 + "&page.pn=" + "1"
                 + "&page.size=" + "10");
-         SearchUrl = URL + "search.status_eq=" + tvStatus_value
+        SearchUrl = URL + "search.status_eq=" + tvStatus_value
                 + "&search.community.area.id_eq="
                 + plate_id + "&search.salePrice_gte=" + et1.getText().toString()
                 + "&search.salePrice_lte=" + et2.getText().toString()
@@ -659,155 +795,19 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
                         }
                         Log.e("SearchActivity--", "查询成功" + response);
                         Intent intent = new Intent(SearchActivity.this, MainActivity.class);
+                        intent.putExtra("fragment", 0);
                         intent.putExtra("type_fragment", type_fragment);
                         intent.putExtra("total_numbers", bean.getTotalElements());
                         intent.putExtra("search_url", SearchUrl);
-                        if (type_fragment == 0) {
-                            if (broker_id == "" && plate_id == "" && tvStatus_value == "" && tvType_value == "" && et1.getText().toString().equals("")
-                                    && et2.getText().toString().equals("")
-                                    && et3.getText().toString().equals("")
-                                    && et4.getText().toString().equals("")
-                                    && et5.getText().toString().equals("")
-                                    && et6.getText().toString().equals("")
-                                    && et7.getText().toString().equals("")
-                                    && house_type_id == ""
-                                    && tvBaseDecoration_value == "") {
-                                intent.putExtra("from", 0);
-                            } else {
-                                intent.putExtra("from", 1);
-                            }
-                        } else if (type_fragment == 1) {
-                            if (broker_id == "" && plate_id == "" && tvStatus_value == "" && tvType_value == "" && et1.getText().toString().equals("")
-                                    && et2.getText().toString().equals("")
-                                    && et3.getText().toString().equals("")
-                                    && et4.getText().toString().equals("")
-                                    && et5.getText().toString().equals("")
-                                    && et6.getText().toString().equals("")
-                                    && et7.getText().toString().equals("")
-                                    && house_type_id == ""
-                                    && tvBaseDecoration_value == "") {
-                                intent.putExtra("from", 0);
-                            } else {
-                                intent.putExtra("from", 2);
-                            }
-                        } else if (type_fragment == 2) {
-                            if (broker_id == "" && plate_id == "" && tvStatus_value == "" && tvType_value == "" && et1.getText().toString().equals("")
-                                    && et2.getText().toString().equals("")
-                                    && et3.getText().toString().equals("")
-                                    && et4.getText().toString().equals("")
-                                    && et5.getText().toString().equals("")
-                                    && et6.getText().toString().equals("")
-                                    && et7.getText().toString().equals("")
-                                    && house_type_id == ""
-                                    && tvBaseDecoration_value == "") {
-                                intent.putExtra("from", 0);
-                            } else {
-                                intent.putExtra("from", 3);
-                            }
-                        }
+                        intent.putExtra("from", 1);
                         startActivity(intent);
                         finish();
                     }
                 });
     }
 
-    private void showPopupWindow(View view) {
-        // 一个自定义的布局，作为显示的内容
-        View contentView = LayoutInflater.from(this).inflate(
-                R.layout.top_mid_pop_window, null);
-        // 设置按钮的点击事件
-        LinearLayout ll_1 = (LinearLayout) contentView.findViewById(R.id.ll_1);
-        LinearLayout ll_2 = (LinearLayout) contentView.findViewById(R.id.ll_2);
-        LinearLayout ll_3 = (LinearLayout) contentView.findViewById(R.id.ll_3);
-        final PopupWindow popupWindow = new PopupWindow(contentView,
-                ViewPager.LayoutParams.WRAP_CONTENT, ViewPager.LayoutParams.WRAP_CONTENT, true);
-        popupWindow.setTouchable(true);
-        popupWindow.setTouchInterceptor(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                Log.i("mengdd", "onTouch : ");
-                return false;
-                // 这里如果返回true的话，touch事件将被拦截
-                // 拦截后 PopupWindow的onTouchEvent不被调用，这样点击外部区域无法dismiss
-            }
-        });
-
-        // 如果不设置PopupWindow的背景，无论是点击外部区域还是Back键都无法dismiss弹框
-        // 我觉得这里是API的一个bug
-        popupWindow.setBackgroundDrawable(getResources().getDrawable(
-                R.color.popwindow));
-        // 设置好参数之后再show
-        popupWindow.showAsDropDown(view, 180, -8);
-        //二手房
-        ll_1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                type_fragment = 0;
-                topSearchMid.setText("二手房");
-                popupWindow.dismiss();
-            }
-        });
-        //租房
-        ll_2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                type_fragment = 1;
-                topSearchMid.setText("租房");
-                popupWindow.dismiss();
-            }
-        });
-        //时间升序
-        ll_3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                type_fragment = 2;
-                topSearchMid.setText("新房");
-                popupWindow.dismiss();
-            }
-        });
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        broker = data.getStringExtra("broker");
-
-        plate = data.getStringExtra("plate");
-
-        status = data.getStringExtra("status");
-        statusStatus = data.getIntExtra("statusStatus", statusStatus);
-        type = data.getStringExtra("type");
-        house_type_status = data.getIntExtra("house_type_status", house_type_status);
-        house_type = data.getStringExtra("house_type");
-
-        decoration = data.getStringExtra("decoration");
-        decoration_status = data.getIntExtra("decoration_status", decoration_status);
-        switch (requestCode) {
-            case 1:
-                broker_id = data.getStringExtra("broker_id");
-                tv1.setText(broker);
-                break;
-            case 2:
-                plate_id = data.getStringExtra("plate_id");
-                tv2.setText(plate);
-                break;
-            case 3:
-                tv3.setText(status);
-                break;
-            case 4:
-                tv4.setText(type);
-                break;
-            case 5:
-                house_type_id = data.getStringExtra("house_type_id");
-                tv5.setText(house_type);
-                break;
-            case 6:
-                tv6.setText(decoration);
-                break;
-            default:
-                break;
-        }
-    }
     private void searchRentHouse() {
+        //rentEditor.clear().commit();
         rentEditor.putInt("my_search_status", 66);
         rentEditor.putString("broker_id", broker_id);
         rentEditor.putString("broker_id_value", tv1.getText().toString());
@@ -958,52 +958,11 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
                         }
                         Log.e("SearchActivity--", "查询成功" + response);
                         Intent intent = new Intent(SearchActivity.this, MainActivity.class);
+                        intent.putExtra("fragment", 0);
                         intent.putExtra("type_fragment", type_fragment);
                         intent.putExtra("total_numbers", bean.getTotalElements());
                         intent.putExtra("search_url", SearchUrl);
-                        if (type_fragment == 0) {
-                            if (broker_id == "" && plate_id == "" && tvStatus_value == "" && tvType_value == "" && et1.getText().toString().equals("")
-                                    && et2.getText().toString().equals("")
-                                    && et3.getText().toString().equals("")
-                                    && et4.getText().toString().equals("")
-                                    && et5.getText().toString().equals("")
-                                    && et6.getText().toString().equals("")
-                                    && et7.getText().toString().equals("")
-                                    && house_type_id == ""
-                                    && tvBaseDecoration_value == "") {
-                                intent.putExtra("from", 0);
-                            } else {
-                                intent.putExtra("from", 1);
-                            }
-                        } else if (type_fragment == 1) {
-                            if (broker_id == "" && plate_id == "" && tvStatus_value == "" && tvType_value == "" && et1.getText().toString().equals("")
-                                    && et2.getText().toString().equals("")
-                                    && et3.getText().toString().equals("")
-                                    && et4.getText().toString().equals("")
-                                    && et5.getText().toString().equals("")
-                                    && et6.getText().toString().equals("")
-                                    && et7.getText().toString().equals("")
-                                    && house_type_id == ""
-                                    && tvBaseDecoration_value == "") {
-                                intent.putExtra("from", 0);
-                            } else {
-                                intent.putExtra("from", 2);
-                            }
-                        } else if (type_fragment == 2) {
-                            if (broker_id == "" && plate_id == "" && tvStatus_value == "" && tvType_value == "" && et1.getText().toString().equals("")
-                                    && et2.getText().toString().equals("")
-                                    && et3.getText().toString().equals("")
-                                    && et4.getText().toString().equals("")
-                                    && et5.getText().toString().equals("")
-                                    && et6.getText().toString().equals("")
-                                    && et7.getText().toString().equals("")
-                                    && house_type_id == ""
-                                    && tvBaseDecoration_value == "") {
-                                intent.putExtra("from", 0);
-                            } else {
-                                intent.putExtra("from", 3);
-                            }
-                        }
+                        intent.putExtra("from", 2);
                         startActivity(intent);
                         finish();
                     }
@@ -1011,6 +970,7 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
     }
 
     private void searchNewHouse() {
+        //newEditor.clear().commit();
         newEditor.putInt("my_search_status", 66);
         newEditor.putString("broker_id", broker_id);
         newEditor.putString("broker_id_value", tv1.getText().toString());
@@ -1161,52 +1121,11 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
                         }
                         Log.e("SearchActivity--", "查询成功" + response);
                         Intent intent = new Intent(SearchActivity.this, MainActivity.class);
+                        intent.putExtra("fragment", 0);
                         intent.putExtra("type_fragment", type_fragment);
                         intent.putExtra("total_numbers", bean.getTotalElements());
                         intent.putExtra("search_url", SearchUrl);
-                        if (type_fragment == 0) {
-                            if (broker_id == "" && plate_id == "" && tvStatus_value == "" && tvType_value == "" && et1.getText().toString().equals("")
-                                    && et2.getText().toString().equals("")
-                                    && et3.getText().toString().equals("")
-                                    && et4.getText().toString().equals("")
-                                    && et5.getText().toString().equals("")
-                                    && et6.getText().toString().equals("")
-                                    && et7.getText().toString().equals("")
-                                    && house_type_id == ""
-                                    && tvBaseDecoration_value == "") {
-                                intent.putExtra("from", 0);
-                            } else {
-                                intent.putExtra("from", 1);
-                            }
-                        } else if (type_fragment == 1) {
-                            if (broker_id == "" && plate_id == "" && tvStatus_value == "" && tvType_value == "" && et1.getText().toString().equals("")
-                                    && et2.getText().toString().equals("")
-                                    && et3.getText().toString().equals("")
-                                    && et4.getText().toString().equals("")
-                                    && et5.getText().toString().equals("")
-                                    && et6.getText().toString().equals("")
-                                    && et7.getText().toString().equals("")
-                                    && house_type_id == ""
-                                    && tvBaseDecoration_value == "") {
-                                intent.putExtra("from", 0);
-                            } else {
-                                intent.putExtra("from", 2);
-                            }
-                        } else if (type_fragment == 2) {
-                            if (broker_id == "" && plate_id == "" && tvStatus_value == "" && tvType_value == "" && et1.getText().toString().equals("")
-                                    && et2.getText().toString().equals("")
-                                    && et3.getText().toString().equals("")
-                                    && et4.getText().toString().equals("")
-                                    && et5.getText().toString().equals("")
-                                    && et6.getText().toString().equals("")
-                                    && et7.getText().toString().equals("")
-                                    && house_type_id == ""
-                                    && tvBaseDecoration_value == "") {
-                                intent.putExtra("from", 0);
-                            } else {
-                                intent.putExtra("from", 3);
-                            }
-                        }
+                        intent.putExtra("from", 3);
                         startActivity(intent);
                         finish();
                     }

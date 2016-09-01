@@ -20,7 +20,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.MainActivity"></activity>
+        <activity android:name=".activity.MainActivity"
+            android:launchMode="singleTask"></activity>
         <activity android:name=".activity.AddUsedHouseActivity"></activity>
         <activity android:name=".activity.OrientationActivity"></activity>
         <activity android:name=".activity.DecorationActivity"></activity>
@@ -54,6 +55,8 @@
         <activity android:name=".activity.StatusPassengerSearchActivity"></activity>
         <activity android:name=".activity.PassengerSourceDetailActivity"
             android:windowSoftInputMode="stateHidden"></activity>
+        <activity android:name=".activity.SeePicturesActivity"></activity>
+        <activity android:name=".activity.ModifyPasswordActivity"></activity>
     </application>
 
 </manifest>

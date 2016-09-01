@@ -61,6 +61,7 @@
                         android:background="@drawable/et"
                         android:inputType="phone"
                         android:textSize="34px"
+                        android:textColor="#6B696B"
                         android:hint="多个电话用空格逗号分隔"
                         android:maxLength="12"
                         android:paddingLeft="10px"
@@ -73,7 +74,8 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="28px"
-                        android:background="@mipmap/icon" />
+                        android:background="@mipmap/red_call"
+                        android:visibility="gone"/>
                 </RelativeLayout>
 
                 <include layout="@layout/add_info_1px"></include>
@@ -104,7 +106,8 @@
                         android:maxLength="8"
                         android:paddingLeft="10px"
                         android:enabled="false"
-                        android:textSize="34px"/>
+                        android:textSize="34px"
+                        android:textColor="#6B696B"/>
                 </RelativeLayout>
 
                 <include layout="@layout/add_info_1px"></include>
@@ -136,7 +139,8 @@
                         android:maxLength="8"
                         android:paddingLeft="10px"
                         android:enabled="false"
-                        android:textSize="34px"/>
+                        android:textSize="34px"
+                        android:textColor="#6B696B"/>
                 </RelativeLayout>
 
                 <include layout="@layout/add_info_1px"></include>
@@ -513,7 +517,8 @@
                         android:maxLength="3"
                         android:paddingLeft="10px"
                         android:enabled="false"
-                        android:textSize="34px"/>
+                        android:textSize="34px"
+                        android:textColor="#6B696B"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -533,7 +538,8 @@
                         android:maxLength="3"
                         android:paddingLeft="10px"
                         android:enabled="false"
-                        android:textSize="34px"/>
+                        android:textSize="34px"
+                        android:textColor="#6B696B"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -572,7 +578,8 @@
                         android:maxLength="3"
                         android:paddingLeft="10px"
                         android:enabled="false"
-                        android:textSize="34px"/>
+                        android:textSize="34px"
+                        android:textColor="#6B696B"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -592,7 +599,8 @@
                         android:maxLength="3"
                         android:paddingLeft="10px"
                         android:enabled="false"
-                        android:textSize="34px"/>
+                        android:textSize="34px"
+                        android:textColor="#6B696B"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -630,7 +638,8 @@
                         android:maxLength="3"
                         android:paddingLeft="10px"
                         android:enabled="false"
-                        android:textSize="34px"/>
+                        android:textSize="34px"
+                        android:textColor="#6B696B"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -650,7 +659,8 @@
                         android:maxLength="3"
                         android:paddingLeft="10px"
                         android:enabled="false"
-                        android:textSize="34px"/>
+                        android:textSize="34px"
+                        android:textColor="#6B696B"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -690,7 +700,8 @@
                         android:maxLength="8"
                         android:paddingLeft="10px"
                         android:enabled="false"
-                        android:textSize="34px"/>
+                        android:textSize="34px"
+                        android:textColor="#6B696B"/>
                 </RelativeLayout>
 
                 <include layout="@layout/add_info_1px"></include>

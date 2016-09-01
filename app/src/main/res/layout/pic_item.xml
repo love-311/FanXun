@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="220px"
+    android:layout_height="220px"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/pic_item"
+        android:layout_width="220px"
+        android:layout_height="220px"
+        android:scaleType="centerCrop"/>
+</LinearLayout>
