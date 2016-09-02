@@ -60,6 +60,7 @@
         android:layout_height="40px"
         android:background="#f0f0f0"/>
     <RelativeLayout
+        android:id="@+id/rl_2"
         android:layout_width="match_parent"
         android:layout_height="90px"
         android:background="#ffffff">
@@ -96,6 +97,7 @@
         android:layout_marginRight="30px"
         android:layout_marginLeft="30px"/>
     <RelativeLayout
+        android:id="@+id/rl_3"
         android:layout_width="match_parent"
         android:layout_height="90px"
         android:background="#ffffff">
@@ -130,6 +132,7 @@
     android:layout_height="40px"
     android:background="#f0f0f0"/>
     <RelativeLayout
+        android:id="@+id/rl_4"
         android:layout_width="match_parent"
         android:layout_height="90px"
         android:background="#ffffff">

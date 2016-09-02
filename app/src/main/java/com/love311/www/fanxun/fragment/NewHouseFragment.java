@@ -157,8 +157,8 @@ public class NewHouseFragment extends LazyLoadFragment {
                 } else if (from == 3) {
                     loadSearchData();
                     Log.d("loadSearchData", "loadSearchData()执行了");
-                } else {
-                    loadData();
+                } else if (from == 0){
+                    loadNormalData();
                     Log.d("loadData", "loadData()执行了");
                 }
             }
@@ -203,8 +203,8 @@ public class NewHouseFragment extends LazyLoadFragment {
                     } else if (from == 3) {
                         loadSearchData();
                         Log.d("loadSearchData", "loadSearchData()执行了");
-                    } else {
-                        loadData();
+                    } else if (from == 0){
+                        loadNormalData();
                         Log.d("loadData", "loadData()执行了");
                     }
                 } else {
@@ -238,6 +238,10 @@ public class NewHouseFragment extends LazyLoadFragment {
 
     @Override
     public void loadData() {
+
+    }
+
+    public void loadNormalData() {
         oooo = oooo + 1;
         OkHttpUtils
                 .get()
@@ -316,15 +320,20 @@ public class NewHouseFragment extends LazyLoadFragment {
                         //int currentSize = myAdapter.getItemCount();
                         Type listType = new TypeToken<LinkedList<NewHouseBean.ResBean.ContentBean>>() {
                         }.getType();
+                        Type listType1 = new TypeToken<NewHouseBean.ResBean>() {
+                        }.getType();
                         Gson gson = new Gson();
                         try {
-                            Log.d("jsonElements--------", response);
+                            Log.d("load_test----", "NewHouseFragment加载数据");
+                            //Log.d("jsonElements--------", response);
                             JSONObject jsonObject = new JSONObject(response);
                             JSONObject jsonObject1 = jsonObject.getJSONObject("res");
                             JSONArray jsonArray = jsonObject1.getJSONArray("content");
-                            Log.d("jsonElements--------", jsonArray.toString());
+                            //Log.d("jsonElements--------", jsonArray.toString());
+                            bean1 = gson.fromJson(jsonObject1.toString(), listType1);
                             bean = gson.fromJson(jsonArray.toString(), listType);
                             //myAdapter.addAll(bean, 0);
+                            TOTAL_COUNTER = bean1.getTotalElements();
                             addItems(bean);
                             if (isRefresh) {
                                 isRefresh = false;
@@ -345,6 +354,8 @@ public class NewHouseFragment extends LazyLoadFragment {
         OkHttpUtils
                 .get()
                 .url(search_url)
+                .addParams("page.pn", oooo + "")
+                .addParams("page.size", 10 + "")
                 .build()
                 .execute(new StringCallback() {
                     @Override
@@ -363,14 +374,20 @@ public class NewHouseFragment extends LazyLoadFragment {
                         //int currentSize = myAdapter.getItemCount();
                         Type listType = new TypeToken<LinkedList<NewHouseBean.ResBean.ContentBean>>() {
                         }.getType();
+                        Type listType1 = new TypeToken<NewHouseBean.ResBean>() {
+                        }.getType();
                         Gson gson = new Gson();
                         try {
-                            Log.d("jsonElements--------", response);
+                            Log.d("load_test----", "NewHouseFragment加载数据");
+                            //Log.d("jsonElements--------", response);
                             JSONObject jsonObject = new JSONObject(response);
                             JSONObject jsonObject1 = jsonObject.getJSONObject("res");
                             JSONArray jsonArray = jsonObject1.getJSONArray("content");
-                            Log.d("jsonElements--------", jsonArray.toString());
+                            //Log.d("jsonElements--------", jsonArray.toString());
+                            bean1 = gson.fromJson(jsonObject1.toString(), listType1);
                             bean = gson.fromJson(jsonArray.toString(), listType);
+                            //myAdapter.addAll(bean, 0);
+                            TOTAL_COUNTER = bean1.getTotalElements();
                             //myAdapter.addAll(bean, 0);
                             addItems(bean);
                             if (isRefresh) {

@@ -21,19 +21,14 @@ import com.google.gson.reflect.TypeToken;
 import com.love311.www.fanxun.R;
 import com.love311.www.fanxun.application.MyApplication;
 import com.love311.www.fanxun.bean.SearchParameterBean;
-import com.love311.www.fanxun.bean.UsedHouseBean;
-import com.love311.www.fanxun.fragment.HouseResourceFragment;
-import com.love311.www.fanxun.fragment.UsedHouseFragment;
 import com.zhy.autolayout.AutoLayoutActivity;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
-import java.util.LinkedList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -100,6 +95,10 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
     LinearLayout llReturnBtn;
     @BindView(R.id.ll_search)
     LinearLayout llSearch;
+    @BindView(R.id.tv_money)
+    TextView tvMoney;
+    @BindView(R.id.tv_price)
+    TextView tvPrice;
     private Intent intent;
     //经纪人
     private String broker_id;
@@ -172,43 +171,47 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
         if (type_fragment == 0) {
             topSearchMid.setText("二手房");
             type_fragment_value = "getOldHouses?";
+            tvMoney.setText("价    格：");
+            tvPrice.setText("万");
         } else if (type_fragment == 1) {
             topSearchMid.setText("租房");
             type_fragment_value = "getRentHouses?";
         } else if (type_fragment == 2) {
             topSearchMid.setText("新房");
             type_fragment_value = "getNewHouses?";
+            tvMoney.setText("价    格：");
+            tvPrice.setText("万");
         }
         my = (MyApplication) getApplication();
         URL = my.getURL() + url + type_fragment_value;
-        if (getUsedSearchSharedPreferences.getString("broker_id", "pre")!="pre" ){
-            broker_id =getUsedSearchSharedPreferences.getString("broker_id", "pre");
-        }else {
+        if (getUsedSearchSharedPreferences.getString("broker_id", "pre") != "pre") {
+            broker_id = getUsedSearchSharedPreferences.getString("broker_id", "pre");
+        } else {
             broker_id = "0";
         }
-        if (getUsedSearchSharedPreferences.getString("plate_id", "pre")!="pre"){
+        if (getUsedSearchSharedPreferences.getString("plate_id", "pre") != "pre") {
             plate_id = getUsedSearchSharedPreferences.getString("plate_id", "pre");
-        }else {
+        } else {
             plate_id = "0";
         }
-        if (getUsedSearchSharedPreferences.getString("house_type_id", "pre")!="pre"){
+        if (getUsedSearchSharedPreferences.getString("house_type_id", "pre") != "pre") {
             house_type_id = getUsedSearchSharedPreferences.getString("house_type_id", "pre");
-        }else {
+        } else {
             house_type_id = "0";
         }
-        if (getUsedSearchSharedPreferences.getInt("floor_type_status", 1000)!=1000){
+        if (getUsedSearchSharedPreferences.getInt("floor_type_status", 1000) != 1000) {
             house_type_status = getUsedSearchSharedPreferences.getInt("floor_type_status", 1000);
-        }else {
+        } else {
             house_type_status = 0;
         }
-       if (getUsedSearchSharedPreferences.getInt("status_status", 1000)!=1000){
-           statusStatus = getUsedSearchSharedPreferences.getInt("status_status", 1000);
-       }else {
-           statusStatus = 0;
-       }
-        if (getUsedSearchSharedPreferences.getInt("decoration_status", 1000)!=1000){
-            decoration_status =getUsedSearchSharedPreferences.getInt("decoration_status", 1000);
-        }else {
+        if (getUsedSearchSharedPreferences.getInt("status_status", 1000) != 1000) {
+            statusStatus = getUsedSearchSharedPreferences.getInt("status_status", 1000);
+        } else {
+            statusStatus = 0;
+        }
+        if (getUsedSearchSharedPreferences.getInt("decoration_status", 1000) != 1000) {
+            decoration_status = getUsedSearchSharedPreferences.getInt("decoration_status", 1000);
+        } else {
             decoration_status = 0;
         }
 
@@ -413,7 +416,7 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_search:
-                Log.d("type_fragment==",type_fragment+"");
+                Log.d("type_fragment==", type_fragment + "");
                 if (type_fragment == 0) {
                     searchUsedHouse();
                 } else if (type_fragment == 1) {

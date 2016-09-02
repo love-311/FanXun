@@ -80,9 +80,12 @@ public class UsedHouseRecycleViewAdapter extends RecyclerView.Adapter<BaseViewHo
 
     public void addAll(List<UsedHouseBean.ResBean.ContentBean> list, int position) {
         if (list!=null){
-            Log.d("addAll---==",list.size()+position+"");
+            Log.d("addAll---==",list.size()+position+"position="+position);
             mDataSet.addAll(position, list);
             notifyItemRangeInserted(position+1, list.size()+position);
+            Log.d("addall---","from"+(position+1)+"to"+(list.size()+position));
+        }else {
+            Log.d("addAll---==","list为空----");
         }
 
     }

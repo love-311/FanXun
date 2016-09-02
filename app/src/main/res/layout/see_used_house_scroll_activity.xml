@@ -965,7 +965,8 @@
                             android:gravity="center_vertical"
                             android:text="请填写房源其它公开信息..."
                             android:textSize="34px"
-                            android:textColor="#9c9a9c"/>
+                            android:textColor="#9c9a9c"
+                            android:singleLine="true"/>
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -1005,7 +1006,7 @@
                             android:layout_marginLeft="24px"
                             android:layout_weight="1"
                             android:gravity="center_vertical"
-                            android:text="请添加图片..."
+                            android:text="查看房源图片..."
                             android:textSize="34px"
                             android:textColor="#9c9a9c"/>
 

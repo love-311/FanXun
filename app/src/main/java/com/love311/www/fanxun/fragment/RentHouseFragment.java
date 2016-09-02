@@ -77,6 +77,7 @@ public class RentHouseFragment extends LazyLoadFragment {
     private SharedPreferences rentSharedPreferences;
     private SharedPreferences.Editor editor;
     private SharedPreferences getRentSharedPreferences;
+
     //租房房屋界面
     @Override
     public int getLayout() {
@@ -87,11 +88,11 @@ public class RentHouseFragment extends LazyLoadFragment {
     public void initViews(View view) {
         rentSharedPreferences = getActivity().getSharedPreferences("rent", Context.MODE_PRIVATE);
         editor = rentSharedPreferences.edit();
-        getRentSharedPreferences = getActivity().getSharedPreferences("rent",Context.MODE_PRIVATE);
+        getRentSharedPreferences = getActivity().getSharedPreferences("rent", Context.MODE_PRIVATE);
         from = 0;
         if (getActivity().getIntent().getIntExtra("from", -1) == 2) {
             if (getActivity().getIntent().getIntExtra("sort_status", 0) == 2) {
-                Log.d("search_url_sort=",search_url);
+                Log.d("search_url_sort=", search_url);
                 search_url = getActivity().getIntent().getStringExtra("search_url_sort");
                 current_fragment = getActivity().getIntent().getIntExtra("type_fragment_sort", 0);
                 from = getActivity().getIntent().getIntExtra("from_sort", 0);
@@ -147,6 +148,7 @@ public class RentHouseFragment extends LazyLoadFragment {
                 mCurrentCounter = 0;
                 isRefresh = true;
                 oooo = 0;
+                Log.d("additem---2",getActivity().getIntent().getIntExtra("sort_status", 0)+"");
                 if (getActivity().getIntent().getIntExtra("sort_status", 0) == 2) {
                     Log.d("loadData22", search_url);
                     search_url = getActivity().getIntent().getStringExtra("search_url_sort");
@@ -161,12 +163,11 @@ public class RentHouseFragment extends LazyLoadFragment {
                     editor.commit();
                     loadSortData();
                     Log.d("loadSortData", "loadSortData()执行了");
-                } else
-                if (from == 2) {
+                } else if (from == 2) {
                     loadSearchData();
                     Log.d("loadSearchData", "loadSearchData()执行了");
-                } else {
-                    loadData();
+                } else if (from == 0) {
+                    loadNormalData();
                     Log.d("loadData", "loadData()执行了");
                 }
             }
@@ -210,8 +211,8 @@ public class RentHouseFragment extends LazyLoadFragment {
                     } else if (from == 2) {
                         loadSearchData();
                         Log.d("loadSearchData", "loadSearchData()执行了");
-                    } else {
-                        loadData();
+                    } else if (from == 0){
+                        loadNormalData();
                         Log.d("loadData", "loadData()执行了");
                     }
                 } else {
@@ -245,6 +246,10 @@ public class RentHouseFragment extends LazyLoadFragment {
 
     @Override
     public void loadData() {
+
+    }
+
+    public void loadNormalData() {
         oooo = oooo + 1;
         OkHttpUtils
                 .get()
@@ -283,6 +288,7 @@ public class RentHouseFragment extends LazyLoadFragment {
                             bean = gson.fromJson(jsonArray.toString(), listType);
                             TOTAL_COUNTER = bean1.getTotalElements();
                             //myAdapter.addAll(bean, 0);
+                            Log.d("additem", "loadData");
                             addItems(bean);
                             if (isRefresh) {
                                 isRefresh = false;
@@ -324,6 +330,8 @@ public class RentHouseFragment extends LazyLoadFragment {
                         //int currentSize = myAdapter.getItemCount();
                         Type listType = new TypeToken<LinkedList<RentHouseBean.ResBean.ContentBean>>() {
                         }.getType();
+                        Type listType1 = new TypeToken<RentHouseBean.ResBean>() {
+                        }.getType();
                         Gson gson = new Gson();
                         try {
                             Log.d("jsonElements--------", response);
@@ -331,8 +339,11 @@ public class RentHouseFragment extends LazyLoadFragment {
                             JSONObject jsonObject1 = jsonObject.getJSONObject("res");
                             JSONArray jsonArray = jsonObject1.getJSONArray("content");
                             Log.d("jsonElements--------", jsonArray.toString());
+                            bean1 = gson.fromJson(jsonObject1.toString(), listType1);
                             bean = gson.fromJson(jsonArray.toString(), listType);
+                            TOTAL_COUNTER = bean1.getTotalElements();
                             //myAdapter.addAll(bean, 0);
+                            Log.d("additem", "loadSearchData");
                             addItems(bean);
                             if (isRefresh) {
                                 isRefresh = false;
@@ -353,6 +364,8 @@ public class RentHouseFragment extends LazyLoadFragment {
         OkHttpUtils
                 .get()
                 .url(search_url)
+                .addParams("page.pn", oooo + "")
+                .addParams("page.size", 10 + "")
                 .build()
                 .execute(new StringCallback() {
                     @Override
@@ -371,6 +384,8 @@ public class RentHouseFragment extends LazyLoadFragment {
                         //int currentSize = myAdapter.getItemCount();
                         Type listType = new TypeToken<LinkedList<RentHouseBean.ResBean.ContentBean>>() {
                         }.getType();
+                        Type listType1 = new TypeToken<RentHouseBean.ResBean>() {
+                        }.getType();
                         Gson gson = new Gson();
                         try {
                             Log.d("jsonElements--------", response);
@@ -378,8 +393,11 @@ public class RentHouseFragment extends LazyLoadFragment {
                             JSONObject jsonObject1 = jsonObject.getJSONObject("res");
                             JSONArray jsonArray = jsonObject1.getJSONArray("content");
                             Log.d("jsonElements--------", jsonArray.toString());
+                            bean1 = gson.fromJson(jsonObject1.toString(), listType1);
                             bean = gson.fromJson(jsonArray.toString(), listType);
+                            TOTAL_COUNTER = bean1.getTotalElements();
                             //myAdapter.addAll(bean, 0);
+                            Log.d("additem", "loadSortData");
                             addItems(bean);
                             if (isRefresh) {
                                 isRefresh = false;

@@ -207,10 +207,12 @@ public class UsedHouseDetailActivity extends AutoLayoutActivity {
         topRight.setText("修改");
         if (type_fragment ==0){
             topMid.setText("二手房详情");
+            llRentTimeTotal.setVisibility(View.GONE);
         }else if(type_fragment ==1){
             topMid.setText("租房详情");
         }else if(type_fragment ==2){
             topMid.setText("新房详情");
+            llRentTimeTotal.setVisibility(View.GONE);
         }
         ivContacts.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -232,12 +234,30 @@ public class UsedHouseDetailActivity extends AutoLayoutActivity {
                         startActivity(intent);
                     }
                 });
+                llRemark.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        intent = new Intent(UsedHouseDetailActivity.this, HouseSourceRemarkDetailActivity.class);
+                        intent.putExtra("content",bean.getRemark());
+                        intent.putExtra("from",2);
+                        startActivity(intent);
+                    }
+                });
             }
         });
         llPicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent =new Intent(UsedHouseDetailActivity.this,SeePicturesActivity.class);
+                intent.putExtra("id",id);
+                startActivity(intent);
+            }
+        });
+        llHouseSourceRemark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                intent = new Intent(UsedHouseDetailActivity.this, HouseSourceRemarkDetailActivity.class);
+                intent.putExtra("content",bean.getRemark());
                 startActivity(intent);
             }
         });

@@ -4,6 +4,9 @@
 
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <uses-permission android:name="android.permission.CALL_PHONE"></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:name=".application.MyApplication"
         android:allowBackup="true"
@@ -11,8 +14,12 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar">
-        <meta-data android:name="design_width" android:value="720"></meta-data>
-        <meta-data android:name="design_height" android:value="1280"></meta-data>
+        <meta-data
+            android:name="design_width"
+            android:value="720"></meta-data>
+        <meta-data
+            android:name="design_height"
+            android:value="1280"></meta-data>
         <activity android:name=".activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,7 +27,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.MainActivity"
+        <activity
+            android:name=".activity.MainActivity"
             android:launchMode="singleTask"></activity>
         <activity android:name=".activity.AddUsedHouseActivity"></activity>
         <activity android:name=".activity.OrientationActivity"></activity>
@@ -46,17 +54,24 @@
         <activity android:name=".activity.PassengerRemarkActivity"></activity>
         <activity android:name=".activity.PassengerPropertiesActivity"></activity>
         <activity android:name=".activity.SearchPassengerActivity"></activity>
-        <activity android:name=".activity.UsedHouseDetailActivity"
+        <activity
+            android:name=".activity.UsedHouseDetailActivity"
             android:windowSoftInputMode="stateHidden"></activity>
         <activity android:name=".activity.TypePassengerActivity"></activity>
         <activity android:name=".activity.StatusPassengerActivity"></activity>
         <activity android:name=".activity.DecorationPassengerActivity"></activity>
         <activity android:name=".activity.OrientationPassengerActivity"></activity>
         <activity android:name=".activity.StatusPassengerSearchActivity"></activity>
-        <activity android:name=".activity.PassengerSourceDetailActivity"
+        <activity
+            android:name=".activity.PassengerSourceDetailActivity"
             android:windowSoftInputMode="stateHidden"></activity>
         <activity android:name=".activity.SeePicturesActivity"></activity>
         <activity android:name=".activity.ModifyPasswordActivity"></activity>
+        <activity android:name="com.mabeijianxi.lookbigpicutils.activty.LookBigPicActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:launchMode="singleTop"></activity>
+        <activity android:name=".activity.FeedbackActivity"></activity>
+        <activity android:name=".activity.HouseSourceRemarkDetailActivity"></activity>
     </application>
 
 </manifest>

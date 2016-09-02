@@ -25,9 +25,9 @@ public class MyApplication extends Application{
     //private static final String URL = "http://10.1.100.194:8080/wxfc/";
    // private static final String URL = "http://test.kafeikeji.com:8088/wxfc/";
    // private static final String URL = "http://192.168.0.110:8080/wxfc/";
-  // private static final String URL = "http://192.168.0.113:8080/wxfc/";
+   private static final String URL = "http://192.168.0.111:8080/wxfc/";
   //  private static final String URL = "http://192.168.0.112:8080/wxfc/"; http://62fa6d1e.ngrok.natapp.cn/
-    private static final String URL = "http://62fa6d1e.ngrok.natapp.cn/wxfc/";
+   // private static final String URL = "http://62fa6d1e.ngrok.natapp.cn/wxfc/";
     private String url;
     @Override
     public void onCreate() {
@@ -46,27 +46,39 @@ public class MyApplication extends Application{
         OkHttpUtils.initClient(okHttpClient);
         HandlerThread workerThread = new HandlerThread("global_worker_thread");
         workerThread.start();
-        initImageLoader(this);
+        initImageLoader(getApplicationContext());
     }
-
-    public static void initImageLoader(Context context){
+    private void initImageLoader(Context context) {
+        {
+            ImageLoaderConfiguration.Builder config = new ImageLoaderConfiguration.Builder(context);
+            config.threadPriority(Thread.NORM_PRIORITY - 2);
+//        config.denyCacheImageMultipleSizesInMemory();//不会在内存中缓存多个大小的图片
+            config.diskCacheFileNameGenerator(new Md5FileNameGenerator());//为了保证图片名称唯一
+            //内存缓存大小默认是：app可用内存的1/8
+            config.tasksProcessingOrder(QueueProcessingType.LIFO);
+            config.writeDebugLogs(); // Remove for release app
+            // Initialize ImageLoader with configuration.
+            ImageLoader.getInstance().init(config.build());
+        }
+    }
+/*    public static void initImageLoader(Context context){
         if(!ImageLoader.getInstance().isInited()){
             ImageLoaderConfiguration config = null;
             if(BuildConfig.DEBUG){
                 config = new ImageLoaderConfiguration.Builder(context)
-						/*.threadPriority(Thread.NORM_PRIORITY - 2)
+						*//*.threadPriority(Thread.NORM_PRIORITY - 2)
 						.memoryCacheSize((int) (Runtime.getRuntime().maxMemory() / 4))
 						.diskCacheSize(500 * 1024 * 1024)
 						.writeDebugLogs()
 						.diskCacheFileNameGenerator(new Md5FileNameGenerator())
-						.tasksProcessingOrder(QueueProcessingType.LIFO).build();*/
+						.tasksProcessingOrder(QueueProcessingType.LIFO).build();*//*
 
                         //.memoryCacheExtraOptions(200, 200)
                         //.diskCacheExtraOptions(200, 200, null).threadPoolSize(3)
                         .threadPriority(Thread.NORM_PRIORITY - 1)
                         .tasksProcessingOrder(QueueProcessingType.LIFO)
                         //.denyCacheImageMultipleSizesInMemory().memoryCache(new LruMemoryCache(2 * 1024 * 1024))
-						/*.memoryCacheSize(20 * 1024 * 1024)*/
+						*//*.memoryCacheSize(20 * 1024 * 1024)*//*
                         .memoryCacheSizePercentage(13)
                         .diskCacheSize(500 * 1024 * 1024)
                         //.imageDownloader(new BaseImageDownloader(A3App.getInstance().getApplicationContext()))
@@ -84,7 +96,7 @@ public class MyApplication extends Application{
             ImageLoader.getInstance().init(config);
         }
 
-    }
+    }*/
 
     public String getURL() {
         return URL;

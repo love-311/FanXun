@@ -90,6 +90,7 @@ public class LoginActivity extends AutoLayoutActivity {
                             public void onError(Call call, Exception e, int id) {
                                 Log.d("LoginActivity=======", URL + "登录失败");
                                 Toast.makeText(LoginActivity.this, "网络访问失败，请稍后重新登录！", Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
                             }
 
                             @Override

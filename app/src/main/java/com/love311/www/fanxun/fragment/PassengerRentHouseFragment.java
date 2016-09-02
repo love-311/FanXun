@@ -165,7 +165,7 @@ public class PassengerRentHouseFragment extends LazyLoadFragment  {
                     loadSearchData();
                     Log.d("loadSearchData", "loadSearchData()执行了");
                 } else {
-                    loadData();
+                    loadNormalData();
                     Log.d("loadData", "loadData()执行了");
                 }
             }
@@ -210,7 +210,7 @@ public class PassengerRentHouseFragment extends LazyLoadFragment  {
                         loadSearchData();
                         Log.d("loadSearchData", "loadSearchData()执行了");
                     } else {
-                        loadData();
+                        loadNormalData();
                         Log.d("loadData", "loadData()执行了");
                     }
                 } else {
@@ -242,9 +242,13 @@ public class PassengerRentHouseFragment extends LazyLoadFragment  {
         });
     }
 
-
     @Override
     public void loadData() {
+
+    }
+
+
+    public void loadNormalData() {
         oooo = oooo+1;
         OkHttpUtils
                 .get()
@@ -354,6 +358,8 @@ public class PassengerRentHouseFragment extends LazyLoadFragment  {
         OkHttpUtils
                 .get()
                 .url(search_url)
+                .addParams("page.pn", oooo + "")
+                .addParams("page.size", 10 + "")
                 .build()
                 .execute(new StringCallback() {
                     @Override

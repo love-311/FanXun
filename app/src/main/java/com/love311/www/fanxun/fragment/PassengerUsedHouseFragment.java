@@ -163,8 +163,8 @@ public class PassengerUsedHouseFragment extends LazyLoadFragment {
                 } else if (from == 4) {
                     loadSearchData();
                     Log.d("loadSearchData", "loadSearchData()执行了");
-                } else {
-                    loadData();
+                } else{
+                    loadNormaData();
                     Log.d("loadData", "loadData()执行了");
                 }
             }
@@ -208,8 +208,8 @@ public class PassengerUsedHouseFragment extends LazyLoadFragment {
                     } else if (from == 4) {
                         loadSearchData();
                         Log.d("loadSearchData", "loadSearchData()执行了");
-                    } else {
-                        loadData();
+                    } else{
+                        loadNormaData();
                         Log.d("loadData", "loadData()执行了");
                     }
                 } else {
@@ -241,9 +241,13 @@ public class PassengerUsedHouseFragment extends LazyLoadFragment {
         });
     }
 
-
     @Override
     public void loadData() {
+
+    }
+
+
+    public void loadNormaData() {
         oooo = oooo + 1;
         OkHttpUtils
                 .get()
@@ -353,6 +357,8 @@ public class PassengerUsedHouseFragment extends LazyLoadFragment {
         OkHttpUtils
                 .get()
                 .url(search_url)
+                .addParams("page.pn", oooo + "")
+                .addParams("page.size", 10 + "")
                 .build()
                 .execute(new StringCallback() {
                     @Override

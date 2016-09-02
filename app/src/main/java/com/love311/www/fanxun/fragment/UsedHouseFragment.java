@@ -90,7 +90,7 @@ public class UsedHouseFragment extends LazyLoadFragment {
         Log.d("ssssss", getActivity().getIntent().getStringExtra("ss") + "");
         if (getActivity().getIntent().getIntExtra("from", -1) == 1) {
             if (getActivity().getIntent().getIntExtra("sort_status", 0) == 1) {
-                Log.d("search_url_sort=",search_url);
+                Log.d("search_url_sort=", search_url);
                 search_url = getActivity().getIntent().getStringExtra("search_url_sort");
                 current_fragment = getActivity().getIntent().getIntExtra("type_fragment_sort", 0);
                 from = getActivity().getIntent().getIntExtra("from_sort", 0);
@@ -165,8 +165,8 @@ public class UsedHouseFragment extends LazyLoadFragment {
                 } else if (from == 1) {
                     loadSearchData();
                     Log.d("loadSearchData", "loadSearchData()执行了");
-                } else {
-                    loadData();
+                } else if (from == 0) {
+                    loadNormalData();
                     Log.d("loadData", "loadData()执行了");
                 }
             }
@@ -210,8 +210,8 @@ public class UsedHouseFragment extends LazyLoadFragment {
                     } else if (from == 1) {
                         loadSearchData();
                         Log.d("loadSearchData", "loadSearchData()执行了");
-                    } else {
-                        loadData();
+                    } else if (from == 0) {
+                        loadNormalData();
                         Log.d("loadData", "loadData()执行了");
                     }
                 } else {
@@ -243,9 +243,13 @@ public class UsedHouseFragment extends LazyLoadFragment {
         });
     }
 
-
     @Override
     public void loadData() {
+
+    }
+
+
+    public void loadNormalData() {
         oooo = oooo + 1;
         OkHttpUtils
                 .get()
@@ -284,6 +288,7 @@ public class UsedHouseFragment extends LazyLoadFragment {
                             bean = gson.fromJson(jsonArray.toString(), listType);
                             //myAdapter.addAll(bean, 0);
                             TOTAL_COUNTER = bean1.getTotalElements();
+                            Log.d("additem", "loadData");
                             addItems(bean);
                             if (isRefresh) {
                                 isRefresh = false;
@@ -338,6 +343,7 @@ public class UsedHouseFragment extends LazyLoadFragment {
                             bean = gson.fromJson(jsonArray.toString(), listType);
                             TOTAL_COUNTER = bean1.getTotalElements();
                             //myAdapter.addAll(bean, 0);
+                            Log.d("additem", "loadSearchData");
                             addItems(bean);
                             if (isRefresh) {
                                 isRefresh = false;
@@ -359,6 +365,8 @@ public class UsedHouseFragment extends LazyLoadFragment {
         OkHttpUtils
                 .get()
                 .url(search_url)
+                .addParams("page.pn", oooo + "")
+                .addParams("page.size", 10 + "")
                 .build()
                 .execute(new StringCallback() {
                     @Override
@@ -373,7 +381,6 @@ public class UsedHouseFragment extends LazyLoadFragment {
                             myAdapter.clear();
                             mCurrentCounter = 0;
                         }
-
                         //int currentSize = myAdapter.getItemCount();
                         Type listType = new TypeToken<LinkedList<UsedHouseBean.ResBean.ContentBean>>() {
                         }.getType();
@@ -391,6 +398,7 @@ public class UsedHouseFragment extends LazyLoadFragment {
                             bean = gson.fromJson(jsonArray.toString(), listType);
                             TOTAL_COUNTER = bean1.getTotalElements();
                             //myAdapter.addAll(bean, 0);
+                            Log.d("additem", "loadSortData");
                             addItems(bean);
                             if (isRefresh) {
                                 isRefresh = false;
@@ -420,10 +428,10 @@ public class UsedHouseFragment extends LazyLoadFragment {
 //    }
 
     private void addItems(LinkedList<UsedHouseBean.ResBean.ContentBean> list) {
+        Log.d("addItems----", list.size() + "list");
         Log.d("addItems----", mCurrentCounter + "");
         myAdapter.addAll(list, mCurrentCounter);
         mCurrentCounter += list.size();
-
     }
 
     private void notifyDataSetChanged() {

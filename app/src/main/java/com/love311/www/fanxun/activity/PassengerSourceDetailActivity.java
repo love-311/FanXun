@@ -117,6 +117,7 @@ public class PassengerSourceDetailActivity extends AutoLayoutActivity {
     private int type_fragment;
     private int id;
     private PassengerDetailBean.MsgBean bean;
+    private Intent intent;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -126,6 +127,15 @@ public class PassengerSourceDetailActivity extends AutoLayoutActivity {
         id = getIntent().getIntExtra("id",0);
         type_fragment =getIntent().getIntExtra("type_fragment",0);
         my = (MyApplication)getApplication();
+        tv1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                intent = new Intent(PassengerSourceDetailActivity.this, HouseSourceRemarkDetailActivity.class);
+                intent.putExtra("content",bean.getRemarks());
+                intent.putExtra("from",1);
+                startActivity(intent);
+            }
+        });
         if (type_fragment ==0){
             topMid.setText("二手房客源详情");
             URL = my.getURL() + url;
@@ -185,6 +195,9 @@ public class PassengerSourceDetailActivity extends AutoLayoutActivity {
         if (type_fragment ==1){
             tv8.setText(bean.getRentTermText());
         }
+        et1.setText(bean.getPhone());
+        et2.setText(bean.getName());
+        et3.setText(bean.getAddress());
         et4.setText(bean.getLowPrice()+"");
         et5.setText(bean.getTallPrice()+"");
         et6.setText(bean.getProportion().substring(0,1));
