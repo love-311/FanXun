@@ -40,6 +40,10 @@ public class TypeActivity extends AutoLayoutActivity implements View.OnClickList
     ImageView iv4;
     @BindView(R.id.rl_4)
     RelativeLayout rl4;
+    @BindView(R.id.iv_5)
+    ImageView iv5;
+    @BindView(R.id.rl_5)
+    RelativeLayout rl5;
     private Intent intent;
     private String statusString;
     private int house_type_status;
@@ -66,6 +70,7 @@ public class TypeActivity extends AutoLayoutActivity implements View.OnClickList
         rl2.setOnClickListener(this);
         rl3.setOnClickListener(this);
         rl4.setOnClickListener(this);
+        rl5.setOnClickListener(this);
         Intent intent1 = this.getIntent();
         statusString = intent1.getStringExtra("type");
         if (statusString.equals("低层")) {
@@ -76,6 +81,8 @@ public class TypeActivity extends AutoLayoutActivity implements View.OnClickList
             iv3.setBackgroundResource(R.mipmap.choosed);
         } else if (statusString.equals("高层")) {
             iv4.setBackgroundResource(R.mipmap.choosed);
+        }else if (statusString.equals("不限")) {
+            iv5.setBackgroundResource(R.mipmap.choosed);
         }
 //        else if (statusString.equals("商铺")) {
 //            iv5.setBackgroundResource(R.mipmap.choosed);
@@ -143,6 +150,13 @@ public class TypeActivity extends AutoLayoutActivity implements View.OnClickList
             case R.id.rl_4:
                 intent = new Intent();
                 intent.putExtra("type", "高层");
+                intent.putExtra("house_type_status", house_type_status);
+                TypeActivity.this.setResult(RESULT_OK, intent);
+                TypeActivity.this.finish();
+                break;
+            case R.id.rl_5:
+                intent = new Intent();
+                intent.putExtra("type", "不限");
                 intent.putExtra("house_type_status", house_type_status);
                 TypeActivity.this.setResult(RESULT_OK, intent);
                 TypeActivity.this.finish();

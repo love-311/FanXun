@@ -108,6 +108,7 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
     private String plate;
     //状态
     private String status;
+    private int statusStatus;
     //楼型
     private String type;
     private int house_type_status;
@@ -117,7 +118,6 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
     //装修
     private String decoration;
     private int decoration_status;
-    private int statusStatus;
 
     private int type_fragment;
     private String type_fragment_value;
@@ -153,6 +153,12 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_activity);
         ButterKnife.bind(this);
+        llReturnBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         //二手房搜索状态
         searchUsedSharedPreferences = getSharedPreferences("search_used_status", MODE_PRIVATE);
         usedEditor = searchUsedSharedPreferences.edit();
@@ -259,12 +265,12 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
                     tv2.setText(plate_id_value);
                 }
                 if (status_status_pre == 0) {
-                    tv3.setText("正常");
+                    tv3.setText("不限");
                 } else {
                     tv3.setText(status_pre);
                 }
                 if (floor_type_status_pre == 0) {
-                    tv4.setText("低层");
+                    tv4.setText("不限");
                 } else {
                     tv4.setText(floor_type_pre);
                 }
@@ -274,7 +280,7 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
                     tv5.setText(house_type_id_value);
                 }
                 if (decoration_pre == "0") {
-                    tv6.setText("清水");
+                    tv6.setText("不限");
                 } else {
                     tv6.setText(decoration_pre);
                 }
@@ -320,12 +326,12 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
                     tv2.setText(plate_id_value);
                 }
                 if (status_status_pre == 0) {
-                    tv3.setText("正常");
+                    tv3.setText("不限");
                 } else {
                     tv3.setText(status_pre);
                 }
                 if (floor_type_status_pre == 0) {
-                    tv4.setText("低层");
+                    tv4.setText("不限");
                 } else {
                     tv4.setText(floor_type_pre);
                 }
@@ -335,7 +341,7 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
                     tv5.setText(house_type_id_value);
                 }
                 if (decoration_pre == "0") {
-                    tv6.setText("清水");
+                    tv6.setText("不限");
                 } else {
                     tv6.setText(decoration_pre);
                 }
@@ -381,12 +387,12 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
                     tv2.setText(plate_id_value);
                 }
                 if (status_status_pre == 0) {
-                    tv3.setText("正常");
+                    tv3.setText("不限");
                 } else {
                     tv3.setText(status_pre);
                 }
                 if (floor_type_status_pre == 0) {
-                    tv4.setText("低层");
+                    tv4.setText("不限");
                 } else {
                     tv4.setText(floor_type_pre);
                 }
@@ -396,7 +402,7 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
                     tv5.setText(house_type_id_value);
                 }
                 if (decoration_pre == "0") {
-                    tv6.setText("清水");
+                    tv6.setText("不限");
                 } else {
                     tv6.setText(decoration_pre);
                 }
@@ -428,39 +434,33 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
                 intent = new Intent(SearchActivity.this, BrokerActivity.class);
                 intent.putExtra("broker", tv1.getText());
                 intent.putExtra("broker_id", broker_id);
-                Toast.makeText(SearchActivity.this, tv1.getText(), Toast.LENGTH_LONG).show();
                 startActivityForResult(intent, 1);
                 break;
             case R.id.ll_2:
                 intent = new Intent(SearchActivity.this, PlateActivity.class);
                 intent.putExtra("plate", tv2.getText());
                 intent.putExtra("plate_id", plate_id);
-                Toast.makeText(SearchActivity.this, tv2.getText(), Toast.LENGTH_LONG).show();
                 startActivityForResult(intent, 2);
                 break;
             case R.id.ll_3:
                 intent = new Intent(SearchActivity.this, StatusActivity.class);
                 intent.putExtra("status", tv3.getText());
-                Toast.makeText(SearchActivity.this, tv3.getText(), Toast.LENGTH_LONG).show();
                 startActivityForResult(intent, 3);
                 break;
             case R.id.ll_4:
                 intent = new Intent(SearchActivity.this, TypeActivity.class);
                 intent.putExtra("type", tv4.getText());
-                Toast.makeText(SearchActivity.this, tv4.getText(), Toast.LENGTH_LONG).show();
                 startActivityForResult(intent, 4);
                 break;
             case R.id.ll_5:
                 intent = new Intent(SearchActivity.this, HouseTypeSearchActivity.class);
                 intent.putExtra("house_type", tv5.getText());
                 intent.putExtra("house_type_id", house_type_id);
-                Toast.makeText(SearchActivity.this, tv5.getText(), Toast.LENGTH_LONG).show();
                 startActivityForResult(intent, 5);
                 break;
             case R.id.ll_6:
                 intent = new Intent(SearchActivity.this, DecorationActivity.class);
                 intent.putExtra("decoration", tv6.getText());
-                Toast.makeText(SearchActivity.this, tv6.getText(), Toast.LENGTH_LONG).show();
                 startActivityForResult(intent, 6);
                 break;
             case R.id.ll_search_mid:
@@ -480,10 +480,10 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
                     getUsedSearchSharedPreferences.edit().clear().commit();
                     tv1.setText("不限");
                     tv2.setText("不限");
-                    tv3.setText("正常");
-                    tv4.setText("低层");
+                    tv3.setText("不限");
+                    tv4.setText("不限");
                     tv5.setText("其他");
-                    tv6.setText("清水");
+                    tv6.setText("不限");
                     et1.setText("");
                     et2.setText("");
                     et3.setText("");
@@ -501,10 +501,10 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
                     getRentSearchSharedPreferences.edit().clear().commit();
                     tv1.setText("不限");
                     tv2.setText("不限");
-                    tv3.setText("正常");
-                    tv4.setText("低层");
+                    tv3.setText("不限");
+                    tv4.setText("不限");
                     tv5.setText("其他");
-                    tv6.setText("清水");
+                    tv6.setText("不限");
                     et1.setText("");
                     et2.setText("");
                     et3.setText("");
@@ -522,10 +522,10 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
                     getNewSearchSharedPreferences.edit().clear().commit();
                     tv1.setText("不限");
                     tv2.setText("不限");
-                    tv3.setText("正常");
-                    tv4.setText("低层");
+                    tv3.setText("不限");
+                    tv4.setText("不限");
                     tv5.setText("其他");
-                    tv6.setText("清水");
+                    tv6.setText("不限");
                     et1.setText("");
                     et2.setText("");
                     et3.setText("");
@@ -683,6 +683,8 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
             tvStatus_value = "doing";
         } else if (tv3.getText().toString().equals("驳回")) {
             tvStatus_value = "refuse";
+        }else if (tv3.getText().toString().equals("不限")) {
+            tvStatus_value = "";
         }
         //楼型对应关系
         if (tv4.getText().toString().equals("低层")) {
@@ -693,6 +695,8 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
             tvType_value = "ZGCeng";
         } else if (tv4.getText().toString().equals("高层")) {
             tvType_value = "gaoCeng";
+        }else if (tv4.getText().toString().equals("不限")) {
+            tvType_value = "";
         }
         //装修对应关系
         if (tv6.getText().toString().equals("清水")) {
@@ -705,6 +709,8 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
             tvBaseDecoration_value = "H";
         } else if (tv6.getText().toString().equals("豪装")) {
             tvBaseDecoration_value = "XH";
+        } else if (tv6.getText().toString().equals("不限")) {
+            tvBaseDecoration_value = "";
         }
         if (statusStatus == 0) {
             tvStatus_value = "";
@@ -846,6 +852,8 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
             tvStatus_value = "doing";
         } else if (tv3.getText().toString().equals("驳回")) {
             tvStatus_value = "refuse";
+        }else if (tv3.getText().toString().equals("不限")) {
+            tvStatus_value = "";
         }
         //楼型对应关系
         if (tv4.getText().toString().equals("低层")) {
@@ -856,6 +864,8 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
             tvType_value = "ZGCeng";
         } else if (tv4.getText().toString().equals("高层")) {
             tvType_value = "gaoCeng";
+        }else if (tv4.getText().toString().equals("不限")) {
+            tvType_value = "";
         }
         //装修对应关系
         if (tv6.getText().toString().equals("清水")) {
@@ -868,6 +878,8 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
             tvBaseDecoration_value = "H";
         } else if (tv6.getText().toString().equals("豪装")) {
             tvBaseDecoration_value = "XH";
+        }else if (tv6.getText().toString().equals("不限")) {
+            tvBaseDecoration_value = "";
         }
         if (statusStatus == 0) {
             tvStatus_value = "";
@@ -1009,6 +1021,8 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
             tvStatus_value = "doing";
         } else if (tv3.getText().toString().equals("驳回")) {
             tvStatus_value = "refuse";
+        }else if (tv3.getText().toString().equals("不限")) {
+            tvStatus_value = "";
         }
         //楼型对应关系
         if (tv4.getText().toString().equals("低层")) {
@@ -1019,6 +1033,8 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
             tvType_value = "ZGCeng";
         } else if (tv4.getText().toString().equals("高层")) {
             tvType_value = "gaoCeng";
+        }else if (tv4.getText().toString().equals("不限")) {
+            tvType_value = "";
         }
         //装修对应关系
         if (tv6.getText().toString().equals("清水")) {
@@ -1031,6 +1047,8 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
             tvBaseDecoration_value = "H";
         } else if (tv6.getText().toString().equals("豪装")) {
             tvBaseDecoration_value = "XH";
+        }else if (tv6.getText().toString().equals("不限")) {
+            tvBaseDecoration_value = "";
         }
         if (statusStatus == 0) {
             tvStatus_value = "";

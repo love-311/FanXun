@@ -70,7 +70,7 @@
                 android:layout_marginLeft="24px"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text="正常"
+                android:text="不限"
                 android:textSize="32px" />
 
             <ImageView

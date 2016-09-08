@@ -128,6 +128,10 @@ public class UsedHouseDetailActivity extends AutoLayoutActivity {
     TextView tvBroker;
     @BindView(R.id.ll_broker)
     LinearLayout llBroker;
+    @BindView(R.id.ll_left)
+    LinearLayout llLeft;
+    @BindView(R.id.ll_right)
+    LinearLayout llRight;
     private int id;
     //数据解析
     private String url = "admin/houses/housesDetail?";
@@ -211,6 +215,12 @@ public class UsedHouseDetailActivity extends AutoLayoutActivity {
             topMid.setText("新房详情");
             llRentTimeTotal.setVisibility(View.GONE);
         }
+        llLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         ivContacts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

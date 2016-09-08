@@ -48,6 +48,10 @@ public class StatusPassengerSearchActivity extends AutoLayoutActivity implements
     ImageView iv6;
     @BindView(R.id.rl_6)
     RelativeLayout rl6;
+    @BindView(R.id.iv_7)
+    ImageView iv7;
+    @BindView(R.id.rl_7)
+    RelativeLayout rl7;
     private Intent intent;
     private String statusString;
     private int status_status;
@@ -76,6 +80,7 @@ public class StatusPassengerSearchActivity extends AutoLayoutActivity implements
         rl4.setOnClickListener(this);
         rl5.setOnClickListener(this);
         rl6.setOnClickListener(this);
+        rl7.setOnClickListener(this);
         Intent intent1 = this.getIntent();
         statusString = intent1.getStringExtra("status");
         if (statusString.equals("正常")) {
@@ -88,8 +93,10 @@ public class StatusPassengerSearchActivity extends AutoLayoutActivity implements
             iv4.setBackgroundResource(R.mipmap.choosed);
         } else if (statusString.equals("暂缓")) {
             iv5.setBackgroundResource(R.mipmap.choosed);
-        }else if (statusString.equals("已售")) {
+        } else if (statusString.equals("已售")) {
             iv6.setBackgroundResource(R.mipmap.choosed);
+        }else if (statusString.equals("不限")) {
+            iv7.setBackgroundResource(R.mipmap.choosed);
         }
     }
 
@@ -134,6 +141,13 @@ public class StatusPassengerSearchActivity extends AutoLayoutActivity implements
             case R.id.rl_6:
                 intent = new Intent();
                 intent.putExtra("status", "已售");
+                intent.putExtra("status_status", status_status);
+                StatusPassengerSearchActivity.this.setResult(RESULT_OK, intent);
+                StatusPassengerSearchActivity.this.finish();
+                break;
+            case R.id.rl_7:
+                intent = new Intent();
+                intent.putExtra("status", "不限");
                 intent.putExtra("status_status", status_status);
                 StatusPassengerSearchActivity.this.setResult(RESULT_OK, intent);
                 StatusPassengerSearchActivity.this.finish();

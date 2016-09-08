@@ -3,13 +3,21 @@
     android:layout_width="match_parent"
     android:layout_height="96px"
     android:background="#dd3539">
-<ImageView
-    android:id="@+id/top_left"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:src="@mipmap/return_btn"
-    android:layout_marginLeft="24px"
-    android:layout_centerVertical="true"/>
+
+    <LinearLayout
+        android:id="@+id/ll_left"
+        android:layout_width="96px"
+        android:layout_height="96px"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/top_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/return_btn" />
+    </LinearLayout>
+
     <TextView
         android:id="@+id/top_mid"
         android:layout_width="match_parent"
@@ -18,14 +26,20 @@
         android:text="我 的"
         android:textColor="#ffffff"
         android:textSize="40px" />
-    <TextView
-        android:id="@+id/top_right"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+
+    <LinearLayout
+        android:id="@+id/ll_right"
+        android:layout_width="96px"
+        android:layout_height="96px"
         android:layout_alignParentRight="true"
-        android:text="保存"
-        android:textColor="#ffffff"
-        android:textSize="34px"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="24px"/>
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/top_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="保存"
+            android:textColor="#ffffff"
+            android:textSize="34px" />
+    </LinearLayout>
 </RelativeLayout>

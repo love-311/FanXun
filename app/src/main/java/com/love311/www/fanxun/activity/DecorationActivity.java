@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
 /**
  * Created by Administrator on 2016/8/17.
  */
-public class DecorationActivity extends AutoLayoutActivity implements View.OnClickListener{
+public class DecorationActivity extends AutoLayoutActivity implements View.OnClickListener {
     @BindView(R.id.top_left)
     ImageView topLeft;
     @BindView(R.id.top_mid)
@@ -44,9 +44,14 @@ public class DecorationActivity extends AutoLayoutActivity implements View.OnCli
     ImageView ivBig;
     @BindView(R.id.rl_big)
     RelativeLayout rlBig;
+    @BindView(R.id.iv_1)
+    ImageView iv1;
+    @BindView(R.id.rl_1)
+    RelativeLayout rl1;
     private Intent intent;
     private String statusString;
     private int decoration_status;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +63,7 @@ public class DecorationActivity extends AutoLayoutActivity implements View.OnCli
             public void onClick(View view) {
                 intent = new Intent();
                 intent.putExtra("decoration", statusString);
-                intent.putExtra("decoration_status",decoration_status);
+                intent.putExtra("decoration_status", decoration_status);
                 DecorationActivity.this.setResult(RESULT_OK, intent);
                 DecorationActivity.this.finish();
             }
@@ -70,18 +75,21 @@ public class DecorationActivity extends AutoLayoutActivity implements View.OnCli
         rlMiddle.setOnClickListener(this);
         rlElaborate.setOnClickListener(this);
         rlBig.setOnClickListener(this);
+        rl1.setOnClickListener(this);
         Intent intent1 = this.getIntent();
         statusString = intent1.getStringExtra("decoration");
-        if (statusString.equals("清水")){
+        if (statusString.equals("清水")) {
             ivBlank.setBackgroundResource(R.mipmap.choosed);
-        }else if (statusString.equals("简装")){
+        } else if (statusString.equals("简装")) {
             ivSimple.setBackgroundResource(R.mipmap.choosed);
-        }else if (statusString.equals("中装")){
+        } else if (statusString.equals("中装")) {
             ivMiddle.setBackgroundResource(R.mipmap.choosed);
-        }else if (statusString.equals("精装")){
+        } else if (statusString.equals("精装")) {
             ivElaborate.setBackgroundResource(R.mipmap.choosed);
-        }else if (statusString.equals("豪装")){
+        } else if (statusString.equals("豪装")) {
             ivBig.setBackgroundResource(R.mipmap.choosed);
+        } else if (statusString.equals("不限")) {
+            iv1.setBackgroundResource(R.mipmap.choosed);
         }
     }
 
@@ -91,35 +99,42 @@ public class DecorationActivity extends AutoLayoutActivity implements View.OnCli
             case R.id.rl_blank:
                 intent = new Intent();
                 intent.putExtra("decoration", "清水");
-                intent.putExtra("decoration_status",decoration_status);
+                intent.putExtra("decoration_status", decoration_status);
                 DecorationActivity.this.setResult(RESULT_OK, intent);
                 DecorationActivity.this.finish();
                 break;
             case R.id.rl_simple:
                 intent = new Intent();
                 intent.putExtra("decoration", "简装");
-                intent.putExtra("decoration_status",decoration_status);
+                intent.putExtra("decoration_status", decoration_status);
                 DecorationActivity.this.setResult(RESULT_OK, intent);
                 DecorationActivity.this.finish();
                 break;
             case R.id.rl_middle:
                 intent = new Intent();
                 intent.putExtra("decoration", "中装");
-                intent.putExtra("decoration_status",decoration_status);
+                intent.putExtra("decoration_status", decoration_status);
                 DecorationActivity.this.setResult(RESULT_OK, intent);
                 DecorationActivity.this.finish();
                 break;
             case R.id.rl_elaborate:
                 intent = new Intent();
                 intent.putExtra("decoration", "精装");
-                intent.putExtra("decoration_status",decoration_status);
+                intent.putExtra("decoration_status", decoration_status);
                 DecorationActivity.this.setResult(RESULT_OK, intent);
                 DecorationActivity.this.finish();
                 break;
             case R.id.rl_big:
                 intent = new Intent();
                 intent.putExtra("decoration", "豪装");
-                intent.putExtra("decoration_status",decoration_status);
+                intent.putExtra("decoration_status", decoration_status);
+                DecorationActivity.this.setResult(RESULT_OK, intent);
+                DecorationActivity.this.finish();
+                break;
+            case R.id.rl_1:
+                intent = new Intent();
+                intent.putExtra("decoration", "不限");
+                intent.putExtra("decoration_status", decoration_status);
                 DecorationActivity.this.setResult(RESULT_OK, intent);
                 DecorationActivity.this.finish();
                 break;
@@ -127,11 +142,12 @@ public class DecorationActivity extends AutoLayoutActivity implements View.OnCli
                 break;
         }
     }
+
     @Override
     public void onBackPressed() {
         intent = new Intent();
         intent.putExtra("decoration", statusString);
-        intent.putExtra("decoration_status",decoration_status);
+        intent.putExtra("decoration_status", decoration_status);
         DecorationActivity.this.setResult(RESULT_OK, intent);
         DecorationActivity.this.finish();
     }

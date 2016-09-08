@@ -52,6 +52,10 @@ public class StatusActivity extends AutoLayoutActivity implements View.OnClickLi
     ImageView iv7;
     @BindView(R.id.rl_7)
     RelativeLayout rl7;
+    @BindView(R.id.iv_8)
+    ImageView iv8;
+    @BindView(R.id.rl_8)
+    RelativeLayout rl8;
     private Intent intent;
     private String statusString;
     private int statusStatus;
@@ -81,6 +85,7 @@ public class StatusActivity extends AutoLayoutActivity implements View.OnClickLi
         rl5.setOnClickListener(this);
         rl6.setOnClickListener(this);
         rl7.setOnClickListener(this);
+        rl8.setOnClickListener(this);
         Intent intent1 = this.getIntent();
         statusString = intent1.getStringExtra("status");
         if (statusString.equals("正常")) {
@@ -97,6 +102,8 @@ public class StatusActivity extends AutoLayoutActivity implements View.OnClickLi
             iv6.setBackgroundResource(R.mipmap.choosed);
         } else if (statusString.equals("驳回")) {
             iv7.setBackgroundResource(R.mipmap.choosed);
+        }else if (statusString.equals("不限")) {
+            iv8.setBackgroundResource(R.mipmap.choosed);
         }
     }
 
@@ -148,6 +155,13 @@ public class StatusActivity extends AutoLayoutActivity implements View.OnClickLi
             case R.id.rl_7:
                 intent = new Intent();
                 intent.putExtra("status", "驳回");
+                intent.putExtra("statusStatus", statusStatus);
+                StatusActivity.this.setResult(RESULT_OK, intent);
+                StatusActivity.this.finish();
+                break;
+            case R.id.rl_8:
+                intent = new Intent();
+                intent.putExtra("status", "不限");
                 intent.putExtra("statusStatus", statusStatus);
                 StatusActivity.this.setResult(RESULT_OK, intent);
                 StatusActivity.this.finish();

@@ -106,6 +106,12 @@ public class SearchPassengerActivity extends AutoLayoutActivity implements View.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_passenger_activity);
         ButterKnife.bind(this);
+        llReturnBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         //二手房搜索状态
         searchPassengerUsedSharedPreferences = getSharedPreferences("search_passenger_used_status", MODE_PRIVATE);
         usedEditor = searchPassengerUsedSharedPreferences.edit();
@@ -138,6 +144,7 @@ public class SearchPassengerActivity extends AutoLayoutActivity implements View.
         if (getUsedSearchPassengerSharedPreferences.getInt("status_status", 1000)!=1000){
             statusStatus = getUsedSearchPassengerSharedPreferences.getInt("status_status", 1000);
         }else {
+            Log.d("ssss","dsdasdsa");
             statusStatus = 0;
         }
         ll1.setOnClickListener(this);
@@ -159,7 +166,7 @@ public class SearchPassengerActivity extends AutoLayoutActivity implements View.
                     tv1.setText(broker_id_value);
                 }
                 if (status_status_pre == 0) {
-                    tv2.setText("正常");
+                    tv2.setText("不限");
                 } else {
                     tv2.setText(status_pre);
                 }
@@ -178,7 +185,7 @@ public class SearchPassengerActivity extends AutoLayoutActivity implements View.
                     tv1.setText(broker_id_value);
                 }
                 if (status_status_pre == 0) {
-                    tv2.setText("正常");
+                    tv2.setText("不限");
                 } else {
                     tv2.setText(status_pre);
                 }
@@ -196,7 +203,7 @@ public class SearchPassengerActivity extends AutoLayoutActivity implements View.
                     tv1.setText(broker_id_value);
                 }
                 if (status_status_pre == 0) {
-                    tv2.setText("正常");
+                    tv2.setText("不限");
                 } else {
                     tv2.setText(status_pre);
                 }
@@ -227,13 +234,11 @@ public class SearchPassengerActivity extends AutoLayoutActivity implements View.
                 intent = new Intent(SearchPassengerActivity.this, BrokerActivity.class);
                 intent.putExtra("broker", tv1.getText());
                 intent.putExtra("broker_id", broker_id);
-                Toast.makeText(SearchPassengerActivity.this, tv1.getText(), Toast.LENGTH_LONG).show();
                 startActivityForResult(intent, 1);
                 break;
             case R.id.ll_2:
                 intent = new Intent(SearchPassengerActivity.this, StatusPassengerSearchActivity.class);
                 intent.putExtra("status", tv2.getText());
-                Toast.makeText(SearchPassengerActivity.this, tv2.getText(), Toast.LENGTH_LONG).show();
                 startActivityForResult(intent, 2);
                 break;
 //            case R.id.ll_search_mid:
@@ -258,21 +263,21 @@ public class SearchPassengerActivity extends AutoLayoutActivity implements View.
                 if (type_fragment == 0) {
                     getUsedSearchPassengerSharedPreferences.edit().clear().commit();
                     tv1.setText("不限");
-                    tv2.setText("正常");
+                    tv2.setText("不限");
                     et1.setText("");
                     broker_id = "0";
                     statusStatus = 0;
                 } else if (type_fragment == 1) {
                     getRentSearchPassengerSharedPreferences.edit().clear().commit();
                     tv1.setText("不限");
-                    tv2.setText("正常");
+                    tv2.setText("不限");
                     et1.setText("");
                     broker_id = "0";
                     statusStatus = 0;
                 } else if (type_fragment == 2) {
                     getNewSearchPassengerSharedPreferences.edit().clear().commit();
                     tv1.setText("不限");
-                    tv2.setText("正常");
+                    tv2.setText("不限");
                     et1.setText("");
                     broker_id = "0";
                     statusStatus = 0;
@@ -305,9 +310,12 @@ public class SearchPassengerActivity extends AutoLayoutActivity implements View.
             tvStatus_value = "zanHuan";
         } else if (tv2.getText().toString().equals("已售")) {
             tvStatus_value = "yiZhu";
+        }else if (tv2.getText().toString().equals("不限")) {
+            tvStatus_value = "";
         }
         if (statusStatus == 0) {
             tvStatus_value = "";
+            Log.d("ssdd","dsda");
         }
         if (broker_id.equals("0")) {
             broker_id = "";
@@ -382,6 +390,8 @@ public class SearchPassengerActivity extends AutoLayoutActivity implements View.
             tvStatus_value = "zanHuan";
         } else if (tv2.getText().toString().equals("已售")) {
             tvStatus_value = "yiZhu";
+        }else if (tv2.getText().toString().equals("不限")) {
+            tvStatus_value = "";
         }
         if (statusStatus == 0) {
             tvStatus_value = "";
@@ -456,6 +466,8 @@ public class SearchPassengerActivity extends AutoLayoutActivity implements View.
             tvStatus_value = "zanHuan";
         } else if (tv2.getText().toString().equals("已售")) {
             tvStatus_value = "yiZhu";
+        }else if (tv2.getText().toString().equals("不限")) {
+            tvStatus_value = "";
         }
         if (statusStatus == 0) {
             tvStatus_value = "";
@@ -575,7 +587,7 @@ public class SearchPassengerActivity extends AutoLayoutActivity implements View.
                 break;
             case 2:
                 status = data.getStringExtra("status");
-                statusStatus = data.getIntExtra("statusStatus", statusStatus);
+                statusStatus = data.getIntExtra("status_status", statusStatus);
                 tv2.setText(status);
                 break;
             default:

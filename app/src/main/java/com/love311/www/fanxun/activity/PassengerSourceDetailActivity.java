@@ -15,7 +15,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.love311.www.fanxun.R;
 import com.love311.www.fanxun.application.MyApplication;
-import com.love311.www.fanxun.bean.HouseDetailBean;
 import com.love311.www.fanxun.bean.PassengerDetailBean;
 import com.zhy.autolayout.AutoLayoutActivity;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -109,6 +108,10 @@ public class PassengerSourceDetailActivity extends AutoLayoutActivity {
     EditText et10;
     @BindView(R.id.rl_use)
     RelativeLayout rlUse;
+    @BindView(R.id.ll_left)
+    LinearLayout llLeft;
+    @BindView(R.id.ll_right)
+    LinearLayout llRight;
     //数据解析
     private String url = "admin/saleCustomer/appGetSaleCustomerDetail?";
     private String url1 = "admin/rentCustomer/appGetRentCustomerDetail?";
@@ -124,28 +127,34 @@ public class PassengerSourceDetailActivity extends AutoLayoutActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.passenger_detail_activity);
         ButterKnife.bind(this);
-        id = getIntent().getIntExtra("id",0);
-        type_fragment =getIntent().getIntExtra("type_fragment",0);
-        my = (MyApplication)getApplication();
+        llLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+        id = getIntent().getIntExtra("id", 0);
+        type_fragment = getIntent().getIntExtra("type_fragment", 0);
+        my = (MyApplication) getApplication();
         tv1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 intent = new Intent(PassengerSourceDetailActivity.this, HouseSourceRemarkDetailActivity.class);
-                intent.putExtra("content",bean.getRemarks());
-                intent.putExtra("from",1);
+                intent.putExtra("content", bean.getRemarks());
+                intent.putExtra("from", 1);
                 startActivity(intent);
             }
         });
-        if (type_fragment ==0){
+        if (type_fragment == 0) {
             topMid.setText("二手房客源详情");
             URL = my.getURL() + url;
             llRentTime.setVisibility(View.GONE);
-        }else if(type_fragment ==1){
+        } else if (type_fragment == 1) {
             topMid.setText("租房客源详情");
             URL = my.getURL() + url1;
             rlAddress.setVisibility(View.GONE);
             rlUse.setVisibility(View.GONE);
-        }else if(type_fragment ==2){
+        } else if (type_fragment == 2) {
             topMid.setText("新房客源详情");
             URL = my.getURL() + url;
             llRentTime.setVisibility(View.GONE);
@@ -153,7 +162,7 @@ public class PassengerSourceDetailActivity extends AutoLayoutActivity {
         OkHttpUtils
                 .get()
                 .url(URL)
-                .addParams("id",id+"")
+                .addParams("id", id + "")
                 .build()
                 .execute(new StringCallback() {
                     @Override
@@ -181,8 +190,9 @@ public class PassengerSourceDetailActivity extends AutoLayoutActivity {
                     }
                 });
     }
+
     private void initData() {
-        if (type_fragment==0 || type_fragment ==2){
+        if (type_fragment == 0 || type_fragment == 2) {
             et3.setText(bean.getAddress());
         }
         tv1.setText(bean.getRemarks());
@@ -192,19 +202,19 @@ public class PassengerSourceDetailActivity extends AutoLayoutActivity {
         tv5.setText(bean.getStatusText());
         tv6.setText(bean.getRenovationInfoText());
         tv7.setText(bean.getOrientationText());
-        if (type_fragment ==1){
+        if (type_fragment == 1) {
             tv8.setText(bean.getRentTermText());
         }
         et1.setText(bean.getPhone());
         et2.setText(bean.getName());
         et3.setText(bean.getAddress());
-        et4.setText(bean.getLowPrice()+"");
-        et5.setText(bean.getTallPrice()+"");
-        et6.setText(bean.getProportion().substring(0,1));
-        et7.setText(bean.getProportion().substring(2,3));
-        et8.setText(bean.getFloor().substring(0,1));
-        et9.setText(bean.getFloor().substring(2,3));
-        if (type_fragment == 0 || type_fragment ==2){
+        et4.setText(bean.getLowPrice() + "");
+        et5.setText(bean.getTallPrice() + "");
+        et6.setText(bean.getProportion().substring(0, 1));
+        et7.setText(bean.getProportion().substring(2, 3));
+        et8.setText(bean.getFloor().substring(0, 1));
+        et9.setText(bean.getFloor().substring(2, 3));
+        if (type_fragment == 0 || type_fragment == 2) {
             et10.setText(bean.getHousesPurpose());
         }
     }
