@@ -113,7 +113,6 @@ public class SearchActivity extends AutoLayoutActivity implements View.OnClickLi
     private int house_type_status;
     //户型
     private String house_type_id;
-    ;
     private String house_type;
     //装修
     private String decoration;

@@ -2,7 +2,6 @@ package com.love311.www.fanxun.activity;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.opengl.ETC1Util;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -13,27 +12,20 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.load.resource.bitmap.BitmapEncoder;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.love311.www.fanxun.R;
-import com.love311.www.fanxun.adapter.SeePicRecycleViewAdapter;
 import com.love311.www.fanxun.application.MyApplication;
 import com.love311.www.fanxun.bean.HouseDetailBean;
-import com.love311.www.fanxun.bean.SeePicBean;
-import com.love311.www.fanxun.bean.UsedHouseBean;
 import com.zhy.autolayout.AutoLayoutActivity;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -132,6 +124,10 @@ public class UsedHouseDetailActivity extends AutoLayoutActivity {
     TextView tvPicture;
     @BindView(R.id.ll_picture)
     LinearLayout llPicture;
+    @BindView(R.id.tv_broker)
+    TextView tvBroker;
+    @BindView(R.id.ll_broker)
+    LinearLayout llBroker;
     private int id;
     //数据解析
     private String url = "admin/houses/housesDetail?";
@@ -184,15 +180,16 @@ public class UsedHouseDetailActivity extends AutoLayoutActivity {
     //照片
     private ArrayList<String> listPath = new ArrayList<>();
     private String picture;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.see_used_house_activity);
         ButterKnife.bind(this);
-        my = (MyApplication)getApplication();
+        my = (MyApplication) getApplication();
         URL = my.getURL() + url;
-        id = getIntent().getIntExtra("id",0);
-        type_fragment =getIntent().getIntExtra("type_fragment",0);
+        id = getIntent().getIntExtra("id", 0);
+        type_fragment = getIntent().getIntExtra("type_fragment", 0);
         village_id = 0;
         house_type_id = 0;
         orientation_status = 0;
@@ -203,14 +200,14 @@ public class UsedHouseDetailActivity extends AutoLayoutActivity {
         key_status = 0;
         delegate_status = 0;
         rent_time_status = 0;
-        Log.d("UsedHouseDettivity-",id+"");
+        Log.d("UsedHouseDettivity-", id + "");
         topRight.setText("修改");
-        if (type_fragment ==0){
+        if (type_fragment == 0) {
             topMid.setText("二手房详情");
             llRentTimeTotal.setVisibility(View.GONE);
-        }else if(type_fragment ==1){
+        } else if (type_fragment == 1) {
             topMid.setText("租房详情");
-        }else if(type_fragment ==2){
+        } else if (type_fragment == 2) {
             topMid.setText("新房详情");
             llRentTimeTotal.setVisibility(View.GONE);
         }
@@ -220,9 +217,9 @@ public class UsedHouseDetailActivity extends AutoLayoutActivity {
                 ivContacts.setImageResource(R.mipmap.blue_call);
                 etPhone.setText(bean.getPhone());
                 etOwnerName.setText(bean.getOwner());
-                if (tvRemark.getText().toString().equals("")){
+                if (tvRemark.getText().toString().equals("")) {
                     tvRemark.setText("请填写业主保密信息...");
-                }else {
+                } else {
                     tvRemark.setText(bean.getBmremark());
                 }
                 ivContacts.setOnClickListener(new View.OnClickListener() {
@@ -238,8 +235,8 @@ public class UsedHouseDetailActivity extends AutoLayoutActivity {
                     @Override
                     public void onClick(View view) {
                         intent = new Intent(UsedHouseDetailActivity.this, HouseSourceRemarkDetailActivity.class);
-                        intent.putExtra("content",bean.getRemark());
-                        intent.putExtra("from",2);
+                        intent.putExtra("content", bean.getRemark());
+                        intent.putExtra("from", 2);
                         startActivity(intent);
                     }
                 });
@@ -248,8 +245,8 @@ public class UsedHouseDetailActivity extends AutoLayoutActivity {
         llPicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent =new Intent(UsedHouseDetailActivity.this,SeePicturesActivity.class);
-                intent.putExtra("id",id);
+                Intent intent = new Intent(UsedHouseDetailActivity.this, SeePicturesActivity.class);
+                intent.putExtra("id", id);
                 startActivity(intent);
             }
         });
@@ -257,7 +254,7 @@ public class UsedHouseDetailActivity extends AutoLayoutActivity {
             @Override
             public void onClick(View view) {
                 intent = new Intent(UsedHouseDetailActivity.this, HouseSourceRemarkDetailActivity.class);
-                intent.putExtra("content",bean.getRemark());
+                intent.putExtra("content", bean.getRemark());
                 startActivity(intent);
             }
         });
@@ -278,15 +275,14 @@ public class UsedHouseDetailActivity extends AutoLayoutActivity {
                 etPhone.setText(bean.getPhone());
                 etOwnerName.setText(bean.getOwner());
                 ivContacts.setImageResource(R.mipmap.blue_call);
-                if (tvRemark.getText().toString().equals("")){
+                if (tvRemark.getText().toString().equals("")) {
                     tvRemark.setText("请填写业主保密信息...");
-                }else {
+                } else {
                     tvRemark.setText(bean.getBmremark());
                 }
-                if (tvHouseSourceRemark.getText().toString().equals(""))
-                {
+                if (tvHouseSourceRemark.getText().toString().equals("")) {
                     tvHouseSourceRemark.setText("请填写房源其它公开信息...");
-                }else {
+                } else {
                     tvHouseSourceRemark.setText(bean.getRemark());
                 }
                 //小区
@@ -427,7 +423,7 @@ public class UsedHouseDetailActivity extends AutoLayoutActivity {
         OkHttpUtils
                 .get()
                 .url(URL)
-                .addParams("id",id+"")
+                .addParams("id", id + "")
                 .build()
                 .execute(new StringCallback() {
                     @Override
@@ -455,26 +451,28 @@ public class UsedHouseDetailActivity extends AutoLayoutActivity {
                     }
                 });
     }
+
     private void initData() {
         tvVillage.setText(bean.getCommuntyName());
-        etPrice.setText(bean.getSalePrice()+"");
-        etArea.setText(bean.getProportion()+"");
+        etPrice.setText(bean.getSalePrice() + "");
+        etArea.setText(bean.getProportion() + "");
         tvHouseType.setText(bean.getHuXingName());
         tvBaseOrientation.setText(bean.getOrientationText());
         tvBaseDecoration.setText(bean.getRenovationInfoText());
         etPhone.setText("******");
         etOwnerName.setText("******");
-        if (bean.getBmremark().equals("")){
+        if (bean.getBmremark().equals("")) {
             tvRemark.setText("");
-        }else {
+        } else {
             tvRemark.setText("******");
         }
+        tvBroker.setText(bean.getUserName());
         tvProperties.setText(bean.getNatureText());
         tvType.setText(bean.getFloorTypeText());
         etSeatNumbers.setText(bean.getSeat());
         etUnitNumbers.setText(bean.getUnit());
-        etFloorNumbers.setText(bean.getFloor()+"");
-        etTotalFloorNumbers.setText(bean.getCountFloor()+"");
+        etFloorNumbers.setText(bean.getFloor() + "");
+        etTotalFloorNumbers.setText(bean.getCountFloor() + "");
         etHouseNumberName.setText(bean.getHousesNum());
         tvPropertyRight.setText(bean.getCardText());
         etYears.setText(bean.getYear());
@@ -485,7 +483,7 @@ public class UsedHouseDetailActivity extends AutoLayoutActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode){
+        switch (requestCode) {
             case 0:
                 village = data.getStringExtra("village");
                 village_id = data.getIntExtra("village_id", village_id);
@@ -547,7 +545,7 @@ public class UsedHouseDetailActivity extends AutoLayoutActivity {
                 break;
             case 10:
                 rent_time = data.getStringExtra("rent_time");
-                rent_time_status =data.getIntExtra("rent_time_status", rent_time_status);
+                rent_time_status = data.getIntExtra("rent_time_status", rent_time_status);
                 tvRentTime.setText(rent_time);
                 etFloorNumbers.requestFocus();
                 break;

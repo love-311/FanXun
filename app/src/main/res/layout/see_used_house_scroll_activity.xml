@@ -504,6 +504,46 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="24px"
+                        android:text="经纪人："
+                        android:textColor="#9c9a9c"
+                        android:textSize="34px" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_broker"
+                        android:layout_width="0px"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/tv_broker"
+                            android:layout_width="0px"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="24px"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:text="不限"
+                            android:textSize="34px" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginRight="24px"
+                            android:src="@mipmap/next" />
+                    </LinearLayout>
+                </LinearLayout>
+                <include layout="@layout/add_info_1px"></include>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="90px"
+                    android:background="#ffffff"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="24px"
                         android:text="性质："
                         android:textColor="#9c9a9c"
                         android:textSize="34px" />

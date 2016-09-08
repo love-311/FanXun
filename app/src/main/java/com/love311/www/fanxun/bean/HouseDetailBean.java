@@ -100,7 +100,15 @@ public class HouseDetailBean {
         private String statusText;
         private String unit;
         private String year;
+        private String userName;
 
+        public String getUserName() {
+            return userName;
+        }
+
+        public void setUserName(String userName) {
+            this.userName = userName;
+        }
         public String getBmremark() {
             return bmremark;
         }
