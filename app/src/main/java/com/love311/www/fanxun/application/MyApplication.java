@@ -27,7 +27,7 @@ public class MyApplication extends Application{
    // private static final String URL = "http://192.168.0.110:8080/wxfc/";
    //private static final String URL = "http://192.168.0.111:8080/wxfc/";
   //  private static final String URL = "http://192.168.0.112:8080/wxfc/"; http://62fa6d1e.ngrok.natapp.cn/
-   // private static final String URL = "http://62fa6d1e.ngrok.natapp.cn/wxfc/";
+ //   private static final String URL = "http://17f28512.ngrok.natapp.cn/wxfc/";
     private String url;
     @Override
     public void onCreate() {

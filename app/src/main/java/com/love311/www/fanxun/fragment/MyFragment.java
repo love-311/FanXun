@@ -18,6 +18,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.love311.www.fanxun.R;
 import com.love311.www.fanxun.activity.FeedbackActivity;
+import com.love311.www.fanxun.activity.LoginActivity;
 import com.love311.www.fanxun.activity.ModifyPasswordActivity;
 import com.love311.www.fanxun.application.MyApplication;
 import com.love311.www.fanxun.bean.MyFragmentBean;
@@ -185,7 +186,9 @@ public class MyFragment extends LazyLoadFragment {
                                 editor4.clear().commit();
                                 editor5.clear().commit();
                                 editor6.clear().commit();
-                                getActivity().finish();
+                                Intent intent =new Intent(getActivity(), LoginActivity.class);
+                                intent.putExtra("login_flag",1);
+                                startActivity(intent);
                                 dialog.dismiss();
                             }
                         })

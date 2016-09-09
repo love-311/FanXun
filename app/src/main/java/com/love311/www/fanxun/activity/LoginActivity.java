@@ -56,15 +56,76 @@ public class LoginActivity extends AutoLayoutActivity {
         getLoginSharedPreferences = getSharedPreferences("login", MODE_PRIVATE);
         editor = loginSharedPreferences.edit();
         Log.d("username", getLoginSharedPreferences.getString("username", "2222"));
-        if (getLoginSharedPreferences.getString("password", "") != null && !getLoginSharedPreferences.getString("username", "").equals("")
-                && getLoginSharedPreferences.getString("username", "") != null && !getLoginSharedPreferences.getString("password", "").equals("")) {
-            loginCheck.setChecked(true);
-            String username = getLoginSharedPreferences.getString("username", "");
-            String password = getLoginSharedPreferences.getString("password", "");
-            etUsername.setText(username);
-            etPassword.setText(password);
-            etPassword.requestFocus();
-            etPassword.setSelection(password.length());
+        if (getIntent().getIntExtra("login_flag",0)==1){
+            if (getLoginSharedPreferences.getString("password", "") != null && !getLoginSharedPreferences.getString("username", "").equals("")
+                    && getLoginSharedPreferences.getString("username", "") != null && !getLoginSharedPreferences.getString("password", "").equals("")) {
+                loginCheck.setChecked(true);
+                String username = getLoginSharedPreferences.getString("username", "");
+                String password = getLoginSharedPreferences.getString("password", "");
+                etUsername.setText(username);
+                etPassword.setText(password);
+                etPassword.requestFocus();
+                etPassword.setSelection(password.length());
+
+                if (loginCheck.isChecked()) {
+                    editor.putString("username", etUsername.getText().toString());
+                    editor.putString("password", etPassword.getText().toString());
+                    editor.commit();
+                } else {
+                    editor.clear().commit();
+                }
+            }
+        }else {
+            if (getLoginSharedPreferences.getString("password", "") != null && !getLoginSharedPreferences.getString("username", "").equals("")
+                    && getLoginSharedPreferences.getString("username", "") != null && !getLoginSharedPreferences.getString("password", "").equals("")) {
+                loginCheck.setChecked(true);
+                String username = getLoginSharedPreferences.getString("username", "");
+                String password = getLoginSharedPreferences.getString("password", "");
+                etUsername.setText(username);
+                etPassword.setText(password);
+                etPassword.requestFocus();
+                etPassword.setSelection(password.length());
+
+                if (loginCheck.isChecked()) {
+                    editor.putString("username", etUsername.getText().toString());
+                    editor.putString("password", etPassword.getText().toString());
+                    editor.commit();
+                } else {
+                    editor.clear().commit();
+                }
+                dialog = new SpotsDialog(LoginActivity.this, R.style.Custom);
+                dialog.show();
+                OkHttpUtils
+                        .post()
+                        .url(URL)
+                        .addParams("username", etUsername.getText().toString())
+                        .addParams("password", etPassword.getText().toString())
+                        .build()
+                        .execute(new StringCallback() {
+                            @Override
+                            public void onError(Call call, Exception e, int id) {
+                                Log.d("LoginActivity=======", URL + "登录失败");
+                                Toast.makeText(LoginActivity.this, "网络访问失败，请稍后重新登录！", Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                            }
+
+                            @Override
+                            public void onResponse(String response, int id) {
+                                Log.d("LoginActivity=======", URL + "登录成功" + response.toString());
+                                Gson gson = new Gson();
+                                bean = gson.fromJson(response, ModifyPasswordBean.class);
+                                if (bean.getStatus().equals("success")) {
+                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                    startActivity(intent);
+                                    LoginActivity.this.finish();
+                                    dialog.dismiss();
+                                } else if (bean.getStatus().equals("error")) {
+                                    Toast.makeText(LoginActivity.this, bean.getMsg(), Toast.LENGTH_SHORT).show();
+                                    dialog.dismiss();
+                                }
+                            }
+                        });
+            }
         }
         ivLogin.setOnClickListener(new View.OnClickListener() {
             @Override

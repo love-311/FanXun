@@ -136,6 +136,8 @@ public class PassengerSourceDetailActivity extends AutoLayoutActivity {
         id = getIntent().getIntExtra("id", 0);
         type_fragment = getIntent().getIntExtra("type_fragment", 0);
         my = (MyApplication) getApplication();
+        //隐藏掉添加功能
+        llRight.setVisibility(View.GONE);
         tv1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

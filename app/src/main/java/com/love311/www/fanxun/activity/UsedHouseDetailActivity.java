@@ -205,6 +205,7 @@ public class UsedHouseDetailActivity extends AutoLayoutActivity {
         delegate_status = 0;
         rent_time_status = 0;
         Log.d("UsedHouseDettivity-", id + "");
+        llRight.setVisibility(View.GONE);
         topRight.setText("修改");
         if (type_fragment == 0) {
             topMid.setText("二手房详情");
