@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.love311.www.fanxun.R;
 import com.love311.www.fanxun.bean.BrokerBean;
-import com.love311.www.fanxun.bean.HouseTypeBean;
 import com.zhy.autolayout.utils.AutoUtils;
 
 import java.util.List;

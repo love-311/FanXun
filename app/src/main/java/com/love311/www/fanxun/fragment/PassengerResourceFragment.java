@@ -1,7 +1,6 @@
 package com.love311.www.fanxun.fragment;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -21,7 +20,6 @@ import com.love311.www.fanxun.activity.SearchPassengerActivity;
 import com.love311.www.fanxun.adapter.PassengerSourcePagerAdapter;
 import com.love311.www.fanxun.application.MyApplication;
 import com.love311.www.fanxun.bean.PassengerUsedHouseBean;
-import com.love311.www.fanxun.bean.UsedHouseBean;
 import com.love311.www.fanxun.custom.LazyLoadFragment;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;

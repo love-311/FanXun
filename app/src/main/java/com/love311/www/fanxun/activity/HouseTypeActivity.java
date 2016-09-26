@@ -16,7 +16,6 @@ import com.love311.www.fanxun.R;
 import com.love311.www.fanxun.adapter.HouseTypeListAdapter;
 import com.love311.www.fanxun.application.MyApplication;
 import com.love311.www.fanxun.bean.HouseTypeBean;
-import com.love311.www.fanxun.bean.UsedHouseBean;
 import com.zhy.autolayout.AutoLayoutActivity;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -27,7 +26,6 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.LinkedList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

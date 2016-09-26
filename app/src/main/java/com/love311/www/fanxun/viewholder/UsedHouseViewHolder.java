@@ -1,16 +1,12 @@
 package com.love311.www.fanxun.viewholder;
 
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.love311.www.fanxun.R;
 import com.love311.www.fanxun.bean.UsedHouseBean;
 
 import java.util.List;
-
-import butterknife.BindView;
 
 
 public class UsedHouseViewHolder extends BaseViewHolder implements View.OnClickListener,View.OnLongClickListener{

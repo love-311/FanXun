@@ -226,7 +226,7 @@ public class NewHouseFragment extends LazyLoadFragment {
                 Intent intent = new Intent(getActivity(), UsedHouseDetailActivity.class);
                 Log.d("UsedHouseFragment-==", bean.size() + "");
                 intent.putExtra("id", myAdapter.getDataList().get(position).getId());
-                intent.putExtra("type_fragment", 1);
+                intent.putExtra("type_fragment", 2);
                 startActivity(intent);
             }
 

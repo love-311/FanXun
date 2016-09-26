@@ -8,15 +8,11 @@ import android.view.ViewGroup;
 
 import com.love311.www.fanxun.R;
 import com.love311.www.fanxun.bean.PassengerUsedHouseBean;
-import com.love311.www.fanxun.bean.UsedHouseBean;
 import com.love311.www.fanxun.viewholder.BaseViewHolder;
 import com.love311.www.fanxun.viewholder.MyItemClickListener;
 import com.love311.www.fanxun.viewholder.MyItemLongClickListener;
-import com.love311.www.fanxun.viewholder.PassengerRentHouseViewHolder;
 import com.love311.www.fanxun.viewholder.PassengerUsedHouseViewHolder;
-import com.love311.www.fanxun.viewholder.UsedHouseViewHolder;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 

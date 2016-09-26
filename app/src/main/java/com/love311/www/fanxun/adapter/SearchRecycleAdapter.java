@@ -8,10 +8,8 @@ import android.view.ViewGroup;
 
 import com.love311.www.fanxun.R;
 import com.love311.www.fanxun.bean.SearchBean;
-import com.love311.www.fanxun.bean.UsedHouseBean;
 import com.love311.www.fanxun.viewholder.BaseViewHolder;
 import com.love311.www.fanxun.viewholder.SearchViewHolder;
-import com.love311.www.fanxun.viewholder.UsedHouseViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;

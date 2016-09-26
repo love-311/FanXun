@@ -3,11 +3,9 @@ package com.love311.www.fanxun.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.github.jdsjlzx.interfaces.OnItemClickListener;
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
@@ -22,10 +20,7 @@ import com.love311.www.fanxun.activity.UsedHouseDetailActivity;
 import com.love311.www.fanxun.adapter.RentHouseRecycleViewAdapter;
 import com.love311.www.fanxun.application.MyApplication;
 import com.love311.www.fanxun.bean.RentHouseBean;
-import com.love311.www.fanxun.bean.UsedHouseBean;
 import com.love311.www.fanxun.custom.LazyLoadFragment;
-import com.love311.www.fanxun.viewholder.MyItemClickListener;
-import com.love311.www.fanxun.viewholder.MyItemLongClickListener;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -35,7 +30,6 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.LinkedList;
-import java.util.List;
 
 import okhttp3.Call;
 

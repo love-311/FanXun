@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,10 +17,8 @@ import com.google.gson.reflect.TypeToken;
 import com.love311.www.fanxun.R;
 import com.love311.www.fanxun.adapter.SearchListAdapter;
 import com.love311.www.fanxun.adapter.SearchRecycleAdapter;
-import com.love311.www.fanxun.adapter.UsedHouseRecycleViewAdapter;
 import com.love311.www.fanxun.application.MyApplication;
 import com.love311.www.fanxun.bean.SearchBean;
-import com.love311.www.fanxun.bean.UsedHouseBean;
 import com.zhy.autolayout.AutoLayoutActivity;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -32,7 +29,6 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.LinkedList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

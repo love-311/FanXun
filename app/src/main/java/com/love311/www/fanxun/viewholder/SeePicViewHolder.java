@@ -3,12 +3,10 @@ package com.love311.www.fanxun.viewholder;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.love311.www.fanxun.R;
 import com.love311.www.fanxun.application.MyApplication;
-import com.love311.www.fanxun.bean.SearchBean;
 import com.love311.www.fanxun.bean.SeePicBean;
 
 import java.util.List;

@@ -4,7 +4,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.love311.www.fanxun.R;
-import com.love311.www.fanxun.bean.PassengerRentHouseBean;
 import com.love311.www.fanxun.bean.PassengerUsedHouseBean;
 
 import java.util.List;
